@@ -1,7 +1,6 @@
-package view;
+package tp1.printer;
 
-import logic.Game;
-import utils.MyStringUtils;
+import tp1.logic.Game;
 
 public class GamePrinter {
 	

@@ -1,12 +1,12 @@
+package tp1.main;
+
 import java.util.Scanner;
-import logic.Level;
-import control.Controller;
-import logic.Game;
+import tp1.logic.*;
 
 public class Buffy {
 		public static final String version = "1.0";
 		public static final String usageMsg = "Usage: Vampire slayer <level> [seed]";
-		public static final String welcomeMsg = String.format("Buffy the Vampire Slayer " + version + "%n");
+		public static final String welcomeMsg = String.format("tp1.main.Buffy the Vampire Slayer " + version + "%n");
 		public static final String levelInfoMsg = "Level must be one of: " + Level.all(", ");
 		public static final String seedIsNumberMsg = "the seed must be a number";
 		public static final String seedInfoMsg = "Random generator initialized with seed: ";

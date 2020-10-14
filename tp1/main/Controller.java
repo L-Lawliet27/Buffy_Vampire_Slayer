@@ -1,8 +1,7 @@
-package control;
+package tp1.main;
 
 import java.util.Scanner;
-
-import logic.Game;
+import tp1.logic.Game;
 
 public class Controller {
 

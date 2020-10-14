@@ -1,4 +1,4 @@
-package utils;
+package tp1.printer;
 
 /*  
  * Author: Simon Pickin, 28/09/17
