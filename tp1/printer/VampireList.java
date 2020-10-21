@@ -6,23 +6,28 @@ import java.util.ArrayList;
 
 public class VampireList {
 
-    private ArrayList<Vampire> vList;
+//    private ArrayList<Vampire> vList;
+      private Vampire[] vList;
+      private int index = 0;
 
-    public VampireList(){
-        vList = new ArrayList<Vampire>();
+    public VampireList(int nVampires){
+        //vList = new ArrayList<Vampire>();
+        vList = new Vampire[nVampires];
     }
 
     public void addVampire(Vampire v){
-        vList.add(v);
+        //vList.add(v);
+        vList[index++] = v;
     }
 
-    public Vampire getVampire(int index){
-        return vList.get(index);
+    public Vampire getVampire(int i){
+//        return vList.get(index);
+        return vList[i];
     }
 
-    public int numberOfVampires(){
-        return vList.size();
-    }
+//    public int currentNumberOfVampires(){
+////        return vList.size();
+//    }
 
 
 }

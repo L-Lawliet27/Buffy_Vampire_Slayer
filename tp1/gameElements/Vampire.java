@@ -4,6 +4,8 @@ import tp1.logic.Game;
 
 public class Vampire extends GameElement{
 
+    private static boolean vampiresOnLeft = false;
+
     Vampire(Game game, int positionX, int positionY){
         super(game,0,5, positionX, positionY, 0);
     }
@@ -35,5 +37,16 @@ public class Vampire extends GameElement{
     private void bite(){
         //TODO
     }
+
+    public void setVampiresOnLeft(){
+        vampiresOnLeft = !vampiresOnLeft;
+    }
+
+
+    public boolean isVampiresOnLeft(){
+        if(!vampiresOnLeft) return true;
+        else return false;
+    }
+
 
 }
