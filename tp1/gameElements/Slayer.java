@@ -18,6 +18,11 @@ public class Slayer extends GameElement {
     }
 
     @Override
+    public void attack(GameElement gameElement) {
+
+    }
+
+    @Override
     public void move() {/*LEAVE EMPTY*/}
 
     @Override

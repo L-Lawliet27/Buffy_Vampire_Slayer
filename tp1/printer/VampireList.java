@@ -1,6 +1,7 @@
 package tp1.printer;
 
 import tp1.gameElements.Vampire;
+import tp1.logic.Game;
 
 import java.util.ArrayList;
 
@@ -15,9 +16,9 @@ public class VampireList {
         vList = new Vampire[nVampires];
     }
 
-    public void addVampire(Vampire v){
+    public void addVampire(Game game, int PosX, int PosY){
         //vList.add(v);
-        vList[index++] = v;
+        vList[index++] = new Vampire(game, PosX, PosY);
     }
 
     public Vampire getVampire(int i){

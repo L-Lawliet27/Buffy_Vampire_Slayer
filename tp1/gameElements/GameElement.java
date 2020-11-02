@@ -9,7 +9,7 @@ public abstract class GameElement {
     private int posX;
     private int posY;
     private int damage;
-    private boolean alive = true;
+    private boolean alive;
     private Game game;
 
     GameElement(Game game, int cost, int lives, int positionX, int positionY, int damage){
@@ -19,9 +19,12 @@ public abstract class GameElement {
         this.posY = positionY;
         this.damage = damage;
         this.game = game;
+        alive = true;
     }
 
     public abstract void attack();
+
+    public abstract void attack(GameElement gameElement);
 
     public abstract void move();
 
@@ -32,6 +35,14 @@ public abstract class GameElement {
     public boolean isAlive(){
         if(alive) return true;
         else return false;
+    }
+
+    public void setAlive(){
+        alive = !alive;
+    }
+
+    public boolean getAlive(){
+        return alive;
     }
 
     public int getPosX() {

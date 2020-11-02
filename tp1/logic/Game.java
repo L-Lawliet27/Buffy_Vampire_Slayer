@@ -12,9 +12,11 @@ public class Game {
     private int cycle;
     private Random random;
 
+
     public Game(Long seed, Level level){
         this.seed = seed;
         lvl = level;
+        random = new Random();
     }
 
 
@@ -27,6 +29,22 @@ public class Game {
     public void addVampire(){}
 
     public void gameObjectBoard(){}
+
+    public Level getLvl(){
+        return lvl;
+    }
+
+    public Random getRandom(){
+        return random;
+    }
+
+    public int getDimX(){
+        return lvl.getDim_x();
+    }
+
+    public int getDimY(){
+        return lvl.getDim_y();
+    }
 
 
 
