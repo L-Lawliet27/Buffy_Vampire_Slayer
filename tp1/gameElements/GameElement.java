@@ -4,13 +4,14 @@ import tp1.logic.Game;
 
 public abstract class GameElement {
 
-    private int cost;
-    private int lives;
-    private int posX;
-    private int posY;
-    private int damage;
-    private boolean alive;
-    private Game game;
+    protected int cost;
+    protected int lives;
+    protected int posX;
+    protected int posY;
+    protected int damage;
+    protected int currentCycle;
+    protected boolean alive;
+    protected Game game;
 
     GameElement(Game game, int cost, int lives, int positionX, int positionY, int damage){
         this.cost = cost;
@@ -19,10 +20,15 @@ public abstract class GameElement {
         this.posY = positionY;
         this.damage = damage;
         this.game = game;
+        currentCycle = game.getCycle();
         alive = true;
     }
 
     public abstract void attack();
+
+    public void setPosY(int left){
+        posY = posY-left;
+    }
 
     public abstract void attack(GameElement gameElement);
 
@@ -64,4 +70,9 @@ public abstract class GameElement {
     public void setDamage(int damage) {
         this.damage = damage;
     }
+
+    public boolean confirmPosition(int x, int y){
+        return posX==x && posY==y;
+    }
+
 }

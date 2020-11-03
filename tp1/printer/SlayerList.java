@@ -1,6 +1,8 @@
 package tp1.printer;
 
 import tp1.gameElements.Slayer;
+import tp1.logic.Game;
+
 import java.util.ArrayList;
 
 public class SlayerList {
@@ -15,9 +17,9 @@ public class SlayerList {
         sList = new Slayer[tempSize];
     }
 
-    public void addSlayer(Slayer s){
+    public void addSlayer(Game game, int posX, int posY){
 //        sList.add(s);
-        sList[index++] = s;
+        sList[index++] = new Slayer(game,posX,posY);
     }
 
     public Slayer getSlayer(int i){

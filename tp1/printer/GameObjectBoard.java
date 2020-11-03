@@ -29,12 +29,44 @@ public class GameObjectBoard implements RandomGenerator{
     }
 
 
+    public String toString(int x, int y){
+
+        if(getElemAt(x,y) != null){
+            return getElemAt(x,y).toString();
+        }
+        return "";
+    }
+
+
+    private GameElement getElemAt(int x, int y){
+        for (int i = 0; i < nElements; i++) {
+            if(gameElements[i].confirmPosition(x,y)){
+                return gameElements[i];
+            }
+        }
+        return null;
+    }
+
+
     private void instantiateVampires(){
         for (int i = 0; i < level.getNumberOfVampires(); i++) {
             if(RandomGenerator.genVampire(game)) {
-                vampireList.addVampire(game, RandomGenerator.genVampirePosX(game), RandomGenerator.genVampirePosY(game));
+                vampireList.addVampire(game, RandomGenerator.genVampirePosX(game), (game.getDimY()-1));
             }
         }
+    }
+
+    public void addVampire(){
+        if(RandomGenerator.genVampire(game)){
+            vampireList.addVampire(game, RandomGenerator.genVampirePosX(game), (game.getDimY()-1));
+            nElements++;
+        }
+    }
+
+    public void addSlayer(int x, int y){
+        slayerList.addSlayer(game,x,y);
+        nElements++;
+
     }
 
 
@@ -136,6 +168,14 @@ public class GameObjectBoard implements RandomGenerator{
         System.arraycopy(g, 0 , temp, 0, i);
         System.arraycopy(g, i +1, temp, i, temp.length-i-1);
         return temp;
+    }
+
+    public int getRemainingVampires(){
+        return Vampire.getVampiresRemaining();
+    }
+
+    public int getVampiresOnBoard(){
+        return Vampire.getVampiresOnBoard();
     }
 
 }

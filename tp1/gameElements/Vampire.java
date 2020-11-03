@@ -5,27 +5,50 @@ import tp1.logic.Game;
 public class Vampire extends GameElement{
 
     private static boolean vampiresOnLeft = false;
+    private static int numberOfVampires;
+    private static int vampiresRemaining;
+    private static int vampiresOnBoard;
+    private int cycleToMove;
 
-    Vampire(Game game, int positionX, int positionY){
+    public Vampire(Game game, int positionX, int positionY){
         super(game,0,5, positionX, positionY, 0);
+        numberOfVampires = game.getLvl().getNumberOfVampires();
+        vampiresRemaining = numberOfVampires - 1;
+        vampiresOnBoard++;
+        cycleToMove = currentCycle + 2;
     }
 
-    Vampire(Game game, int lives, int positionX, int positionY) {
+    public Vampire(Game game, int lives, int positionX, int positionY) {
         super(game,0, lives, positionX, positionY, 0);
+        numberOfVampires = game.getLvl().getNumberOfVampires();
+        vampiresRemaining = numberOfVampires - 1;
+        cycleToMove = currentCycle + 2;
     }
 
     @Override
     public void attack() {
-        //TODO
+    }
+
+    @Override
+    public void attack(GameElement gameElement) {
+        bite(gameElement);
     }
 
     @Override
     public void move() {
-        //TODO
+        if(currentCycle == cycleToMove){
+            setPosY(1);
+            cycleToMove = currentCycle + 2;
+
+        } else currentCycle++;
+
     }
 
     @Override
     public void receiveDamage() {
+
+
+
         //TODO
     }
 
@@ -34,8 +57,8 @@ public class Vampire extends GameElement{
         return "V^V" + "[" + getLives() + "]";
     }
 
-    private void bite(){
-        //TODO
+    private void bite(GameElement gameElement){
+        gameElement.receiveDamage();
     }
 
     public void setVampiresOnLeft(){
@@ -48,5 +71,21 @@ public class Vampire extends GameElement{
         else return false;
     }
 
+    @Override
+    public boolean isAlive() {
+        if(!alive){
+            vampiresOnBoard--;
+            return false;
+        }
+        else return true;
+    }
 
+
+    public static int getVampiresRemaining() {
+        return vampiresRemaining;
+    }
+
+    public static int getVampiresOnBoard() {
+        return vampiresOnBoard;
+    }
 }

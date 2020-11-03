@@ -22,7 +22,7 @@ public class GamePrinter {
 
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numCols; j++) {
-
+				board[i][j] = game.toString(i,j);
 			}
 		}
 	}
@@ -58,7 +58,7 @@ public class GamePrinter {
 		        else str.append(lineEdge);   
 		}
 
-		return str.toString();
+		return game.draw() + str.toString();
 	    }
 }
 

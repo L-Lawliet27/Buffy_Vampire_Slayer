@@ -4,7 +4,7 @@ public class Player {
 
     private int coins;
 
-    Player(int initialCoins){
+    public Player(int initialCoins){
         this.coins = initialCoins;
     }
 
