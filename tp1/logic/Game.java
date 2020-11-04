@@ -40,11 +40,21 @@ public class Game {
         return info[0] + info[1] + info [2] + info[3];
     }
 
-    public String toString(int x, int y){
-        return board.toString(x,y);
+//    public String toString(int x, int y){
+//        return board.toString(x,y);
+//    }
+
+    public String vampireToString(int x, int y){
+        return board.vampireToString(x,y);
     }
 
-    public void update(){}
+    public String slayerToString(int x, int y){
+        return board.slayerToString(x,y);
+    }
+
+    public void update(){
+        board.update();
+    }
 
     public void attack(){}
 

@@ -22,7 +22,8 @@ public class GamePrinter {
 
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numCols; j++) {
-				board[i][j] = game.toString(i,j);
+				board[i][j] = game.slayerToString(i,j);
+				board[i][j] = game.vampireToString(i,j);
 			}
 		}
 	}

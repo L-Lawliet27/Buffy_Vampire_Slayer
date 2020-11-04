@@ -26,7 +26,15 @@ public class VampireList {
         return vList[i];
     }
 
-//    public int currentNumberOfVampires(){
+    public Vampire[] getvList() {
+        return vList;
+    }
+
+    public void setvList(Vampire[] v){
+        vList = v;
+    }
+
+    //    public int currentNumberOfVampires(){
 ////        return vList.size();
 //    }
 

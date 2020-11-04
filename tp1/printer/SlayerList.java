@@ -27,4 +27,11 @@ public class SlayerList {
         return sList[i];
     }
 
+    public Slayer[] getsList() {
+        return sList;
+    }
+
+    public void setsList(Slayer[] sList) {
+        this.sList = sList;
+    }
 }
