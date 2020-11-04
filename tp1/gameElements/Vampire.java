@@ -47,8 +47,8 @@ public class Vampire{
     }
 
     //@Override
-    public void attack(Slayer s) {
-            s.receiveDamage(damage);
+    public void attack() {
+            game.bite(posX,posY,damage);
     }
 
 //   // @Override
@@ -69,6 +69,7 @@ public class Vampire{
     //@Override
     public void receiveDamage(int damage) {
         lives = lives - damage;
+        if(lives<=0) setAlive();
     }
 
     //@Override

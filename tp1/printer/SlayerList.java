@@ -34,4 +34,26 @@ public class SlayerList {
     public void setsList(Slayer[] sList) {
         this.sList = sList;
     }
+
+    public void receiveDamage(int posX, int posY, int damage) {
+
+        for (int i = 0; i <= index; i++) {
+            if(nextTo(sList[i].getPosX(),sList[i].getPosY(),posX,posY)){
+                sList[i].receiveDamage(damage);
+            }
+        }
+
+    }
+
+    private boolean nextTo(int sx, int sy, int vx, int vy) {
+        return sx==vx && sy+1==vy;
+    }
+
+    public void attack() {
+
+        for (int i = 0; i <= index; i++) {
+            sList[i].attack();
+        }
+
+    }
 }

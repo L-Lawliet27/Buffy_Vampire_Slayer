@@ -20,7 +20,8 @@ public class Game {
     public Game(Long seed, Level level){
         this.seed = seed;
         lvl = level;
-        random = new Random();
+        random = new Random(this.seed);
+        initializeGame();
     }
 
     public void initializeGame(){
@@ -53,12 +54,31 @@ public class Game {
     }
 
     public void update(){
-        board.update();
+      //  attack();
+        move();
+        attack();
+        removeDead();
+        addVampire();
+        cycle++;
     }
 
-    public void attack(){}
+    private void addVampire() {
+    }
 
-    public void addVampire(){}
+    private void removeDead() {
+    }
+
+    private void move() {
+    }
+
+    private void attack() {
+        board.attack();
+    }
+
+
+    public void addSlayer(int x, int y){
+        board.addSlayer(x, y);
+    }
 
     public Level getLvl(){
         return lvl;
@@ -81,4 +101,12 @@ public class Game {
     }
 
 
+    public void bite(int posX, int posY, int damage) {
+        board.slayerDamage(posX,posY,damage);
+
+    }
+
+    public void shoot(int posX, int posY, int damage) {
+        board.vampireDamage(posX,posY,damage);
+    }
 }

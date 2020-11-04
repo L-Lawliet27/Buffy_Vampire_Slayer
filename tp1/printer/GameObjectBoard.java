@@ -141,22 +141,14 @@ public class GameObjectBoard{
 //        addVampire();
 //    }
 
-    public void update(){
+    public void move(){
         for (int i = 0; i < nVampires; i++) {
-            updateSlayerAttacks(vampireList.getVampire(i));
-            //updateVampireAttacks(slayerList.getSlayer(i));
 
             if(isLeftFree(vampireList.getVampire(i).getPosX(), vampireList.getVampire(i).getPosY() - 1)) {
                 vampireList.getVampire(i).move();
             }
         }
 
-        for (int i = 0; i < nSlayers; i++) {
-            updateVampireAttacks(slayerList.getSlayer(i));
-        }
-        removeDeadVampires();
-        removeDeadSlayers();
-        addVampire();
     }
 
 
@@ -181,32 +173,6 @@ public class GameObjectBoard{
 //    }
 
 
-
-        private void updateVampireAttacks(Slayer slayer){
-        if(slayer.isAlive()){
-            for (int i = 0; i < nVampires; i++) {
-
-                    if(toTheLeft(vampireList.getVampire(i), slayer)){
-                        vampireList.getVampire(i).attack(slayer);
-                    }
-            }
-        }
-    }
-
-
-    private void updateSlayerAttacks(Vampire vampire){
-        if(vampire.isAlive()){
-            for (int i = 0; i < nSlayers; i++) {
-
-                if(sameRow(vampire.getPosX(), slayerList.getSlayer(i).getPosX())){
-                    if(isLeftFree(vampire.getPosX(),vampire.getPosY() -1)){
-                        slayerList.getSlayer(i).attack(vampire);
-                    }
-                }
-
-            }
-        }
-    }
 
 
 //    private void removeDead(GameElement[] gameElements){
@@ -339,4 +305,17 @@ public class GameObjectBoard{
         return Vampire.getVampiresOnBoard();
     }
 
+    public void attack() {
+
+        vampireList.attack();
+        slayerList.attack();
+    }
+
+    public void slayerDamage(int posX, int posY, int damage) {
+        slayerList.receiveDamage(posX,posY,damage);
+    }
+
+    public void vampireDamage(int posX, int posY, int damage) {
+        vampireList.receiveDamage(posX,posY,damage);
+    }
 }

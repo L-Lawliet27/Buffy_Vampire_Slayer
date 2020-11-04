@@ -34,6 +34,43 @@ public class VampireList {
         vList = v;
     }
 
+    public void attack() {
+
+        for (int i = 0; i <= index; i++) {
+            vList[i].attack();
+        }
+
+    }
+
+    public void receiveDamage(int posX, int posY, int damage) {
+
+        for (int i = 0; i <= index; i++) {
+            if(sameRow(vList[i].getPosX(),posX)){
+                for (int j = posY; j <= vList[i].getPosY(); j++) {
+                    if(vampireHere(vList[i].getPosX(),j)){
+                        vList[i].receiveDamage(damage);
+                        break;
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    private boolean vampireHere(int vx, int y) {
+        for (Vampire v: vList) {
+            if(v.getPosX() == vx && v.getPosY()==y){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean sameRow(int vx, int x) {
+        return vx==x;
+    }
+
     //    public int currentNumberOfVampires(){
 ////        return vList.size();
 //    }

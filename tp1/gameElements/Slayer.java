@@ -32,11 +32,12 @@ public class Slayer {
 
     public void receiveDamage(int damage) {
         lives = lives - damage;
+        if(lives <= 0) setAlive();
     }
 
     //@Override
-    public void attack(Vampire vampire) {
-        vampire.receiveDamage(damage);
+    public void attack() {
+        game.shoot(posX,posY,damage);
     }
 
 //   // @Override
@@ -80,6 +81,7 @@ public class Slayer {
         if(alive) return true;
         else return false;
     }
+
     //TO DELETE ONCE INHERITANCE IS ALLOWED
 
 
