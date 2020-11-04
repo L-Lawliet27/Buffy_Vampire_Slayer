@@ -48,7 +48,7 @@ public class Vampire{
 
     //@Override
     public void attack(Slayer s) {
-
+            s.receiveDamage(damage);
     }
 
 //   // @Override
@@ -67,11 +67,8 @@ public class Vampire{
     }
 
     //@Override
-    public void receiveDamage() {
-
-
-
-        //TODO
+    public void receiveDamage(int damage) {
+        lives = lives - damage;
     }
 
     //@Override

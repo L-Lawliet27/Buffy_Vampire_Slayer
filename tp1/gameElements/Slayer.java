@@ -26,13 +26,17 @@ public class Slayer {
         alive = true;
     }
 
-    public Slayer(Game game, int cost, int lives, int positionX, int positionY) {
-        //super(game, cost, lives, positionX, positionY, 0);
+//    public Slayer(Game game, int cost, int lives, int positionX, int positionY) {
+//        //super(game, cost, lives, positionX, positionY, 0);
+//    }
+
+    public void receiveDamage(int damage) {
+        lives = lives - damage;
     }
 
     //@Override
     public void attack(Vampire vampire) {
-        //TODO
+        vampire.receiveDamage(damage);
     }
 
 //   // @Override
@@ -42,11 +46,6 @@ public class Slayer {
 
     //@Override
     public void move() {/*LEAVE EMPTY*/}
-
-    //@Override
-    public void receiveDamage() {
-        //TODO
-    }
 
     //@Override
     public String toString() {
