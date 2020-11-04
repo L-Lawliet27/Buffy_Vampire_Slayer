@@ -9,7 +9,7 @@ import tp1.logic.Level;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
-public class GameObjectBoard implements RandomGenerator{
+public class GameObjectBoard{
 
     private final Level level;
     private SlayerList slayerList;
@@ -100,9 +100,9 @@ public class GameObjectBoard implements RandomGenerator{
     }
 
     public void addVampire(){
-        if(RandomGenerator.genVampire(game)) {
+        if(game.getRandom().nextDouble() <= game.getLvl().getVampireFrequency()) {
 
-            int posX = RandomGenerator.genVampirePosX(game);
+            int posX = game.getRandom().nextInt(game.getDimX() - 1);
 
             if(getVampireAt(posX, VampirePosY) == null) {
                 vampireList.addVampire(game, posX, VampirePosY);
