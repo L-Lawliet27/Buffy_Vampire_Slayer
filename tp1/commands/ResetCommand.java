@@ -2,13 +2,13 @@ package tp1.commands;
 
 import tp1.logic.Game;
 
-public class ResetCommand extends Command {
+public class ResetCommand{
 
     public ResetCommand() {
-        super("reset", "r");
+       // super("reset", "r");
     }
 
-    @Override
+    //@Override
     public boolean execute(Game game) {
         return false;
     }

@@ -2,18 +2,18 @@ package tp1.commands;
 
 import tp1.logic.Game;
 
-public class AddCommand extends Command{
+public class AddCommand{
 
     private int positionX;
     private int positionY;
 
     public AddCommand(int x, int y) {
-        super("add", "a");
+        //super("add", "a");
         positionX = x;
         positionY = y;
     }
 
-    @Override
+    //@Override
     public boolean execute(Game game) {
         return false;
     }

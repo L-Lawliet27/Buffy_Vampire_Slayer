@@ -2,13 +2,13 @@ package tp1.commands;
 
 import tp1.logic.Game;
 
-public class ExitCommand extends Command{
+public class ExitCommand{
 
     public ExitCommand() {
-        super("exit", "e");
+        //super("exit", "e");
     }
 
-    @Override
+    //@Override
     public boolean execute(Game game) {
         return false;
     }

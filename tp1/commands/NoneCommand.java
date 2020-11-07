@@ -2,14 +2,14 @@ package tp1.commands;
 
 import tp1.logic.Game;
 
-public class NoneCommand extends Command{
+public class NoneCommand{
 
     public NoneCommand() {
-        super("none", "n");
+        //super("none", "n");
 
     }
 
-    @Override
+   // @Override
     public boolean execute(Game game) {
         return false;
     }
