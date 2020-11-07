@@ -1,4 +1,4 @@
-package tp1.printer;
+package tp1.gameElements;
 
 import tp1.gameElements.Vampire;
 import tp1.logic.Game;

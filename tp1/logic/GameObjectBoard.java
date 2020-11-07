@@ -1,15 +1,8 @@
 package tp1.logic;
 
-import tp1.gameElements.GameElement;
-import tp1.gameElements.Slayer;
 import tp1.gameElements.Vampire;
-import tp1.logic.Game;
-import tp1.logic.Level;
-import tp1.printer.SlayerList;
-import tp1.printer.VampireList;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import tp1.gameElements.SlayerList;
+import tp1.gameElements.VampireList;
 
 public class GameObjectBoard{
 
