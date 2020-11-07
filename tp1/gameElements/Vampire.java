@@ -56,20 +56,25 @@ public class Vampire{
 //        //bite(gameElement);
 //    }
 
+
     //@Override
     public void move() {
-        if(currentCycle == cycleToMove){
-            posX--;
-            cycleToMove = currentCycle + 2;
 
-        } else currentCycle++;
+        if(game.leftFree(posX,posY)) {
+
+            if (currentCycle == cycleToMove) {
+                posY--;
+                cycleToMove = currentCycle + 2;
+
+            } else currentCycle++;
+        }
 
     }
 
     //@Override
     public void receiveDamage(int damage) {
         lives = lives - damage;
-        if(lives<=0) setAlive();
+        if(lives<=0) alive = false;
     }
 
     //@Override
@@ -117,10 +122,6 @@ public class Vampire{
 
     public int getPosY() {
         return posY;
-    }
-
-    public void setAlive(){
-        alive = !alive;
     }
 
     public int getLives() {

@@ -32,7 +32,7 @@ public class Slayer {
 
     public void receiveDamage(int damage) {
         lives = lives - damage;
-        if(lives <= 0) setAlive();
+        if(lives <= 0) alive = false;
     }
 
     //@Override
@@ -60,10 +60,6 @@ public class Slayer {
 
             public int getPosY() {
                 return posY;
-            }
-
-            public void setAlive(){
-                alive = !alive;
             }
 
             public int getLives() {

@@ -1,9 +1,7 @@
 package tp1.logic;
 
 import tp1.gameElements.Player;
-import tp1.printer.GameObjectBoard;
 
-import java.lang.reflect.Array;
 import java.util.Random;
 
 public class Game {
@@ -12,6 +10,7 @@ public class Game {
     private Level lvl;
     private Long seed;
     private static int cycle;
+    private static final int slayerCost = 50;
     private String[] info;
     private Random random;
     private GameObjectBoard board;
@@ -29,6 +28,7 @@ public class Game {
         player = new Player(50);
         board = new GameObjectBoard(this);
         info = new String[3];
+        update();
     }
 
 
@@ -55,29 +55,39 @@ public class Game {
 
     public void update(){
       //  attack();
+        if (random.nextFloat()<=0.5 && cycle!=0){
+            player.receiveCoins(10);
+        }
         move();
+        cycle += 1;
+    }
+
+
+    private void move() {
+        board.move();
         attack();
         removeDead();
         addVampire();
-        cycle++;
-    }
-
-    private void addVampire() {
-    }
-
-    private void removeDead() {
-    }
-
-    private void move() {
     }
 
     private void attack() {
         board.attack();
     }
 
+    private void removeDead() {
+        board.removeDead();
+    }
+
+    private void addVampire() {
+        board.addVampire();
+    }
+
 
     public void addSlayer(int x, int y){
-        board.addSlayer(x, y);
+        if(player.getCoins() >= slayerCost) {
+            board.addSlayer(x, y);
+            player.spendCoins(slayerCost);
+        }
     }
 
     public Level getLvl(){
@@ -100,13 +110,22 @@ public class Game {
         return cycle;
     }
 
-
     public void bite(int posX, int posY, int damage) {
         board.slayerDamage(posX,posY,damage);
-
     }
 
     public void shoot(int posX, int posY, int damage) {
         board.vampireDamage(posX,posY,damage);
     }
+
+    public boolean leftFree(int posX, int posY) {
+        return board.leftFree(posX,posY);
+    }
+
+
+    public void gameOver(){
+        //TODO
+    }
+
+
 }

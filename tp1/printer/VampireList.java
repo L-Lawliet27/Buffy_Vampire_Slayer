@@ -21,25 +21,11 @@ public class VampireList {
         vList[index++] = new Vampire(game, PosX, PosY);
     }
 
-    public Vampire getVampire(int i){
-//        return vList.get(index);
-        return vList[i];
-    }
-
-    public Vampire[] getvList() {
-        return vList;
-    }
-
-    public void setvList(Vampire[] v){
-        vList = v;
-    }
 
     public void attack() {
-
         for (int i = 0; i <= index; i++) {
             vList[i].attack();
         }
-
     }
 
     public void receiveDamage(int posX, int posY, int damage) {
@@ -57,8 +43,30 @@ public class VampireList {
 
     }
 
+    public void removeDeadVampires(){
+        for (int i = 0; i <= index; i++) {
+            if(!vList[i].isAlive()){
+                vList = deleteVampire(vList,i);
+            }
+        }
+    }
 
-    private boolean vampireHere(int vx, int y) {
+    private Vampire[] deleteVampire(Vampire[] v , int i){
+        Vampire[] temp = new Vampire[v.length];
+        System.arraycopy(v, 0 , temp, 0, i);
+        System.arraycopy(v, i +1, temp, i, temp.length-i-1);
+        return temp;
+    }
+
+
+    public void move(){
+        for (int i = 0; i <= index; i++) {
+            vList[i].move();
+        }
+    }
+
+
+    public boolean vampireHere(int vx, int y) {
         for (Vampire v: vList) {
             if(v.getPosX() == vx && v.getPosY()==y){
                 return true;
@@ -67,9 +75,39 @@ public class VampireList {
         return false;
     }
 
+
+    private boolean samePos(int x1, int y1, int x2, int y2){
+        return x1==x2 && y1==y2;
+    }
+
+
+    public String vampireToString(int x, int y){
+        for (int i = 0; i <= index; i++) {
+            if(samePos(vList[i].getPosX(), vList[i].getPosY(), x, y)){
+                return vList[i].toString();
+            }
+        }
+
+        return "";
+    }
+
+
     private boolean sameRow(int vx, int x) {
         return vx==x;
     }
+
+//    public boolean isOnLeft(int posX, int posY) {
+//        for (int i = 0; i < index; i++) {
+//            if(nextTo(vList[i].getPosX(),vList[i].getPosY(),posX,posY)){
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//
+//    private boolean nextTo(int x, int y, int vx, int vy) {
+//        return x==vx && y+1==vy;
+//    }
 
     //    public int currentNumberOfVampires(){
 ////        return vList.size();
