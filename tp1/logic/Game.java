@@ -18,9 +18,8 @@ public class Game {
 
 
     public Game(Long seed, Level level){
-        this.seed = seed;
         lvl = level;
-        random = new Random(this.seed);
+        random = new Random(seed);
         initializeGame();
     }
 
