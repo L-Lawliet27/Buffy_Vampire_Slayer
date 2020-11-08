@@ -96,6 +96,16 @@ public class VampireList {
         return vx==x;
     }
 
+    public boolean isVampireOnLeft() {
+        for (Vampire v: vList) {
+            if(v.isVampiresOnLeft()){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 //    public boolean isOnLeft(int posX, int posY) {
 //        for (int i = 0; i < index; i++) {
 //            if(nextTo(vList[i].getPosX(),vList[i].getPosY(),posX,posY)){

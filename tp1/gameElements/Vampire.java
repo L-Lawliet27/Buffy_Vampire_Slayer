@@ -66,6 +66,8 @@ public class Vampire{
                 posY--;
                 cycleToMove = currentCycle + 2;
 
+                if(posY == 0) vampiresOnLeft = true;
+
             } else currentCycle++;
         }
 

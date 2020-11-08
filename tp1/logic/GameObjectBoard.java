@@ -122,7 +122,9 @@ public class GameObjectBoard{
         return slayerList.isOnLeft(posX, posY);
     }
 
-
+    public boolean vampiresOnLeft(){
+        return vampireList.isVampireOnLeft();
+    }
 
 
 

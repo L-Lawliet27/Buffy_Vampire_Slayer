@@ -11,6 +11,7 @@ public class Game {
     private Long seed;
     private static int cycle;
     private static final int slayerCost = 50;
+    private static boolean exit = false;
     private String[] info;
     private Random random;
     private GameObjectBoard board;
@@ -25,7 +26,7 @@ public class Game {
 
     public void initializeGame(){
         cycle = 0;
-        player = new Player(50);
+        player = new Player(slayerCost);
         board = new GameObjectBoard(this);
         info = new String[3];
         update();
@@ -59,6 +60,7 @@ public class Game {
             player.receiveCoins(10);
         }
         move();
+        gameOver();
         cycle += 1;
     }
 
@@ -122,9 +124,26 @@ public class Game {
         return board.leftFree(posX,posY);
     }
 
+    public void exit(){
+        exit = true;
+        gameOver();
+    }
+
 
     public void gameOver(){
-        //TODO
+
+        if(board.vampiresOnLeft()){
+            System.out.println("Vampires Win");
+            System.out.println("Game Over");
+
+        } else if (board.getVampiresOnBoard() == 0 && board.getRemainingVampires() == 0){
+            System.out.println("Player Wins");
+            System.out.println("Game Over");
+
+        } else if(exit){
+            System.out.println("Game Over");
+        }
+
     }
 
 
