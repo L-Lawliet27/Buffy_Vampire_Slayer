@@ -13,7 +13,7 @@ public class GameObjectBoard{
     private final int VampirePosY;
     //private GameElement[] gameElements;
 //    private static int nElements = 0;
-    private static int nVampiresAdded = 0;
+    private static int nVampiresAdded;
 
 
     public GameObjectBoard(Game game){
@@ -22,8 +22,14 @@ public class GameObjectBoard{
         slayerList = new SlayerList();
         vampireList = new VampireList(level.getNumberOfVampires());
         //gameElements = new GameElement[0];
-        VampirePosY = game.getDimY()-1;
-        instantiateVampires();
+        VampirePosY = game.getDimX()-1;
+        nVampiresAdded = 0;
+        //instantiateVampires();
+    }
+
+    public void vampireNumsReset(){
+        Vampire.vampireNumsReset();
+        game.setVampiresWereAdded();
     }
 
 
@@ -69,7 +75,7 @@ public class GameObjectBoard{
 
             if (game.getRandom().nextDouble() <= game.getLvl().getVampireFrequency()) {
 
-                int posX = game.getRandom().nextInt(game.getDimX() - 1);
+                int posX = game.getRandom().nextInt(game.getDimY());
 
                 if (!vampireList.vampireHere(posX, VampirePosY)) {
                     vampireList.addVampire(game, posX, VampirePosY);
@@ -80,12 +86,13 @@ public class GameObjectBoard{
     }
 
 
-    public void addSlayer(int x, int y){
+    public boolean addSlayer(int x, int y){
 
         if(!vampireList.vampireHere(x,y)){
-            slayerList.addSlayer(game,x,y);
+            return slayerList.addSlayer(game,x,y);
         }
 
+        return false;
     }
 
     public void move(){
@@ -119,14 +126,12 @@ public class GameObjectBoard{
     }
 
     public boolean leftFree(int posX, int posY) {
-        return slayerList.isOnLeft(posX, posY);
+        return slayerList.isNotOnLeft(posX, posY);
     }
 
     public boolean vampiresOnLeft(){
         return vampireList.isVampireOnLeft();
     }
-
-
 
 
 //    public Slayer getSlayer(int i) {

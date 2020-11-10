@@ -17,9 +17,6 @@ public enum Level {
 	}
 
 	// TODO fill your code
-	public String getName() {
-		return name;
-	}
 
 	public int getDim_x() {
 		return dim_x;

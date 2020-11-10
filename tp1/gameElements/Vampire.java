@@ -18,6 +18,8 @@ public class Vampire{
     private static int numberOfVampires;
     private static int vampiresRemaining;
     private static int vampiresOnBoard;
+    private static int subtractor = 1;
+    private static boolean reseted = false;
     private int cycleToMove;
 
     public Vampire(Game game, int positionX, int positionY){
@@ -30,13 +32,22 @@ public class Vampire{
         this.damage = 1;
         this.game = game;
         alive = true;
+
+        if(vampiresRemaining == 0 && subtractor == 1|| reseted){
+            this.game.setVampiresWereAdded();
+            numberOfVampires = game.getLvl().getNumberOfVampires();
+        }
+        vampiresRemaining = numberOfVampires - subtractor;
+
         //TO DELETE ONCE INHERITANCE IS ALLOWED
 
         currentCycle = game.getCycle();
-        numberOfVampires = game.getLvl().getNumberOfVampires();
-        vampiresRemaining = numberOfVampires - 1;
-        vampiresOnBoard++;
+
+        subtractor++;
         cycleToMove = currentCycle + 2;
+
+        vampiresOnBoard++;
+
     }
 
     public Vampire(Game game, int lives, int positionX, int positionY) {
@@ -60,17 +71,23 @@ public class Vampire{
     //@Override
     public void move() {
 
+        currentCycle++;
         if(game.leftFree(posX,posY)) {
 
             if (currentCycle == cycleToMove) {
                 posY--;
                 cycleToMove = currentCycle + 2;
 
-                if(posY == 0) vampiresOnLeft = true;
+                if (posY == -1){
+                    vampiresOnLeft = true;
+                    //game.gameOver();
+                }
 
-            } else currentCycle++;
-        }
+            }
+            //else currentCycle++;
 
+        }//if
+        else cycleToMove++;
     }
 
     //@Override
@@ -88,13 +105,10 @@ public class Vampire{
 //        gameElement.receiveDamage();
 //    }
 
-    public void setVampiresOnLeft(){
-        vampiresOnLeft = !vampiresOnLeft;
-    }
 
 
     public boolean isVampiresOnLeft(){
-        if(!vampiresOnLeft) return true;
+        if(vampiresOnLeft) return true;
         else return false;
     }
 
@@ -133,6 +147,14 @@ public class Vampire{
     public void setDamage(int damage) {
         this.damage = damage;
     }
+
+    public static void vampireNumsReset(){
+        vampiresRemaining = 0;
+        vampiresOnBoard=0;
+        subtractor = 1;
+        reseted = true;
+    }
+
     public boolean confirmPosition(int x, int y){
         return posX==x && posY==y;
     }

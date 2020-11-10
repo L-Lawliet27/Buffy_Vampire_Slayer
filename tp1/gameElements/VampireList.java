@@ -23,17 +23,19 @@ public class VampireList {
 
 
     public void attack() {
-        for (int i = 0; i <= index; i++) {
-            vList[i].attack();
+        for (int i = 0; i < index; i++) {
+            if(vList[i] != null) {
+                vList[i].attack();
+            }
         }
     }
 
     public void receiveDamage(int posX, int posY, int damage) {
 
-        for (int i = 0; i <= index; i++) {
-            if(sameRow(vList[i].getPosX(),posX)){
+        for (int i = 0; i < index; i++) {
+            if(vList[i] != null && sameRow(vList[i].getPosX(),posX)){
                 for (int j = posY; j <= vList[i].getPosY(); j++) {
-                    if(vampireHere(vList[i].getPosX(),j)){
+                    if(vList[i] != null && vampireHere(vList[i].getPosX(),j)){
                         vList[i].receiveDamage(damage);
                         break;
                     }
@@ -44,11 +46,14 @@ public class VampireList {
     }
 
     public void removeDeadVampires(){
-        for (int i = 0; i <= index; i++) {
-            if(!vList[i].isAlive()){
+        int tempI = 0;
+        for (int i = 0; i < index; i++) {
+            if(vList[i] != null && !vList[i].isAlive()){
                 vList = deleteVampire(vList,i);
+                tempI++;
             }
         }
+        index = index - tempI;
     }
 
     private Vampire[] deleteVampire(Vampire[] v , int i){
@@ -60,15 +65,18 @@ public class VampireList {
 
 
     public void move(){
-        for (int i = 0; i <= index; i++) {
-            vList[i].move();
+        for (int i = 0; i < index; i++) {
+            if(vList[i] != null) {
+                vList[i].move();
+            }
         }
     }
 
 
     public boolean vampireHere(int vx, int y) {
+
         for (Vampire v: vList) {
-            if(v.getPosX() == vx && v.getPosY()==y){
+            if(v!= null && v.getPosX() == vx && v.getPosY()==y){
                 return true;
             }
         }
@@ -82,8 +90,8 @@ public class VampireList {
 
 
     public String vampireToString(int x, int y){
-        for (int i = 0; i <= index; i++) {
-            if(samePos(vList[i].getPosX(), vList[i].getPosY(), x, y)){
+        for (int i = 0; i < index; i++) {
+            if(vList[i] != null && samePos(vList[i].getPosX(), vList[i].getPosY(), x, y)){
                 return vList[i].toString();
             }
         }
@@ -98,7 +106,7 @@ public class VampireList {
 
     public boolean isVampireOnLeft() {
         for (Vampire v: vList) {
-            if(v.isVampiresOnLeft()){
+            if(v != null && v.isVampiresOnLeft()){
                 return true;
             }
         }

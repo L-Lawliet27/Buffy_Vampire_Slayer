@@ -1,7 +1,7 @@
-package tp1.main;
-
+package tp1.game;
 import java.util.Scanner;
 import tp1.logic.*;
+
 
 public class Buffy {
 		public static final String version = "1.0";

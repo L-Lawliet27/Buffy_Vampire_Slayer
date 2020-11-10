@@ -8,10 +8,14 @@ public class Game {
 
     private Player player;
     private Level lvl;
-    private Long seed;
-    private static int cycle;
+    private int cycle;
     private static final int slayerCost = 50;
     private static boolean exit = false;
+    private static boolean gameOver = false;
+    private static boolean vampiresWereAdded = false;
+    private static boolean notEnoughCoins = false;
+    private static boolean vampiresWin;
+    private static boolean playerWins;
     private String[] info;
     private Random random;
     private GameObjectBoard board;
@@ -20,6 +24,8 @@ public class Game {
     public Game(Long seed, Level level){
         lvl = level;
         random = new Random(seed);
+        vampiresWin = false;
+        playerWins = false;
         initializeGame();
     }
 
@@ -27,15 +33,23 @@ public class Game {
         cycle = 0;
         player = new Player(slayerCost);
         board = new GameObjectBoard(this);
-        info = new String[3];
+        info = new String[4];
         update();
+    }
+
+    public void reset(){
+        board.vampireNumsReset();
+        initializeGame();
     }
 
 
     public String draw(){
         info[0] = "Cycle Number: " + cycle + "\n";
         info[1] = "Coins: " + player.getCoins() + "\n";
-        info[2] = "Remaining Vampires: " + board.getRemainingVampires() + "\n";
+        if(!vampiresWereAdded){
+            info[2] = "Remaining Vampires: " + lvl.getNumberOfVampires() + "\n";
+        } else info[2] = "Remaining Vampires: " + board.getRemainingVampires() + "\n";
+
         info[3] = "Vampires on Board: " + board.getVampiresOnBoard() + "\n";
 
         return info[0] + info[1] + info [2] + info[3];
@@ -55,10 +69,14 @@ public class Game {
 
     public void update(){
       //  attack();
-        if (random.nextFloat()<=0.5 && cycle!=0){
+        if (random.nextFloat()<=0.5){
             player.receiveCoins(10);
         }
+
         move();
+        attack();
+        removeDead();
+        addVampire();
         gameOver();
         cycle += 1;
     }
@@ -66,10 +84,8 @@ public class Game {
 
     private void move() {
         board.move();
-        attack();
-        removeDead();
-        addVampire();
     }
+
 
     private void attack() {
         board.attack();
@@ -83,13 +99,31 @@ public class Game {
         board.addVampire();
     }
 
-
-    public void addSlayer(int x, int y){
-        if(player.getCoins() >= slayerCost) {
-            board.addSlayer(x, y);
-            player.spendCoins(slayerCost);
-        }
+    public void setVampiresWereAdded(){
+        vampiresWereAdded = !vampiresWereAdded;
     }
+
+
+    public boolean addSlayer(int x, int y){
+        if(player.getCoins() >= slayerCost) {
+            if(board.addSlayer(x, y)){
+                player.spendCoins(slayerCost);
+                update();
+                return true;
+            } return false;
+        }
+        setNotEnoughCoins();
+        return false;
+    }
+
+    public void setNotEnoughCoins() {
+        notEnoughCoins = !notEnoughCoins;
+    }
+
+    public static boolean getEnoughCoins(){
+        return notEnoughCoins;
+    }
+
 
     public Level getLvl(){
         return lvl;
@@ -131,18 +165,30 @@ public class Game {
 
     public void gameOver(){
 
-        if(board.vampiresOnLeft()){
-            System.out.println("Vampires Win");
-            System.out.println("Game Over");
+        if(board.vampiresOnLeft() && !gameOver){
+            vampiresWin = true;
+            gameOver = true;
 
-        } else if (board.getVampiresOnBoard() == 0 && board.getRemainingVampires() == 0){
-            System.out.println("Player Wins");
-            System.out.println("Game Over");
+        } else if (vampiresWereAdded && board.getVampiresOnBoard() == 0 && board.getRemainingVampires() == 0){
+            playerWins = true;
+            gameOver = true;
 
         } else if(exit){
-            System.out.println("Game Over");
+            gameOver = true;
         }
 
+    }
+
+    public boolean isOver(){
+        return gameOver;
+    }
+
+    public void winnerMessage(){
+        if(vampiresWin){
+            System.out.println("Vampires Win\n");
+        } else if(playerWins){
+            System.out.println("Player Wins\n");
+        } else System.out.println("Nobody Wins...\n");
     }
 
 

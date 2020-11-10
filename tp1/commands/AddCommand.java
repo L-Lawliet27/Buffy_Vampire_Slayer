@@ -4,20 +4,18 @@ import tp1.logic.Game;
 
 public class AddCommand{
 
-    private int positionX;
-    private int positionY;
+    private String commandName;
+    private String commandShortCut;
 
-    public AddCommand(int x, int y) {
+    public AddCommand() {
         //super("add", "a");
-        positionX = x;
-        positionY = y;
+        commandName = "add";
+        commandShortCut = "a";
     }
 
     //@Override
-    public boolean execute(Game game) {
-        return false;
+    public boolean execute(Game game, int x, int y) {
+        return game.addSlayer(x,y);
     }
-
-    //TODO
 
 }
