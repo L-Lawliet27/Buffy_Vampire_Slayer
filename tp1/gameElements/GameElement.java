@@ -30,11 +30,11 @@ public abstract class GameElement {
         posY = posY-left;
     }
 
-    public abstract void attack(GameElement gameElement);
+   // public abstract void attack(GameElement gameElement);
 
     public abstract void move();
 
-    public abstract void receiveDamage();
+    public abstract void receiveDamage(int damage);
 
     public abstract String toString();
 

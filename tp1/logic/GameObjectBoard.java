@@ -70,13 +70,9 @@ public class GameObjectBoard{
     }
 
     public void addVampire(){
-
         if(nVampiresAdded < level.getNumberOfVampires()) {
-
             if (game.getRandom().nextDouble() <= game.getLvl().getVampireFrequency()) {
-
                 int posX = game.getRandom().nextInt(game.getDimY());
-
                 if (!vampireList.vampireHere(posX, VampirePosY)) {
                     vampireList.addVampire(game, posX, VampirePosY);
                     nVampiresAdded++;
@@ -87,11 +83,9 @@ public class GameObjectBoard{
 
 
     public boolean addSlayer(int x, int y){
-
         if(!vampireList.vampireHere(x,y)){
             return slayerList.addSlayer(game,x,y);
         }
-
         return false;
     }
 

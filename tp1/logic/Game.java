@@ -72,7 +72,6 @@ public class Game {
         if (random.nextFloat()<=0.5){
             player.receiveCoins(10);
         }
-
         move();
         attack();
         removeDead();
@@ -85,7 +84,6 @@ public class Game {
     private void move() {
         board.move();
     }
-
 
     private void attack() {
         board.attack();
@@ -102,7 +100,6 @@ public class Game {
     public void setVampiresWereAdded(){
         vampiresWereAdded = !vampiresWereAdded;
     }
-
 
     public boolean addSlayer(int x, int y){
         if(player.getCoins() >= slayerCost) {
@@ -123,7 +120,6 @@ public class Game {
     public static boolean getEnoughCoins(){
         return notEnoughCoins;
     }
-
 
     public Level getLvl(){
         return lvl;
@@ -162,9 +158,7 @@ public class Game {
         gameOver();
     }
 
-
     public void gameOver(){
-
         if(board.vampiresOnLeft() && !gameOver){
             vampiresWin = true;
             gameOver = true;
@@ -176,7 +170,6 @@ public class Game {
         } else if(exit){
             gameOver = true;
         }
-
     }
 
     public boolean isOver(){
