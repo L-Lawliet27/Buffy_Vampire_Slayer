@@ -34,7 +34,10 @@ public class Vampire extends GameElement{
 
     @Override
     public void attack() {
-            game.bite(posX,posY,damage);
+        if(alive){
+            IAttack enemy = game.getEnemyInPosition(posX, posY-1);
+            if(enemy != null) enemy.receiveVampireAttack(damage);
+        }
     }
 
 
@@ -57,9 +60,10 @@ public class Vampire extends GameElement{
 
 
     @Override
-    public void receiveDamage(int damage) {
+    public boolean receiveSlayerAttack(int damage) {
         lives = lives - damage;
         if(lives<=0) alive = false;
+        return true;
     }
 
     @Override
@@ -94,6 +98,11 @@ public class Vampire extends GameElement{
         vampiresOnBoard=0;
         subtractor = 1;
         reseted = true;
+    }
+
+
+    public static boolean onLeft(){
+        return vampiresOnLeft;
     }
 
 }

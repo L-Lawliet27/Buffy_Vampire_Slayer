@@ -2,7 +2,7 @@ package tp1.gameElements;
 
 import tp1.logic.Game;
 
-public abstract class GameElement {
+public abstract class GameElement implements IAttack {
 
     protected int cost;
     protected int lives;
@@ -24,27 +24,17 @@ public abstract class GameElement {
         alive = true;
     }
 
-    public abstract void attack();
-
     public void setPosY(int left){
         posY = posY-left;
     }
 
-   // public abstract void attack(GameElement gameElement);
-
     public abstract void move();
-
-    public abstract void receiveDamage(int damage);
 
     public abstract String toString();
 
     public boolean isAlive(){
         if(alive) return true;
         else return false;
-    }
-
-    public void setAlive(){
-        alive = !alive;
     }
 
     public boolean getAlive(){

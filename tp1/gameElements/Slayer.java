@@ -13,16 +13,19 @@ public class Slayer extends GameElement{
 //        //super(game, cost, lives, positionX, positionY, 0);
 //    }
 
-
     @Override
-    public void receiveDamage(int damage) {
+    public boolean receiveVampireAttack(int damage) {
         lives = lives - damage;
         if(lives <= 0) alive = false;
+        return true;
     }
 
     @Override
     public void attack() {
-        game.shoot(posX,posY,damage);
+        if(alive){
+            IAttack enemy = game.getEnemyInRow(posX, posY + 1);
+            if(enemy != null) enemy.receiveSlayerAttack(damage);
+        }
     }
 
 

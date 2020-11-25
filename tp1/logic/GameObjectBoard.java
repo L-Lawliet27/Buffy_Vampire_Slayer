@@ -1,18 +1,18 @@
 package tp1.logic;
 
-import tp1.gameElements.Vampire;
-import tp1.gameElements.SlayerList;
-import tp1.gameElements.VampireList;
+import tp1.gameElements.*;
 
-public class GameObjectBoard{
+import java.util.ArrayList;
+
+public class GameObjectBoard implements ElemLogic {
 
     private final Level level;
     private SlayerList slayerList;
     private VampireList vampireList;
     private Game game;
     private final int VampirePosY;
-    //private GameElement[] gameElements;
-//    private static int nElements = 0;
+    private ArrayList<GameElement> gameElements;
+    private static int nElements;
     private static int nVampiresAdded;
 
 
@@ -21,7 +21,8 @@ public class GameObjectBoard{
         this.level = game.getLvl();
         slayerList = new SlayerList();
         vampireList = new VampireList(level.getNumberOfVampires());
-        //gameElements = new GameElement[0];
+        gameElements = new ArrayList<GameElement>();
+        nElements = 0;
         VampirePosY = game.getDimX()-1;
         nVampiresAdded = 0;
         //instantiateVampires();
@@ -33,13 +34,12 @@ public class GameObjectBoard{
     }
 
 
-//    public String toString(int x, int y){
-//
-//        if(getElemAt(x,y) != null){
-//            return getElemAt(x,y).toString();
-//        }
-//        return "";
-//    }
+    public String toString(int x, int y){
+        if(getElement(x,y) != null){
+            return getElement(x,y).toString();
+        }
+        return "";
+    }
 
 
     public String slayerToString(int x, int y){
@@ -53,16 +53,6 @@ public class GameObjectBoard{
 
 
 
-//    private GameElement getElemAt(int x, int y){
-//        for (int i = 0; i < nElements; i++) {
-//            if(gameElements[i].confirmPosition(x,y)){
-//                return gameElements[i];
-//            }
-//        }
-//        return null;
-//    }
-
-
     private void instantiateVampires(){
         for (int i = 0; i < level.getNumberOfVampires(); i++) {
             addVampire();
@@ -71,8 +61,9 @@ public class GameObjectBoard{
 
     public void addVampire(){
         if(nVampiresAdded < level.getNumberOfVampires()) {
-            if (game.getRandom().nextDouble() <= game.getLvl().getVampireFrequency()) {
-                int posX = game.getRandom().nextInt(game.getDimY());
+            if (canAddVampire()) {
+                int posX = initialVampirePosition(game.getDimY());
+                
                 if (!vampireList.vampireHere(posX, VampirePosY)) {
                     vampireList.addVampire(game, posX, VampirePosY);
                     nVampiresAdded++;
@@ -90,7 +81,11 @@ public class GameObjectBoard{
     }
 
     public void move(){
-        vampireList.move();
+        for (GameElement e : gameElements) {
+            if(isLeftFree(e.getPosX(),e.getPosY())){
+                e.move();
+            }
+        }
     }
 
     public void removeDead(){
@@ -111,65 +106,43 @@ public class GameObjectBoard{
         slayerList.attack();
     }
 
-    public void slayerDamage(int posX, int posY, int damage) {
-        slayerList.receiveDamage(posX,posY,damage);
+
+    public GameElement getElement(int x, int y) {
+        for (GameElement e : gameElements) {
+            if(e.confirmPosition(x,y)){
+                return e;
+            }
+        }
+        return null;
     }
 
-    public void vampireDamage(int posX, int posY, int damage) {
-        vampireList.receiveDamage(posX,posY,damage);
+    public GameElement enemyInRow(int x, int y){
+        for (GameElement e : gameElements) {
+            if(sameRow(e.getPosX(), x)){
+                for (int j = y; j <= e.getPosY(); j++) {
+                    if(elementHere(e.getPosX(), j) && e.receiveSlayerAttack(0)){
+                        return e;
+                    }//if-2
+                }//for-1
+            }//if-1
+        }//foreach
+        return null;
     }
 
-    public boolean leftFree(int posX, int posY) {
-        return slayerList.isNotOnLeft(posX, posY);
+
+    private boolean elementHere(int ex, int y){
+        for (GameElement e : gameElements) {
+            if (e.confirmPosition(ex,y)){
+                return true;
+            }
+        }
+        return false;
     }
+
 
     public boolean vampiresOnLeft(){
-        return vampireList.isVampireOnLeft();
+        return Vampire.onLeft();
     }
-
-
-//    public Slayer getSlayer(int i) {
-//        return slayerList.getSlayer(i);
-//    }
-
-//    public Vampire getVampire(int i){
-//        return vampireList.getVampire(i);
-//    }
-
-
-//    public void update(){
-//        for (int i = 0; i < nElements; i++) {
-//            updateAttacks(gameElements[i]);
-//            if(gameElements[i].toString() != null){
-//                if(isLeftFree(gameElements[i].getPosX(), gameElements[i].getPosY() - 1)) {
-//                    gameElements[i].move();
-//                }
-//            }
-//            updateAttacks(gameElements[i]);
-//        }
-//        removeDead(gameElements);
-//        addVampire();
-//    }
-
-
-//    private void updateAttacks(GameElement gameElement){
-//        if(gameElement.isAlive()){
-//            for (int i = 0; i < nElements; i++) {
-//                if(!gameElement.equals(gameElements[i])){
-//
-//                    if(sameCords(gameElement, gameElements[i])){
-//                        gameElement.receiveDamage();
-//                    }
-//
-//                    if(toTheLeft(gameElement, gameElements[i])){
-//                        gameElement.attack(gameElements[i]);
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-
 
 
 //    private void removeDead(GameElement[] gameElements){
@@ -183,77 +156,15 @@ public class GameObjectBoard{
 //    }
 
 
+    private boolean isLeftFree(int x, int y){
+        for (GameElement e: gameElements) {
+            if(sameCoords(e.getPosX(), e.getPosY(), x, y-1)){
+                return false;
+            }
+        }
+        return true;
+    }
 
-
-//    private boolean sameRow(int x1, int x2){
-//        return x1 == x2;
-//    }
-
-
-//    private boolean sameCords(GameElement n1, GameElement n2){
-//        return n1.getPosX() == n2.getPosX() && n1.getPosY() == n2.getPosY();
-//    }
-
-//    private boolean toTheLeft(Vampire n1, Slayer n2){
-//        return n1.getPosX() == n2.getPosX() && n1.getPosY() == n2.getPosY() + 1;
-//    }
-
-//    private boolean toTheLeft(GameElement n1, GameElement n2){
-//        return n1.getPosX() == n2.getPosX() && n1.getPosY() == n2.getPosY() + 1;
-//    }
-
-//    private boolean sameCords(int x1, int y1, int x2, int y2){
-//        return x1==x2 && y1==y2;
-//    }
-
-//    private boolean isLeftFree(int x, int y){
-//        for (GameElement e: gameElements) {
-//            if(sameCords(e.getPosX(), e.getPosY(), x, y)){
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-
-
-//    private boolean isLeftFree(int x, int y){
-//        for (Vampire v: vampireList.getvList()) {
-//            if(sameCords(v.getPosX() , v.getPosY(), x, y)){
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-//
-//    public void addGameElements(GameElement element){
-//        gameElements = expand(gameElements, element);
-//    }
-
-//    public void removeGameElements(int i){
-//        gameElements = deleteElem(gameElements, i);
-//    }
-
-
-
-
-//    //TO DELETE ONCE THEY LET US USE ARRAYLISTS
-//    private GameElement[] expand( GameElement[] g, GameElement e) {
-//
-//        GameElement[] expandedArray = Arrays.copyOf(g, g.length +1);
-//        expandedArray[expandedArray.length - 1] = e;
-//        nElements++;
-//        return expandedArray;
-//    }
-
-//    //TO DELETE ONCE THEY LET US USE ARRAYLISTS
-//    private GameElement[] deleteElem(GameElement[] g, int i){
-//        GameElement[] temp = new GameElement[g.length];
-//        System.arraycopy(g, 0 , temp, 0, i);
-//        System.arraycopy(g, i +1, temp, i, temp.length-i-1);
-//        return temp;
-//    }
 
 
 

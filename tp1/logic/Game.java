@@ -1,5 +1,6 @@
 package tp1.logic;
 
+import tp1.gameElements.GameElement;
 import tp1.gameElements.Player;
 
 import java.util.Random;
@@ -7,7 +8,7 @@ import java.util.Random;
 public class Game {
 
     private Player player;
-    private Level lvl;
+    private static Level lvl;
     private int cycle;
     private static final int slayerCost = 50;
     private static boolean exit = false;
@@ -17,7 +18,7 @@ public class Game {
     private static boolean vampiresWin;
     private static boolean playerWins;
     private String[] info;
-    private Random random;
+    private static Random random;
     private GameObjectBoard board;
 
 
@@ -121,11 +122,11 @@ public class Game {
         return notEnoughCoins;
     }
 
-    public Level getLvl(){
+    public static Level getLvl(){
         return lvl;
     }
 
-    public Random getRandom(){
+    public static Random getRandom(){
         return random;
     }
 
@@ -141,17 +142,17 @@ public class Game {
         return cycle;
     }
 
-    public void bite(int posX, int posY, int damage) {
-        board.slayerDamage(posX,posY,damage);
+    public GameElement getEnemyInPosition(int x, int y){
+        return board.getElement(x,y);
     }
 
-    public void shoot(int posX, int posY, int damage) {
-        board.vampireDamage(posX,posY,damage);
+    public GameElement getEnemyInRow(int x, int y){
+        return board.enemyInRow(x,y);
     }
 
-    public boolean leftFree(int posX, int posY) {
-        return board.leftFree(posX,posY);
-    }
+//    public boolean leftFree(int posX, int posY) {
+//        return board.leftFree(posX,posY);
+//    }
 
     public void exit(){
         exit = true;
