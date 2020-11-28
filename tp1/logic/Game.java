@@ -6,7 +6,7 @@ import tp1.gameElements.Vampire;
 
 import java.util.Random;
 
-public class Game {
+public class Game implements IPrintable{
 
     private Player player;
     private static Level lvl;
@@ -44,8 +44,8 @@ public class Game {
         initializeGame();
     }
 
-
-    public String draw(){
+    @Override
+    public String getInfo(){
         info[0] = "Cycle Number: " + cycle + "\n";
         info[1] = "Coins: " + player.getCoins() + "\n";
         if(!vampiresWereAdded){
@@ -57,20 +57,12 @@ public class Game {
         return info[0] + info[1] + info [2] + info[3];
     }
 
-    public String toString(int x, int y){
+    @Override
+    public String getPositionToString(int x, int y){
         return board.toString(x,y);
     }
 
-//    public String vampireToString(int x, int y){
-//        return board.vampireToString(x,y);
-//    }
-//
-//    public String slayerToString(int x, int y){
-//        return board.slayerToString(x,y);
-//    }
-
     public void update(){
-      //  attack();
         if (random.nextFloat()<=0.5){
             player.receiveCoins(10);
         }

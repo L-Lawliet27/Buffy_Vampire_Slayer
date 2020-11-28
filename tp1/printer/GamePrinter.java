@@ -1,43 +1,31 @@
 package tp1.printer;
-
-import tp1.logic.Game;
+import tp1.logic.IPrintable;
 
 public class GamePrinter {
-	
-	Game game;
+
+	IPrintable printable;
 	int numRows; 
 	int numCols;
 	String[][] board;
 	final String space = " ";
 	
-	public GamePrinter (Game game, int cols, int rows) {
-		this.game = game;
+	public GamePrinter (IPrintable printable, int cols, int rows) {
+		this.printable = printable;
 		this.numRows = rows;
 		this.numCols = cols;
 	}
 	
-	private void encodeGame(Game game) {
-		// TODO fill your code
+	private void encodeGame(IPrintable printable) {
 		board = new String[numRows][numCols];
-
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numCols; j++) {
-
-				board[i][j] = game.toString(i,j);
-
-//				if(!game.slayerToString(i,j).equals("")){
-//					board[i][j] = game.slayerToString(i,j);
-//				} else if (!game.vampireToString(i, j).equals("")){
-//					board[i][j] = game.vampireToString(i, j);
-//				}
-//				else board[i][j] = "";
-
+				board[i][j] = printable.getPositionToString(i,j);
 			}
 		}
 	}
 	
 	 public String toString() {
-		encodeGame(game);
+		encodeGame(printable);
 		int cellSize = 7;
 		int marginSize = 2;
 		String vDelimiter = "|";
@@ -67,7 +55,7 @@ public class GamePrinter {
 		        else str.append(lineEdge);   
 		}
 
-		return game.draw() + str.toString();
+		return printable.getInfo() + str.toString();
 	    }
 }
 
