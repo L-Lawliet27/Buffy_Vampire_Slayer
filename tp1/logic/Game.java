@@ -2,6 +2,7 @@ package tp1.logic;
 
 import tp1.gameElements.GameElement;
 import tp1.gameElements.Player;
+import tp1.gameElements.Vampire;
 
 import java.util.Random;
 
@@ -49,24 +50,24 @@ public class Game {
         info[1] = "Coins: " + player.getCoins() + "\n";
         if(!vampiresWereAdded){
             info[2] = "Remaining Vampires: " + lvl.getNumberOfVampires() + "\n";
-        } else info[2] = "Remaining Vampires: " + board.getRemainingVampires() + "\n";
+        } else info[2] = "Remaining Vampires: " + Vampire.getVampiresRemaining() + "\n";
 
-        info[3] = "Vampires on Board: " + board.getVampiresOnBoard() + "\n";
+        info[3] = "Vampires on Board: " + Vampire.getVampiresOnBoard() + "\n";
 
         return info[0] + info[1] + info [2] + info[3];
     }
 
-//    public String toString(int x, int y){
-//        return board.toString(x,y);
+    public String toString(int x, int y){
+        return board.toString(x,y);
+    }
+
+//    public String vampireToString(int x, int y){
+//        return board.vampireToString(x,y);
 //    }
-
-    public String vampireToString(int x, int y){
-        return board.vampireToString(x,y);
-    }
-
-    public String slayerToString(int x, int y){
-        return board.slayerToString(x,y);
-    }
+//
+//    public String slayerToString(int x, int y){
+//        return board.slayerToString(x,y);
+//    }
 
     public void update(){
       //  attack();
@@ -150,9 +151,6 @@ public class Game {
         return board.enemyInRow(x,y);
     }
 
-//    public boolean leftFree(int posX, int posY) {
-//        return board.leftFree(posX,posY);
-//    }
 
     public void exit(){
         exit = true;
@@ -160,11 +158,12 @@ public class Game {
     }
 
     public void gameOver(){
-        if(board.vampiresOnLeft() && !gameOver){
+        if(Vampire.onLeft() && !gameOver){
             vampiresWin = true;
             gameOver = true;
 
-        } else if (vampiresWereAdded && board.getVampiresOnBoard() == 0 && board.getRemainingVampires() == 0){
+        } else if (vampiresWereAdded && Vampire.getVampiresOnBoard() == 0
+                && Vampire.getVampiresRemaining() == 0){
             playerWins = true;
             gameOver = true;
 

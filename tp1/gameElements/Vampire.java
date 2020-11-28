@@ -44,7 +44,6 @@ public class Vampire extends GameElement{
     @Override
     public void move() {
         currentCycle++;
-        if(game.leftFree(posX,posY)) {
             if (currentCycle == cycleToMove) {
                 posY--;
                 cycleToMove = currentCycle + 2;
@@ -52,9 +51,9 @@ public class Vampire extends GameElement{
                 if (posY == -1){
                     vampiresOnLeft = true;
                     //game.gameOver();
-                }//if-3
-            }//if-2
-        }//if-1
+                }//if-2
+
+            }//if-1
         else cycleToMove++;
     }
 

@@ -7,22 +7,16 @@ import java.util.ArrayList;
 public class GameObjectBoard implements ElemLogic {
 
     private final Level level;
-    private SlayerList slayerList;
-    private VampireList vampireList;
     private Game game;
     private final int VampirePosY;
     private ArrayList<GameElement> gameElements;
-    private static int nElements;
     private static int nVampiresAdded;
 
 
     public GameObjectBoard(Game game){
         this.game = game;
-        this.level = game.getLvl();
-        slayerList = new SlayerList();
-        vampireList = new VampireList(level.getNumberOfVampires());
+        this.level = Game.getLvl();
         gameElements = new ArrayList<GameElement>();
-        nElements = 0;
         VampirePosY = game.getDimX()-1;
         nVampiresAdded = 0;
         //instantiateVampires();
@@ -41,41 +35,29 @@ public class GameObjectBoard implements ElemLogic {
         return "";
     }
 
-
-    public String slayerToString(int x, int y){
-        return slayerList.slayerToString(x,y);
-    }
-
-
-    public String vampireToString(int x, int y){
-        return vampireList.vampireToString(x,y);
-    }
-
-
-
-    private void instantiateVampires(){
-        for (int i = 0; i < level.getNumberOfVampires(); i++) {
-            addVampire();
-        }
-    }
+//    private void instantiateVampires(){
+//        for (int i = 0; i < level.getNumberOfVampires(); i++) {
+//            addVampire();
+//        }
+//    }
 
     public void addVampire(){
         if(nVampiresAdded < level.getNumberOfVampires()) {
             if (canAddVampire()) {
                 int posX = initialVampirePosition(game.getDimY());
-                
-                if (!vampireList.vampireHere(posX, VampirePosY)) {
-                    vampireList.addVampire(game, posX, VampirePosY);
+                if (!elementHere(posX, VampirePosY)) {
+                    gameElements.add(new Vampire(game,posX,VampirePosY));
                     nVampiresAdded++;
-                }
-            }
-        }
+                }//if-3
+            }//if-2
+        }//if-1
     }
 
 
     public boolean addSlayer(int x, int y){
-        if(!vampireList.vampireHere(x,y)){
-            return slayerList.addSlayer(game,x,y);
+        if(!elementHere(x,y) && !outOfBounds(game.getDimX(), y)){
+            gameElements.add(new Slayer(game,x,y));
+            return true;
         }
         return false;
     }
@@ -89,21 +71,14 @@ public class GameObjectBoard implements ElemLogic {
     }
 
     public void removeDead(){
-        vampireList.removeDeadVampires();
-        slayerList.removeDeadSlayers();
+        gameElements.removeIf(e -> !e.getAlive());
     }
 
-    public int getRemainingVampires(){
-        return Vampire.getVampiresRemaining();
-    }
-
-    public int getVampiresOnBoard(){
-        return Vampire.getVampiresOnBoard();
-    }
 
     public void attack() {
-        vampireList.attack();
-        slayerList.attack();
+        for (GameElement e : gameElements) {
+            e.attack();
+        }
     }
 
 
@@ -123,7 +98,7 @@ public class GameObjectBoard implements ElemLogic {
                     if(elementHere(e.getPosX(), j) && e.receiveSlayerAttack(0)){
                         return e;
                     }//if-2
-                }//for-1
+                }//for
             }//if-1
         }//foreach
         return null;
@@ -139,21 +114,6 @@ public class GameObjectBoard implements ElemLogic {
         return false;
     }
 
-
-    public boolean vampiresOnLeft(){
-        return Vampire.onLeft();
-    }
-
-
-//    private void removeDead(GameElement[] gameElements){
-//        for (int i = 0; i < nElements; i++) {
-//            if(!gameElements[i].isAlive()){
-//                gameElements[i].setAlive();
-//                removeGameElements(i);
-//                nElements--;
-//            }
-//        }
-//    }
 
 
     private boolean isLeftFree(int x, int y){

@@ -31,13 +31,12 @@ public class Controller {
     }
     
     public void printGame() {
-   	 	System.out.println(printer.toString());
+    	System.out.println(printer);
+   	 	//System.out.println(printer.toString());
    	 	//System.out.println(game);
    }
     
     public void run() {
-		//printGame();
-
 		while(!game.isOver()){
 			printGame();
 			System.out.println(prompt);

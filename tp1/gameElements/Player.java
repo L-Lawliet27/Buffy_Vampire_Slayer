@@ -10,7 +10,7 @@ public class Player {
 
     public void spendCoins(int price){
         if(coins >= price){
-            coins = coins - price;
+            coins -= price;
         }
     }
 
