@@ -3,7 +3,6 @@ package tp1.logic;
 import tp1.gameElements.GameElement;
 import tp1.gameElements.Player;
 import tp1.gameElements.Vampire;
-
 import java.util.Random;
 
 public class Game implements IPrintable{
@@ -19,13 +18,14 @@ public class Game implements IPrintable{
     private static boolean vampiresWin;
     private static boolean playerWins;
     private String[] info;
+    private Long seed;
     private static Random random;
     private GameObjectBoard board;
 
 
     public Game(Long seed, Level level){
+        this.seed = seed;
         lvl = level;
-        random = new Random(seed);
         vampiresWin = false;
         playerWins = false;
         initializeGame();
@@ -33,6 +33,7 @@ public class Game implements IPrintable{
 
     public void initializeGame(){
         cycle = 0;
+        random = new Random(seed);
         player = new Player(slayerCost);
         board = new GameObjectBoard(this);
         info = new String[4];
@@ -48,6 +49,7 @@ public class Game implements IPrintable{
     public String getInfo(){
         info[0] = "Cycle Number: " + cycle + "\n";
         info[1] = "Coins: " + player.getCoins() + "\n";
+
         if(!vampiresWereAdded){
             info[2] = "Remaining Vampires: " + lvl.getNumberOfVampires() + "\n";
         } else info[2] = "Remaining Vampires: " + Vampire.getVampiresRemaining() + "\n";
@@ -63,9 +65,7 @@ public class Game implements IPrintable{
     }
 
     public void update(){
-        if (random.nextFloat()<=0.5){
-            player.receiveCoins(10);
-        }
+        allowance();
         move();
         attack();
         removeDead();
@@ -74,6 +74,12 @@ public class Game implements IPrintable{
         cycle += 1;
     }
 
+
+    private void allowance(){
+        if (random.nextFloat()<=0.5){
+            player.receiveCoins(10);
+        }
+    }
 
     private void move() {
         board.move();

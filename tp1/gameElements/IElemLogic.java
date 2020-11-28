@@ -2,7 +2,7 @@ package tp1.gameElements;
 
 import tp1.logic.Game;
 
-public interface ElemLogic {
+public interface IElemLogic {
 
     default boolean canAddVampire(){ return Game.getRandom().nextDouble() <= Game.getLvl().getVampireFrequency();}
 

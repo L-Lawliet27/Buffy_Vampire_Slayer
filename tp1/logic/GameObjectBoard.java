@@ -4,7 +4,7 @@ import tp1.gameElements.*;
 
 import java.util.ArrayList;
 
-public class GameObjectBoard implements ElemLogic {
+public class GameObjectBoard implements IElemLogic {
 
     private final Level level;
     private Game game;
