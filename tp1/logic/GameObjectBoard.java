@@ -1,6 +1,11 @@
 package tp1.logic;
 
 import tp1.gameElements.*;
+import tp1.gameElements.Attackers.Dracula;
+import tp1.gameElements.Attackers.ExplosiveVampire;
+import tp1.gameElements.Attackers.Vampire;
+import tp1.gameElements.Defenders.BloodBank;
+import tp1.gameElements.Defenders.Slayer;
 
 import java.util.ArrayList;
 
@@ -41,8 +46,46 @@ public class GameObjectBoard implements IElemLogic {
 //        }
 //    }
 
+
+    public boolean addVampire(int x, int y){
+        if(nVampiresAdded < level.getNumberOfVampires()) {
+            if (!elementHere(x, y) && !outOfBounds(game.getDimX(), y)) {
+                gameElements.add(new Vampire(game, x, y));
+                nVampiresAdded++;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean addDracula(int x, int y){
+        if(nVampiresAdded < level.getNumberOfVampires()) {
+            if (!elementHere(x, y) && !outOfBounds(game.getDimX(), y) && !Dracula.draculaRise) {
+                gameElements.add(new Dracula(game, x, y));
+                nVampiresAdded++;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean addExplosiveVampire(int x, int y){
+        if(nVampiresAdded < level.getNumberOfVampires()) {
+            if (!elementHere(x, y) && !outOfBounds(game.getDimX(), y)) {
+                gameElements.add(new ExplosiveVampire(game, x, y));
+                nVampiresAdded++;
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
     public void addVampire(){
         if(nVampiresAdded < level.getNumberOfVampires()) {
+
+            //Adding Regular Vampire
             if (canAddVampire()) {
                 int posX = initialVampirePosition(game.getDimY());
                 if (!elementHere(posX, VampirePosY)) {
@@ -50,6 +93,25 @@ public class GameObjectBoard implements IElemLogic {
                     nVampiresAdded++;
                 }//if-3
             }//if-2
+
+            //Adding Dracula
+            if(canAddVampire() && !Dracula.draculaRise){
+                int posX = initialVampirePosition(game.getDimY());
+                if (!elementHere(posX, VampirePosY)) {
+                    gameElements.add(new Dracula(game,posX,VampirePosY));
+                    nVampiresAdded++;
+                }//if-3
+            }//if-2
+
+            //Adding Explosive Vampire
+            if(canAddVampire()){
+                int posX = initialVampirePosition(game.getDimY());
+                if (!elementHere(posX, VampirePosY)) {
+                    gameElements.add(new ExplosiveVampire(game,posX,VampirePosY));
+                    nVampiresAdded++;
+                }//if-3
+            }//if-2
+
         }//if-1
     }
 
@@ -62,11 +124,26 @@ public class GameObjectBoard implements IElemLogic {
         return false;
     }
 
+    public boolean addBloodBank(int x, int y, int cost){
+        if(!elementHere(x,y) && !outOfBounds(game.getDimX(), y)){
+            gameElements.add(new BloodBank(game,x,y,cost));
+            return true;
+        }
+        return false;
+    }
+
+
     public void move(){
         for (GameElement e : gameElements) {
             if(isLeftFree(e.getPosX(),e.getPosY())){
                 e.move();
             }
+        }
+    }
+
+    public void income(){
+        for (GameElement e : gameElements) {
+            e.generateIncome();
         }
     }
 
@@ -79,6 +156,28 @@ public class GameObjectBoard implements IElemLogic {
         for (GameElement e : gameElements) {
             e.attack();
         }
+    }
+
+    public void lightFlashAttack(){
+        for (GameElement e: gameElements) {
+            e.receiveLightFlashAttack();
+        }
+    }
+
+    public void garlicPushAttack(){
+        for (GameElement e: gameElements) {
+            e.receiveGarlicPush();
+        }
+    }
+
+
+    public void explosionDamage(int posX, int posY){
+        for (int i = posX - 1; i <= posX + 1; i++) {
+            for (int j = posY - 1; j <= posY + 1; j++) {
+                GameElement e = getElement(i,j);
+                if(e != null) e.receiveExplosion();
+            }//for-2
+        }//for-1
     }
 
 

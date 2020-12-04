@@ -13,7 +13,7 @@ public abstract class GameElement implements IAttack {
     protected boolean alive;
     protected Game game;
 
-    GameElement(Game game, int cost, int lives, int positionX, int positionY, int damage){
+    public GameElement(Game game, int cost, int lives, int positionX, int positionY, int damage){
         this.cost = cost;
         this.lives = lives;
         this.posX = positionX;
@@ -22,10 +22,6 @@ public abstract class GameElement implements IAttack {
         this.game = game;
         currentCycle = game.getCycle();
         alive = true;
-    }
-
-    public void setPosY(int left){
-        posY = posY-left;
     }
 
     public abstract void move();
@@ -37,6 +33,8 @@ public abstract class GameElement implements IAttack {
         else return false;
     }
 
+    public abstract void generateIncome();
+
     public boolean getAlive(){
         return alive;
     }
@@ -47,18 +45,6 @@ public abstract class GameElement implements IAttack {
 
     public int getPosY() {
         return posY;
-    }
-
-    public void setPosX(int x){
-        this.posX = x;
-    }
-
-    public int getLives() {
-        return lives;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = damage;
     }
 
     public boolean confirmPosition(int x, int y){

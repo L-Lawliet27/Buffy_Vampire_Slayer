@@ -1,4 +1,4 @@
-package tp1.gameElements;
+package tp1.logic;
 
 import tp1.logic.Game;
 

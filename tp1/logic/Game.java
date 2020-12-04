@@ -1,8 +1,11 @@
 package tp1.logic;
 
+import tp1.game.Controller;
+import tp1.gameElements.Attackers.Dracula;
 import tp1.gameElements.GameElement;
 import tp1.gameElements.Player;
-import tp1.gameElements.Vampire;
+import tp1.gameElements.Attackers.Vampire;
+
 import java.util.Random;
 
 public class Game implements IPrintable{
@@ -11,10 +14,11 @@ public class Game implements IPrintable{
     private static Level lvl;
     private int cycle;
     private static final int slayerCost = 50;
+    private static final int lightFlashCost = 50;
+    private static final int garlicPushCost = 10;
     private static boolean exit = false;
     private static boolean gameOver = false;
     private static boolean vampiresWereAdded = false;
-    private static boolean notEnoughCoins = false;
     private static boolean vampiresWin;
     private static boolean playerWins;
     private String[] info;
@@ -36,7 +40,7 @@ public class Game implements IPrintable{
         random = new Random(seed);
         player = new Player(slayerCost);
         board = new GameObjectBoard(this);
-        info = new String[4];
+        info = new String[5];
         update();
     }
 
@@ -56,7 +60,11 @@ public class Game implements IPrintable{
 
         info[3] = "Vampires on Board: " + Vampire.getVampiresOnBoard() + "\n";
 
-        return info[0] + info[1] + info [2] + info[3];
+        if(Dracula.draculaRise){
+            info[4] = "Dracula has Risen! \n";
+        } else info[4] = "";
+
+        return info[0] + info[1] + info [2] + info[3] + info[4];
     }
 
     @Override
@@ -79,6 +87,7 @@ public class Game implements IPrintable{
         if (random.nextFloat()<=0.5){
             player.receiveCoins(10);
         }
+        generateIncome();
     }
 
     private void move() {
@@ -89,12 +98,75 @@ public class Game implements IPrintable{
         board.attack();
     }
 
+    public boolean lightAttack(){
+        if(player.getCoins() >= lightFlashCost){
+            player.spendCoins(lightFlashCost);
+            board.lightFlashAttack();
+            update();
+            return true;
+        }else System.out.println("Not Enough Coins\n");
+
+        return false;
+    }
+
+    public boolean garlicAttack(){
+        if (player.getCoins() >= garlicPushCost){
+            player.spendCoins(garlicPushCost);
+            board.garlicPushAttack();
+            update();
+            return true;
+        }else System.out.println("Not Enough Coins\n");
+
+        return false;
+    }
+
+    public void explosionAttack(int posX, int posY) {
+        board.explosionDamage(posX,posY);
+    }
+
     private void removeDead() {
         board.removeDead();
     }
 
     private void addVampire() {
         board.addVampire();
+    }
+
+    public boolean addVampire(int x, int y){
+        if(board.addVampire(x,y)){
+            update();
+            return true;
+        } else System.out.println(Controller.invalidPositionMsg);
+
+        return false;
+    }
+
+    public boolean addExplosiveVampire(int x, int y){
+        if(board.addExplosiveVampire(x,y)){
+            update();
+            return true;
+        } else System.out.println(Controller.invalidPositionMsg);
+
+        return false;
+    }
+
+
+    public boolean addDracula(int x, int y){
+        if(board.addDracula(x,y)){
+            update();
+            return true;
+        } else System.out.println(Controller.invalidPositionMsg);
+
+        return false;
+    }
+
+    private void generateIncome(){board.income();}
+
+    public void receiveIncome(int n){ player.receiveCoins(n); }
+
+    public void superCoins(){
+        player.receiveCoins(1000);
+        update();
     }
 
     public void setVampiresWereAdded(){
@@ -107,19 +179,24 @@ public class Game implements IPrintable{
                 player.spendCoins(slayerCost);
                 update();
                 return true;
-            } return false;
-        }
-        setNotEnoughCoins();
+            } else System.out.println(Controller.invalidPositionMsg);
+        } else System.out.println("Not Enough Coins\n");
+
         return false;
     }
 
-    public void setNotEnoughCoins() {
-        notEnoughCoins = !notEnoughCoins;
+    public boolean addBloodBank(int x, int y, int cost){
+        //To Change Later When Specification is Given
+        if(cost != 0){
+            if(board.addBloodBank(x,y,cost)){
+                player.spendCoins(cost);
+                update();
+                return true;
+            }else System.out.println(Controller.invalidPositionMsg);
+        } else System.out.println("Cost Can't Be 0");
+        return false;
     }
 
-    public static boolean getEnoughCoins(){
-        return notEnoughCoins;
-    }
 
     public static Level getLvl(){
         return lvl;
@@ -181,6 +258,7 @@ public class Game implements IPrintable{
             System.out.println("Player Wins\n");
         } else System.out.println("Nobody Wins...\n");
     }
+
 
 
 }

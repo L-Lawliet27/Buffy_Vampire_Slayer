@@ -1,8 +1,9 @@
-package tp1.gameElements;
+package tp1.gameElements.Attackers;
 
+import tp1.gameElements.IAttack;
 import tp1.logic.Game;
 
-public class Vampire extends GameElement{
+public class Vampire extends Attacker {
 
     private static boolean vampiresOnLeft = false;
     private static int numberOfVampires;
@@ -17,7 +18,7 @@ public class Vampire extends GameElement{
 
         if(vampiresRemaining == 0 && subtractor == 1|| reseted){
             this.game.setVampiresWereAdded();
-            numberOfVampires = this.game.getLvl().getNumberOfVampires();
+            numberOfVampires = Game.getLvl().getNumberOfVampires();
         }
         vampiresRemaining = numberOfVampires - subtractor;
         subtractor++;
@@ -25,12 +26,6 @@ public class Vampire extends GameElement{
         vampiresOnBoard++;
     }
 
-   /* public Vampire(Game game, int lives, int positionX, int positionY) {
-        super(game,0, lives, positionX, positionY, 0);
-        numberOfVampires = game.getLvl().getNumberOfVampires();
-        vampiresRemaining = numberOfVampires - 1;
-        cycleToMove = currentCycle + 2;
-    }*/
 
     @Override
     public void attack() {
@@ -59,21 +54,17 @@ public class Vampire extends GameElement{
 
 
     @Override
-    public boolean receiveSlayerAttack(int damage) {
-        lives = lives - damage;
-        if(lives<=0) alive = false;
-        return true;
-    }
-
-    @Override
     public String toString() {
         return "V^V" + "[" + lives + "]";
     }
 
-    public boolean isVampiresOnLeft(){
-        if(vampiresOnLeft) return true;
-        else return false;
-    }
+
+
+//    public boolean isVampiresOnLeft(){
+//        if(vampiresOnLeft) return true;
+//        else return false;
+//    }
+
 
     @Override
     public boolean isAlive() {
@@ -84,6 +75,8 @@ public class Vampire extends GameElement{
         else return true;
     }
 
+
+
     public static int getVampiresRemaining() {
         return vampiresRemaining;
     }
@@ -91,6 +84,8 @@ public class Vampire extends GameElement{
     public static int getVampiresOnBoard() {
         return vampiresOnBoard;
     }
+
+
 
     public static void vampireNumsReset(){
         vampiresRemaining = 0;
@@ -104,4 +99,25 @@ public class Vampire extends GameElement{
         return vampiresOnLeft;
     }
 
+
+    @Override
+    public void receiveLightFlashAttack() {
+        receiveSlayerAttack(lives);
+    }
+
+    @Override
+    public void receiveGarlicPush() {
+        if(posY + 1 == game.getDimY()){
+            receiveSlayerAttack(lives);
+        } else {
+            currentCycle = game.getCycle();
+            cycleToMove = currentCycle + 2;
+            posY++;
+        }
+    }
+
+    @Override
+    public void receiveExplosion() {
+        receiveSlayerAttack(1);
+    }
 }
