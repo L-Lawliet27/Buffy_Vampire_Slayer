@@ -187,13 +187,13 @@ public class Game implements IPrintable{
 
     public boolean addBloodBank(int x, int y, int cost){
         //To Change Later When Specification is Given
-        if(cost != 0){
+        if(cost < 5){
             if(board.addBloodBank(x,y,cost)){
                 player.spendCoins(cost);
                 update();
                 return true;
             }else System.out.println(Controller.invalidPositionMsg);
-        } else System.out.println("Cost Can't Be 0");
+        } else System.out.println("Cost Can't Be less than 5");
         return false;
     }
 

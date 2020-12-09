@@ -8,7 +8,7 @@ public class BloodBank extends Defender {
 
     public BloodBank(Game game, int positionX, int positionY, int cost) {
         super(game, cost, 1, positionX, positionY, 0);
-        income = (int) (cost * 0.1);
+        income = (int) Math.ceil((cost * 0.1));
     }
 
     @Override
