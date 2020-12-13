@@ -103,6 +103,7 @@ public class Vampire extends Attacker {
     @Override
     public void receiveLightFlashAttack() {
         receiveSlayerAttack(lives);
+        vampiresOnBoard--;
     }
 
     @Override
