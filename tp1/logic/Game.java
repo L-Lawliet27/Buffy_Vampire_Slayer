@@ -18,7 +18,7 @@ public class Game implements IPrintable{
     private static final int garlicPushCost = 10;
     private static boolean exit = false;
     private static boolean gameOver = false;
-    private static boolean vampiresWereAdded = false;
+    public static boolean vampiresWereAdded = false;
     private static boolean vampiresWin;
     private static boolean playerWins;
     private String[] info;

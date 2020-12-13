@@ -12,7 +12,7 @@ public class ResetCommand extends Command{
     @Override
     public boolean execute(Game game) {
         game.reset();
-        return false;
+        return true;
     }
 
 }

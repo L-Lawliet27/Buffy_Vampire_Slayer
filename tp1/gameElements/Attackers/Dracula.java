@@ -28,6 +28,6 @@ public class Dracula extends Vampire{
 
     @Override
     public void receiveLightFlashAttack() {
-        //LEAVE EMPTY
+        receiveSlayerAttack(0);
     }
 }

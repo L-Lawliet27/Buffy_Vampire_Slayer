@@ -89,30 +89,34 @@ public class GameObjectBoard implements IElemLogic {
             if (canAddVampire()) {
                 int posX = initialVampirePosition(game.getDimY());
                 if (!elementHere(posX, VampirePosY)) {
-                    gameElements.add(new Vampire(game,posX,VampirePosY));
+                    gameElements.add(new Vampire(game, posX, VampirePosY));
                     nVampiresAdded++;
                 }//if-3
             }//if-2
+        }
 
+        if(nVampiresAdded < level.getNumberOfVampires()) {
             //Adding Dracula
-            if(canAddVampire() && !Dracula.draculaRise){
+            if (canAddVampire() && !Dracula.draculaRise) {
                 int posX = initialVampirePosition(game.getDimY());
                 if (!elementHere(posX, VampirePosY)) {
-                    gameElements.add(new Dracula(game,posX,VampirePosY));
+                    gameElements.add(new Dracula(game, posX, VampirePosY));
                     nVampiresAdded++;
                 }//if-3
             }//if-2
+        }
 
+        if(nVampiresAdded < level.getNumberOfVampires()) {
             //Adding Explosive Vampire
-            if(canAddVampire()){
+            if (canAddVampire()) {
                 int posX = initialVampirePosition(game.getDimY());
                 if (!elementHere(posX, VampirePosY)) {
-                    gameElements.add(new ExplosiveVampire(game,posX,VampirePosY));
+                    gameElements.add(new ExplosiveVampire(game, posX, VampirePosY));
                     nVampiresAdded++;
                 }//if-3
             }//if-2
+        }
 
-        }//if-1
     }
 
 

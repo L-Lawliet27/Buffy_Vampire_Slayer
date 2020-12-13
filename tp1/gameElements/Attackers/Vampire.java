@@ -16,7 +16,7 @@ public class Vampire extends Attacker {
     public Vampire(Game game, int positionX, int positionY){
         super(game,0,5, positionX, positionY, 1);
 
-        if(vampiresRemaining == 0 && subtractor == 1|| reseted){
+        if(reseted || !Game.vampiresWereAdded){
             this.game.setVampiresWereAdded();
             numberOfVampires = Game.getLvl().getNumberOfVampires();
         }
@@ -107,7 +107,7 @@ public class Vampire extends Attacker {
 
     @Override
     public void receiveGarlicPush() {
-        if(posY + 1 == game.getDimY()){
+        if(posY + 1 == game.getDimX()){
             receiveSlayerAttack(lives);
         } else {
             currentCycle = game.getCycle();
