@@ -7,8 +7,8 @@ public class AddBloodBankCommand extends Command{
     private int x, y, cost;
 
     public AddBloodBankCommand() {
-        super("bank", "b", "[b]ank <x> <y> <z>", "\"add a blood bank in position x, y that " +
-                "return 10% of the amount spent on it on each turn%n\"");
+        super("bank", "b", "[b]ank <x> <y> <z>", "add a blood bank in position x, y which " +
+                "returns 10% of the amount spent on it on each turn");
     }
 
     public AddBloodBankCommand(int x, int y, int cost){

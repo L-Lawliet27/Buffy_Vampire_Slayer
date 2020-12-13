@@ -11,7 +11,7 @@ public class AddVampireCommand extends Command {
 
 
     public AddVampireCommand(){
-        super("vampire", "v", "[v]ampire [<type>] <x> <y>", "add a vampire in position x, y%n");
+        super("vampire", "v", "[v]ampire [<type>] <x> <y>", "add a vampire in position x, y");
 
     }
 

@@ -8,7 +8,7 @@ public class UpdateCommand extends Command {
     private String additionalSC2 = "";
 
     public UpdateCommand() {
-        super("none", "n", "[n]one | []", "update%n");
+        super("none", "n", "[n]one | []", "updates the game");
     }
 
     @Override

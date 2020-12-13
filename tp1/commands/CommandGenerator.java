@@ -4,15 +4,15 @@ public class CommandGenerator {
 
     private static Command[] availableCommands = {
             new AddSlayerCommand(),
-            new GarlicPushCommand(),
-            new LightFlashCommand(),
-            new AddVampireCommand(),
             new AddBloodBankCommand(),
-            new HelpCommand(),
-            new ResetCommand(),
+            new SuperCoinCommand(),
             new ExitCommand(),
+            new GarlicPushCommand(),
+            new HelpCommand(),
+            new LightFlashCommand(),
             new UpdateCommand(),
-            new SuperCoinCommand()
+            new AddVampireCommand(),
+            new ResetCommand()
     };
 
     public static Command parseCommand(String[] commandWords){

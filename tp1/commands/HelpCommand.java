@@ -6,7 +6,7 @@ public class HelpCommand extends Command {
 
 
     public HelpCommand() {
-        super("help", "h", "[h]elp", "show this help%n");
+        super("help", "h", "[h]elp", "shows this help");
     }
 
     @Override

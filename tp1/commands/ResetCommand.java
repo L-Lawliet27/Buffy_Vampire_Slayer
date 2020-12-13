@@ -6,7 +6,7 @@ public class ResetCommand extends Command{
 
 
     public ResetCommand() {
-        super("reset", "r", "[e]xit", "exit game%n");
+        super("reset", "r", "[r]eset", "resets the game");
     }
 
     @Override

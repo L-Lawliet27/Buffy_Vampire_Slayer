@@ -7,7 +7,7 @@ public class AddSlayerCommand extends Command{
     private int x,y;
 
     public AddSlayerCommand() {
-        super("add", "a", "[a]dd <x> <y>", "add a slayer in position x, y%n");
+        super("add", "a", "[a]dd <x> <y>", "add a slayer in position x, y");
     }
 
     public AddSlayerCommand(int x, int y) {
