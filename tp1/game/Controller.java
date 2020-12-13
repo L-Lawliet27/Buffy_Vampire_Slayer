@@ -4,6 +4,7 @@ import java.util.Scanner;
 import tp1.logic.Game;
 import tp1.printer.GamePrinter;
 import tp1.commands.*;
+
 public class Controller {
 
 	
@@ -23,10 +24,12 @@ public class Controller {
     private Game game;
     private GamePrinter printer;
     private Scanner scanner;
+    private boolean refreshDisplay;
     
     public Controller(Game game, Scanner scanner) {
 	    this.game = game;
 	    this.scanner = scanner;
+	    refreshDisplay = true;
 	    printer = new GamePrinter(this.game, this.game.getDimX(), this.game.getDimY());
     }
     
@@ -35,46 +38,20 @@ public class Controller {
    }
     
     public void run() {
-		while(!game.isOver()){
-			printGame();
+		while (!game.isOver()){
+			if (refreshDisplay) printGame();
+			refreshDisplay = false;
 			System.out.println(prompt);
-			String[] playerInput = scanner.nextLine().toLowerCase().trim().split("\\s+");
-
-			if(playerInput.length == 3 && playerInput[0].equals("add") || playerInput[0].equals("a")){
-				int posY = Integer.parseInt(playerInput[1]);
-				int posX = Integer.parseInt(playerInput[2]);
-				if(!new AddCommand().execute(game, posX, posY)){
-					if(Game.getEnoughCoins()){
-						game.setNotEnoughCoins();
-						System.out.println("Not Enough Coins\n");
-
-					} else System.out.println(invalidPositionMsg);
-				}
-			}
-
-			else if (playerInput.length == 1){
-
-				switch (playerInput[0]){
-					case "help":
-					case "h": System.out.println(helpMsg);;
-						break;
-					case "reset":
-					case "r": new ResetCommand().execute(game);
-						break;
-					case "exit":
-					case "e": new ExitCommand().execute(game);
-						break;
-					case "\n":
-					case "none":
-					case "n":
-					case "": new NoneCommand().execute(game);
-						break;
-					default: System.out.println(unknownCommandMsg);
-				}
-
-			} else System.out.println(invalidCommandMsg);
-
+			String s = scanner.nextLine();
+			String[] commandWords = s.toLowerCase().trim().split("\\s+");
+			System.out.println("[DEBUG] Executing: " + s);
+			Command command = CommandGenerator.parseCommand(commandWords);
+			if (command != null)
+				refreshDisplay = command.execute(game);
+			else
+				System.out.println("[ERROR]: "+ unknownCommandMsg);
 		}//game loop
+
 		printGame();
 		game.winnerMessage();
 		System.out.println("Game Over");
