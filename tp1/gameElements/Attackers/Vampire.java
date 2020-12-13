@@ -49,7 +49,7 @@ public class Vampire extends Attacker {
                 }//if-2
 
             }//if-1
-        else cycleToMove++;
+        //else cycleToMove++;
     }
 
 
@@ -109,6 +109,7 @@ public class Vampire extends Attacker {
     public void receiveGarlicPush() {
         if(posY + 1 == game.getDimX()){
             receiveSlayerAttack(lives);
+            vampiresOnBoard--;
         } else {
             currentCycle = game.getCycle();
             cycleToMove = currentCycle + 2;
