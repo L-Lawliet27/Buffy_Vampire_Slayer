@@ -31,6 +31,7 @@ public class AddVampireCommand extends Command {
                 return game.addDracula(x,y);
             case explosive:
                 return game.addExplosiveVampire(x,y);
+            case " ":
             case "":
                 return game.addVampire(x,y);
         }
@@ -47,13 +48,17 @@ public class AddVampireCommand extends Command {
                 y = Integer.parseInt(commandWords[3]);
                 return new AddVampireCommand(type, x, y);
             }
+        } else if (matchCommandName(commandWords[0]) && commandWords.length == 3){
+            x = Integer.parseInt(commandWords[1]);
+            y = Integer.parseInt(commandWords[2]);
+            return new AddVampireCommand("", x, y);
         }
         return null;
     }
 
 
     private boolean matchTypeName(String type){
-        return type.toUpperCase().equals(dracula) || type.toUpperCase().equals(explosive) || type.equals("");
+        return type.toUpperCase().equals(dracula) || type.toUpperCase().equals(explosive) || type.equals(" ");
     }
 
 
