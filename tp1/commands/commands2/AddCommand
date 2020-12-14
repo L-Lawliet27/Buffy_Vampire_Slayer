@@ -1,0 +1,52 @@
+package tp1.commands;
+
+import tp1.logic.Game;
+
+public class AddCommand extends Command{
+	
+	private int x;
+	private int y;
+	private int cost = 50;
+	
+	// CONSTRUCTOR
+	
+	public AddCommand() {
+        super("add", "a", "[a]dd <x> <y>", "add a slayer in position x, y");
+    }
+
+    public AddCommand(int x, int y) {
+        this();
+        this.x = x;
+        this.y = y;
+    }
+    
+    
+    
+    public boolean execute(Game game) {
+        return game.addSlayer(x,y);
+    }
+    
+    
+    public Command parse(String[] commandWords) {
+    	try {
+            if (matchCommandName(commandWords[0])) {
+                x = Integer.parseInt(commandWords[1]);
+                y = Integer.parseInt(commandWords[2]);
+               
+                return new AddVampireCommand();
+            }
+        } catch (Exception e) {
+			if(Game.getEnoughCoins(cost)){
+				System.out.println("Not Enough Coins\n");
+			}
+        	
+			else System.out.println(invalidPositionMsg);
+        } return null;
+    }
+			
+    	
+    
+			
+			
+
+}

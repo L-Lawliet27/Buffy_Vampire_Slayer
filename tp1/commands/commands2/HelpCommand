@@ -1,0 +1,30 @@
+package tp1.commands;
+
+import tp1.logic.Game;
+
+public class HelpCommand extends Command {	
+	
+	// CONSTRUCTOR
+	
+	public HelpCommand() {
+		super("help", "h" , "[h]elp", "show this help");
+	}
+	
+	public boolean execute(Game game) {
+		String helpMsg;
+		helpMsg = CommandGenerator.commandHelp();
+		System.out.println(helpMsg);
+		return true;
+	}
+	
+	// PARSE
+    public Command parse(String[] commandWords) {
+    	if (matchCommandName(commandWords[0])) {
+    		return new HelpCommand();
+    	}
+    	
+    	else {
+    		return null;
+    	}
+    }
+}

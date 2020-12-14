@@ -1,0 +1,49 @@
+package tp1.commands;
+
+import tp1.logic.Game;
+
+
+public class BloodBankCommand extends Command{
+
+	private static int x;
+	private static int y;
+	private static int cost;
+	
+// CONSTRUCTOR
+	
+	 public BloodBankCommand() {
+	        super("bank", "b", "[b]ank <x> <y> <z>", "generates 10% of the cost <z> in coins for the player on each turn");
+	        
+	    }
+    public BloodBankCommand(int x, int y, int cost) {
+        this();
+        this.x = x; 
+    	this.y = y; 
+    	this.cost = cost;
+    }
+   
+    // EXECUTE
+    public boolean execute(Game game) {
+        return game.addBloodBank(x,y, cost);
+    }
+    
+    
+    public Command parse(String[] commandWords) {
+    	try {
+            if (matchCommandName(commandWords[0]) && commandWords.length == 4) {
+                x = Integer.parseInt(commandWords[1]);
+                y = Integer.parseInt(commandWords[2]);
+                cost = Integer.parseInt(commandWords[3]);
+                
+                return new BloodBankCommand();
+            }
+        } catch (Exception e) {
+        	if(Game.getEnoughCoins(cost))
+				System.out.println("Not Enough Coins\n");
+
+        	
+			else System.out.println(invalidPositionMsg);
+			
+        } return null;
+    }
+}

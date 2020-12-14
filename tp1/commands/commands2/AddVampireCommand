@@ -1,0 +1,74 @@
+package tp1.commands;
+
+import tp1.logic.Game;
+
+
+public class AddVampireCommand extends Command{
+	
+	private int x;
+	private int y;
+	private String type;
+	
+	// CONSTRUCTOR
+	 
+	 public AddVampireCommand(){
+	        super("vampire", "v", "[v]ampire [<type>] <x> <y>", "add a vampire in position x, y");
+
+	    }
+
+
+	    public AddVampireCommand(String type, int x, int y) {
+	        this();
+	        this.type=type;
+	        this.x = x;
+	        this.y=y;
+	    }
+    
+    
+    
+    public boolean execute(Game game) {
+       switch(type) {
+       case "d":
+    	   return game.addDracula(x, y);
+    	   
+    	
+       case "e" :
+    	   return game.addExplosiveVampire(x, y);
+    	  
+    
+       
+       case "v":
+    	   return game.addVampire(x,  y);
+    	  
+    	  
+      
+       }
+       return false; 
+    }
+    
+    
+    public Command parse(String[] commandWords) {
+    	try {
+            if (matchCommandName(commandWords[0])) {
+            	if(commandWords.length == 3){
+            		type = "v";
+            		x = Integer.parseInt(commandWords[1]);
+            		y = Integer.parseInt(commandWords[2]);
+            	}
+            	
+            	else {
+            		type = commandWords[1];
+            		x = Integer.parseInt(commandWords[2]);
+            		y = Integer.parseInt(commandWords[3]);
+            	}
+                if(type != "d" || type != "v" || type != "e")return null;
+                return new AddVampireCommand(type, x, y);
+            }
+        } catch (Exception e) {
+            if (commandWords.length != 4 || commandWords.length != 3)
+                System.out.println(incorrectNumberOfArgsMsg);
+            else System.out.println(incorrectArgsMsg);
+        } return null;
+    }
+    	
+}   

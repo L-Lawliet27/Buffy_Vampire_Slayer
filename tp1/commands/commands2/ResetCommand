@@ -1,0 +1,31 @@
+package tp1.commands;
+
+import tp1.logic.Game;
+
+public class ResetCommand extends Command{
+
+	
+	// CONSTRUCTOR
+	
+    public ResetCommand() {
+       super("reset", "r", "[r]eset", "reset game");
+        
+    }
+
+    // EXECUTE 
+    public boolean execute(Game game) {
+        game.reset();
+        return false;
+    }
+    
+    // PARSE
+    public Command parse(String[] commandWords) {
+    	if (matchCommandName(commandWords[0])) {
+    		return new ResetCommand();
+    	}
+    	
+    	else {
+    		return null;
+    	}
+    }
+}

@@ -1,0 +1,37 @@
+package tp1.commands;
+
+import tp1.logic.Game;
+
+public class UpdateCommand extends Command  {     
+	 private String line = "\n";
+	 private String space = "";
+	
+	// CONSTRUCTOR
+	
+    public UpdateCommand() {
+        super("none", "n", "[n]one | []", "update");
+        
+    }
+
+  	// EXECUTE
+    public boolean execute(Game game) {
+        game.update();
+        return false;
+    }
+    
+    // PARSE
+    public Command parse(String[] commandWords) {
+    	if (matchCommandName(commandWords[0])) {
+    		return new UpdateCommand();
+    	}
+    	
+    	else {
+    		return null;
+    	}
+    }
+    
+    protected boolean matchCommandName(String name) {
+    	return this.shortcut.equalsIgnoreCase(name) || this.name.equalsIgnoreCase(name)   
+    			|| this.space.equals(name) || this.line.equals(name);
+    }
+}
