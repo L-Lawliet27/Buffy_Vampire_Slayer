@@ -25,8 +25,4 @@ public class ExplosiveVampire extends Vampire {
     @Override
     public String toString() { return "V*V" + "[" + lives + "]"; }
 
-    @Override
-    public void receiveExplosion() {
-        //LEAVE EMPTY
-    }
 }
