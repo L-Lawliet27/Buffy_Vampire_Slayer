@@ -23,7 +23,7 @@ public class BloodBankCommand extends Command{
     }
    
     // EXECUTE
-    public boolean execute(Game game, int x, int y, int cost) {
+    public boolean execute(Game game) {
         return game.addBloodBank(x,y, cost);
     }
     
