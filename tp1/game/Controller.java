@@ -6,16 +6,8 @@ import tp1.printer.GamePrinter;
 import tp1.commands.*;
 
 public class Controller {
-
 	
 	public final String prompt = "Command > ";
-	public static final String helpMsg = String.format(
-			"Available commands:%n" +
-			"[a]dd <x> <y>: add a slayer in position x, y%n" +
-			"[h]elp: show this help%n" + 
-			"[r]eset: reset game%n" + 
-			"[e]xit: exit game%n"+ 
-			"[n]one | []: update%n");
 	
 	public static final String unknownCommandMsg = String.format("Unknown command\n");
 	public static final String invalidCommandMsg = String.format("Invalid command\n");
