@@ -1,0 +1,32 @@
+package tp1.commands;
+
+import tp1.logic.Game;
+
+public class SuperCoinCommand extends Command{
+
+	
+//CONSTRUCTOR
+
+	public SuperCoinCommand() {
+		super("coins", "c" , "[c]oins", "gives the player 1000 coins");
+			
+	}
+	
+	 // EXECUTE
+    public boolean execute(Game game) {
+         game.superCoins();
+         return false;
+    }
+    
+    
+    // PARSE
+    public Command parse(String[] commandWords) {
+    	if (matchCommandName(commandWords[0])) {
+    		return new SuperCoinCommand();
+    	}
+    	
+    	else {
+    		return null;
+    	}
+    }
+}
