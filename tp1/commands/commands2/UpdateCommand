@@ -32,6 +32,6 @@ public class UpdateCommand extends Command  {
     
     protected boolean matchCommandName(String name) {
     	return this.shortcut.equalsIgnoreCase(name) || this.name.equalsIgnoreCase(name)   
-    			|| this.space.equals(name) || this.line.equals(name);;
+    			|| this.space.equals(name) || this.line.equals(name);
     }
 }
