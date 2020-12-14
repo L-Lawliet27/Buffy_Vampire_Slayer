@@ -22,7 +22,7 @@ public class AddCommand extends Command{
     
     
     
-    public boolean execute(Game game, int x, int y) {
+    public boolean execute(Game game) {
         return game.addSlayer(x,y);
     }
     
