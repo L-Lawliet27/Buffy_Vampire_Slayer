@@ -4,7 +4,7 @@ import tp1.logic.*;
 
 
 public class Buffy {
-		public static final String version = "1.0";
+		public static final String version = "2.0";
 		public static final String usageMsg = "Usage: Vampire slayer <level> [seed]";
 		public static final String welcomeMsg = String.format("tp1.main.Buffy the Vampire Slayer " + version + "%n");
 		public static final String levelInfoMsg = "Level must be one of: " + Level.all(", ");

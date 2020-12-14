@@ -163,7 +163,6 @@ public class Game implements IPrintable{
 
     public void superCoins(){
         player.receiveCoins(1000);
-        update();
     }
 
     public void setVampiresWereAdded(){
