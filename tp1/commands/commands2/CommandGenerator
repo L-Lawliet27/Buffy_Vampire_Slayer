@@ -1,0 +1,52 @@
+package commands;
+
+import tp1.logic.Game;
+import tp1.game.Controller;
+
+
+public class CommandGenerator {
+	private static Command[] availableCommands = {
+			new AddCommand(),
+			new HelpCommand(),
+			new ResetCommand(),
+			new ExitCommand(),
+			new UpdateCommand(),
+			new SuperCoinCommand(),
+			new GarlicCommand(),
+			new LightFlashCommand(),
+			new BloodBankCommand(),
+			new AddVampireCommand()
+			
+			};
+	
+	
+	public static Command parseCommand(String[] commandWords, Controller controller) {
+		int i = 0;
+		Command command;
+		
+		while (i < commandWords.length) {
+			command = availableCommands[i];
+			
+			if(command != null) {
+				return command.parse(commandWords);
+			}
+			
+			else 
+				i++;
+		}
+		
+		return null;
+	}
+	
+	public static String commandHelp() {
+	        String Helpmessage = "Available commands\n";
+	        for(int i=0; i < availableCommands.length; i++){
+	            Helpmessage+= availableCommands[i].helpText();
+	        }
+	        return Helpmessage;
+	 }
+	
+	
+	
+
+}
