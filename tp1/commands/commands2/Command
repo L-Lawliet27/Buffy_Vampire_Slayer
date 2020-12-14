@@ -1,0 +1,46 @@
+package tp1.commands;
+
+import tp1.logic.Game;
+
+
+public abstract class Command {
+	protected final String name;
+	protected final String shortcut;
+	protected final String details ;
+	protected final String help;
+	protected static final String incorrectNumberOfArgsMsg = "Incorrect number of arguments";
+	protected static final String incorrectArgsMsg = "Incorrect arguments format";
+	protected static final String invalidPositionMsg = "Invalid position";
+	
+		public Command(String name, String shortcut, String details, String help){
+			this.name = name;
+			this. shortcut = shortcut;
+			this.details = details;
+			this.help = help;
+		}
+
+		
+		// EXECUTE
+		
+		public abstract boolean execute(Game game);
+
+		
+		// PARSE
+		public abstract Command parse(String[] commandWords);
+
+		
+		// MATCH COMMAND
+		
+		protected boolean matchCommandName(String name) {
+			return this.shortcut.equalsIgnoreCase(name) || this.name.equalsIgnoreCase(name);
+
+		}
+		
+		
+		
+		// HELP TEXT
+		
+		public String helpText(){
+			return details + ": " + help + "\n";
+		}
+}
