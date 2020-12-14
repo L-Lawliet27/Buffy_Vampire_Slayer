@@ -23,6 +23,13 @@ public class ExplosiveVampire extends Vampire {
     }
 
     @Override
+    public void receiveExplosion() {
+        if(alive) {
+            receiveSlayerAttack(1);
+        }
+    }
+
+    @Override
     public String toString() { return "V*V" + "[" + lives + "]"; }
 
 }

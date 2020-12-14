@@ -35,6 +35,14 @@ public class Vampire extends Attacker {
         }
     }
 
+    @Override
+    public boolean getAlive(){
+        if(!alive){
+            vampiresOnBoard--;
+        }
+        return alive;
+    }
+
 
     @Override
     public void move() {
@@ -64,16 +72,6 @@ public class Vampire extends Attacker {
 //        if(vampiresOnLeft) return true;
 //        else return false;
 //    }
-
-
-    @Override
-    public boolean isAlive() {
-        if(!alive){
-            vampiresOnBoard--;
-            return false;
-        }
-        else return true;
-    }
 
 
 

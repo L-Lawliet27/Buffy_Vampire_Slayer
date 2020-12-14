@@ -19,6 +19,6 @@ public class BloodBank extends Defender {
 
     @Override
     public String toString() {
-        return "B-B";
+        return "B-B" + "[" + cost + "]";
     }
 }

@@ -24,8 +24,8 @@ public class AddSlayerCommand extends Command{
     @Override
     public Command parse(String[] commandWords){
         if(matchCommandName(commandWords[0]) &&  commandWords.length == 3){
-            x = Integer.parseInt(commandWords[1]);
-            y = Integer.parseInt(commandWords[2]);
+            x = Integer.parseInt(commandWords[2]);
+            y = Integer.parseInt(commandWords[1]);
             return new AddSlayerCommand(x, y);
         }
         return null;

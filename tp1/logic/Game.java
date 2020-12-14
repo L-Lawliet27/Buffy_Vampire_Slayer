@@ -134,7 +134,6 @@ public class Game implements IPrintable{
 
     public boolean addVampire(int x, int y){
         if(board.addVampire(x,y)){
-            update();
             return true;
         } else System.out.println(Controller.invalidPositionMsg);
 
@@ -143,7 +142,6 @@ public class Game implements IPrintable{
 
     public boolean addExplosiveVampire(int x, int y){
         if(board.addExplosiveVampire(x,y)){
-            update();
             return true;
         } else System.out.println(Controller.invalidPositionMsg);
 
@@ -153,7 +151,6 @@ public class Game implements IPrintable{
 
     public boolean addDracula(int x, int y){
         if(board.addDracula(x,y)){
-            update();
             return true;
         } else System.out.println(Controller.invalidPositionMsg);
 
@@ -186,14 +183,15 @@ public class Game implements IPrintable{
     }
 
     public boolean addBloodBank(int x, int y, int cost){
-        //To Change Later When Specification is Given
-        if(cost > 5){
-            if(board.addBloodBank(x,y,cost)){
-                player.spendCoins(cost);
-                update();
-                return true;
-            }else System.out.println(Controller.invalidPositionMsg);
-        } else System.out.println("Cost Can't Be less than 5");
+        if(player.getCoins() >= cost) {
+            if (cost > 5) {
+                if (board.addBloodBank(x, y, cost)) {
+                    player.spendCoins(cost);
+                    update();
+                    return true;
+                } else System.out.println(Controller.invalidPositionMsg);
+            } else System.out.println("Cost Can't Be less than 5");
+        }  else System.out.println("Not Enough Coins\n");
         return false;
     }
 

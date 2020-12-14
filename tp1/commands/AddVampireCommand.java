@@ -44,13 +44,13 @@ public class AddVampireCommand extends Command {
         if(matchCommandName(commandWords[0]) && commandWords.length == 4){
             if(matchTypeName(commandWords[1])) {
                 type = commandWords[1].toUpperCase();
-                x = Integer.parseInt(commandWords[2]);
-                y = Integer.parseInt(commandWords[3]);
+                x = Integer.parseInt(commandWords[3]);
+                y = Integer.parseInt(commandWords[2]);
                 return new AddVampireCommand(type, x, y);
             }
         } else if (matchCommandName(commandWords[0]) && commandWords.length == 3){
-            x = Integer.parseInt(commandWords[1]);
-            y = Integer.parseInt(commandWords[2]);
+            x = Integer.parseInt(commandWords[2]);
+            y = Integer.parseInt(commandWords[1]);
             return new AddVampireCommand("", x, y);
         }
         return null;

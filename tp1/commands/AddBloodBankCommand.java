@@ -30,8 +30,8 @@ public class AddBloodBankCommand extends Command{
     public Command parse(String[] commandWords){
 
         if(matchCommandName(commandWords[0]) &&  commandWords.length == 4){
-            x = Integer.parseInt(commandWords[1]);
-            y = Integer.parseInt(commandWords[2]);
+            x = Integer.parseInt(commandWords[2]);
+            y = Integer.parseInt(commandWords[1]);
             cost = Integer.parseInt(commandWords[3]);
             return new AddBloodBankCommand(x, y, cost);
         }
