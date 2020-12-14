@@ -1,0 +1,32 @@
+package tp1.commands;
+
+import tp1.logic.Game;
+
+public class ExitCommand extends Command{
+
+  
+	
+	// CONSTRUCTOR
+	
+    public ExitCommand() {
+        super("exit", "e", "[e]xit", "exit game");
+        
+    }
+
+    
+    public boolean execute(Game game) {
+        game.exit();
+        return false;
+    }
+    
+    // PARSE
+    public Command parse(String[] commandWords) {
+    	if (matchCommandName(commandWords[0])) {
+    		return new ExitCommand();
+    	}
+    	
+    	else {
+    		return null;
+    	}
+    }
+}
