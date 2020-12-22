@@ -8,7 +8,7 @@ public class Vampire extends Attacker {
     private static boolean vampiresOnLeft = false;
     private static int numberOfVampires;
     private static int vampiresRemaining;
-    private static int vampiresOnBoard;
+    protected static int vampiresOnBoard;
     private static int subtractor = 1;
     private static boolean reseted = false;
     private int cycleToMove;

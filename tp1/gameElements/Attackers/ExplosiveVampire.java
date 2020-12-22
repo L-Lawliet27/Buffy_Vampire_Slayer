@@ -18,6 +18,13 @@ public class ExplosiveVampire extends Vampire {
         return true;
     }
 
+    private void receiveAttack(int damage){
+        lives -= damage;
+        if(lives<=0){
+            alive = false;
+        }
+    }
+
     private void explode() {
         game.explosionAttack(posX, posY);
     }
@@ -27,6 +34,12 @@ public class ExplosiveVampire extends Vampire {
         if(alive) {
             receiveSlayerAttack(1);
         }
+    }
+
+    @Override
+    public void receiveLightFlashAttack() {
+        receiveAttack(lives);
+        vampiresOnBoard--;
     }
 
     @Override
