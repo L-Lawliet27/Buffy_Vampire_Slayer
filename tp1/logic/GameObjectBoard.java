@@ -185,7 +185,7 @@ public class GameObjectBoard implements IElemLogic {
     }
 
 
-    public GameElement getElement(int x, int y) {
+    private GameElement getElement(int x, int y) {
         for (GameElement e : gameElements) {
             if(e.confirmPosition(x,y)){
                 return e;
@@ -194,7 +194,17 @@ public class GameObjectBoard implements IElemLogic {
         return null;
     }
 
-    public GameElement enemyInRow(int x, int y){
+
+    public IAttack getEnemy(int x, int y) {
+        for (GameElement e : gameElements) {
+            if(e.confirmPosition(x,y)){
+                return e;
+            }
+        }
+        return null;
+    }
+
+    public IAttack enemyInRow(int x, int y){
         for (GameElement e : gameElements) {
             if(sameRow(e.getPosX(), x)){
                 for (int j = y; j <= e.getPosY(); j++) {

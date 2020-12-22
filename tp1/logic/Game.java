@@ -3,6 +3,7 @@ package tp1.logic;
 import tp1.game.Controller;
 import tp1.gameElements.Attackers.Dracula;
 import tp1.gameElements.GameElement;
+import tp1.gameElements.IAttack;
 import tp1.gameElements.Player;
 import tp1.gameElements.Attackers.Vampire;
 
@@ -215,11 +216,11 @@ public class Game implements IPrintable{
         return cycle;
     }
 
-    public GameElement getEnemyInPosition(int x, int y){
-        return board.getElement(x,y);
+    public IAttack getEnemyInPosition(int x, int y){
+        return board.getEnemy(x,y);
     }
 
-    public GameElement getEnemyInRow(int x, int y){
+    public IAttack getEnemyInRow(int x, int y){
         return board.enemyInRow(x,y);
     }
 
