@@ -1,6 +1,10 @@
 package tp1.game;
 
 import java.util.Scanner;
+
+import tp1.exceptions.CommandExecuteException;
+import tp1.exceptions.CommandParseException;
+import tp1.exceptions.GameException;
 import tp1.logic.Game;
 import tp1.printer.GamePrinter;
 import tp1.commands.*;
@@ -8,11 +12,12 @@ import tp1.commands.*;
 public class Controller {
 	
 	public final String prompt = "Command > ";
-	
+
+	/*
 	public static final String unknownCommandMsg = String.format("Unknown command\n");
 	public static final String invalidCommandMsg = String.format("Invalid command\n");
 	public static final String invalidPositionMsg = String.format("Invalid position\n");
-
+*/
     private Game game;
     private GamePrinter printer;
     private Scanner scanner;
@@ -37,11 +42,13 @@ public class Controller {
 			String s = scanner.nextLine();
 			String[] commandWords = s.toLowerCase().trim().split("\\s+");
 			System.out.println("[DEBUG] Executing: " + s);
-			Command command = CommandGenerator.parseCommand(commandWords);
-			if (command != null)
-				refreshDisplay = command.execute(game);
-			else
-				System.out.println("[ERROR]: "+ unknownCommandMsg);
+			try {
+                Command command = CommandGenerator.parseCommand(commandWords);
+                if (command != null)
+                    refreshDisplay = command.execute(game);
+            } catch (GameException ex){
+				System.out.println("[ERROR]: " + ex.getMessage());
+			}
 		}//game loop
 
 		printGame();

@@ -1,5 +1,8 @@
 package tp1.commands;
 
+import tp1.exceptions.CommandExecuteException;
+import tp1.exceptions.CommandParseException;
+import tp1.exceptions.NotEnoughCoinsException;
 import tp1.logic.Game;
 
 public class AddSlayerCommand extends Command{
@@ -17,18 +20,26 @@ public class AddSlayerCommand extends Command{
     }
 
     @Override
-    public boolean execute(Game game) {
-       return game.addSlayer(x,y);
+    public boolean execute(Game game) throws CommandExecuteException {
+        try {
+            return game.addSlayer(x, y);
+        } catch (NotEnoughCoinsException e){
+            System.out.println("[ERROR]: " + e.getMessage());
+            throw new CommandExecuteException("Failed to Add Slayer\n");
+        }
     }
 
     @Override
-    public Command parse(String[] commandWords){
-        if(matchCommandName(commandWords[0]) &&  commandWords.length == 3){
-            x = Integer.parseInt(commandWords[2]);
-            y = Integer.parseInt(commandWords[1]);
-            return new AddSlayerCommand(x, y);
+    public Command parse(String[] commandWords) throws CommandParseException {
+        if(matchCommandName(commandWords[0])){
+            if(commandWords.length == 3) {
+                x = Integer.parseInt(commandWords[2]);
+                y = Integer.parseInt(commandWords[1]);
+                return new AddSlayerCommand(x, y);
+            } else throw new CommandParseException("Invalid Argument Length - [a]dd <x> <y>");
         }
         return null;
+
     }
 
 

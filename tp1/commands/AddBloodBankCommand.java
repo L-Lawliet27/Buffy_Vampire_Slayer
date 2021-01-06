@@ -1,5 +1,7 @@
 package tp1.commands;
 
+import tp1.exceptions.CommandExecuteException;
+import tp1.exceptions.CommandParseException;
 import tp1.logic.Game;
 
 public class AddBloodBankCommand extends Command{
@@ -20,20 +22,22 @@ public class AddBloodBankCommand extends Command{
 
 
     @Override
-    public boolean execute(Game game) {
+    public boolean execute(Game game) throws CommandExecuteException {
         return game.addBloodBank(x, y, cost);
     }
 
 
 
     @Override
-    public Command parse(String[] commandWords){
+    public Command parse(String[] commandWords) throws CommandParseException {
 
-        if(matchCommandName(commandWords[0]) &&  commandWords.length == 4){
-            x = Integer.parseInt(commandWords[2]);
-            y = Integer.parseInt(commandWords[1]);
-            cost = Integer.parseInt(commandWords[3]);
-            return new AddBloodBankCommand(x, y, cost);
+        if(matchCommandName(commandWords[0])){
+            if(commandWords.length == 4) {
+                x = Integer.parseInt(commandWords[2]);
+                y = Integer.parseInt(commandWords[1]);
+                cost = Integer.parseInt(commandWords[3]);
+                return new AddBloodBankCommand(x, y, cost);
+            }else throw new CommandParseException("Invalid Argument Length - [b]ank <x> <y> <z>");
         }
 
         return null;

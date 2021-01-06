@@ -1,5 +1,8 @@
 package tp1.logic;
 
+import tp1.exceptions.DraculaHasRisenException;
+import tp1.exceptions.InvalidPositionException;
+import tp1.exceptions.NoMoreVampiresException;
 import tp1.gameElements.*;
 import tp1.gameElements.Attackers.Dracula;
 import tp1.gameElements.Attackers.ExplosiveVampire;
@@ -40,44 +43,37 @@ public class GameObjectBoard implements IElemLogic {
         return "";
     }
 
-//    private void instantiateVampires(){
-//        for (int i = 0; i < level.getNumberOfVampires(); i++) {
-//            addVampire();
-//        }
-//    }
 
-
-    public boolean addVampire(int x, int y){
+    public boolean addVampire(int x, int y) throws InvalidPositionException, NoMoreVampiresException {
         if(nVampiresAdded < level.getNumberOfVampires()) {
             if (!elementHere(x, y) && !outOfBounds(game.getDimX(), y)) {
                 gameElements.add(new Vampire(game, x, y));
                 nVampiresAdded++;
                 return true;
-            }
-        }
-        return false;
+            }else throw new InvalidPositionException();
+        }else throw new NoMoreVampiresException();
     }
 
-    public boolean addDracula(int x, int y){
+    public boolean addDracula(int x, int y) throws NoMoreVampiresException, InvalidPositionException {
         if(nVampiresAdded < level.getNumberOfVampires()) {
-            if (!elementHere(x, y) && !outOfBounds(game.getDimX(), y) && !Dracula.draculaRise) {
-                gameElements.add(new Dracula(game, x, y));
-                nVampiresAdded++;
-                return true;
-            }
-        }
-        return false;
+            if(!Dracula.draculaRise){
+                if (!elementHere(x, y) && !outOfBounds(game.getDimX(), y)) {
+                    gameElements.add(new Dracula(game, x, y));
+                    nVampiresAdded++;
+                    return true;
+                } else throw new InvalidPositionException();
+            } else throw new DraculaHasRisenException();
+        } else throw new NoMoreVampiresException();
     }
 
-    public boolean addExplosiveVampire(int x, int y){
+    public boolean addExplosiveVampire(int x, int y) throws NoMoreVampiresException, InvalidPositionException {
         if(nVampiresAdded < level.getNumberOfVampires()) {
             if (!elementHere(x, y) && !outOfBounds(game.getDimX(), y)) {
                 gameElements.add(new ExplosiveVampire(game, x, y));
                 nVampiresAdded++;
                 return true;
-            }
-        }
-        return false;
+            }else throw new InvalidPositionException();
+        } else throw new NoMoreVampiresException();
     }
 
 
@@ -120,20 +116,18 @@ public class GameObjectBoard implements IElemLogic {
     }
 
 
-    public boolean addSlayer(int x, int y){
+    public boolean addSlayer(int x, int y) throws InvalidPositionException {
         if(!elementHere(x,y) && !outOfBounds(game.getDimX(), y)){
             gameElements.add(new Slayer(game,x,y));
             return true;
-        }
-        return false;
+        } else throw new InvalidPositionException();
     }
 
-    public boolean addBloodBank(int x, int y, int cost){
+    public boolean addBloodBank(int x, int y, int cost) throws InvalidPositionException {
         if(!elementHere(x,y) && !outOfBounds(game.getDimX(), y)){
             gameElements.add(new BloodBank(game,x,y,cost));
             return true;
-        }
-        return false;
+        } else throw new InvalidPositionException();
     }
 
 

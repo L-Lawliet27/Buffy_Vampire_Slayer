@@ -1,5 +1,6 @@
 package tp1.logic;
 
+import tp1.exceptions.*;
 import tp1.game.Controller;
 import tp1.gameElements.Attackers.Dracula;
 import tp1.gameElements.GameElement;
@@ -133,28 +134,50 @@ public class Game implements IPrintable{
         board.addVampire();
     }
 
-    public boolean addVampire(int x, int y){
-        if(board.addVampire(x,y)){
-            return true;
-        } else System.out.println(Controller.invalidPositionMsg);
+    public boolean addVampire(int x, int y) throws CommandExecuteException {
+        try {
+            if (board.addVampire(x, y)) {
+                return true;
+            }
+        } catch (NoMoreVampiresException e){
+            System.out.println("[ERROR]: " + e.getMessage());
+            throw new CommandExecuteException("Failed to Add Vampire\n");
+        } catch (InvalidPositionException i){
+            System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + i.getMessage());
+            throw new CommandExecuteException("Failed to Add Vampire\n");
+        }
+        return false;
+    }
+
+    public boolean addExplosiveVampire(int x, int y) throws CommandExecuteException {
+        try {
+            if (board.addExplosiveVampire(x, y)) {
+                return true;
+            }
+        } catch (NoMoreVampiresException e){
+            System.out.println("[ERROR]: " + e.getMessage());
+            throw new CommandExecuteException("Failed to Add Explosive Vampire\n");
+        } catch (InvalidPositionException i){
+            System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + i.getMessage());
+            throw new CommandExecuteException("Failed to Add Explosive Vampire\n");
+        }
 
         return false;
     }
 
-    public boolean addExplosiveVampire(int x, int y){
-        if(board.addExplosiveVampire(x,y)){
-            return true;
-        } else System.out.println(Controller.invalidPositionMsg);
 
-        return false;
-    }
-
-
-    public boolean addDracula(int x, int y){
-        if(board.addDracula(x,y)){
-            return true;
-        } else System.out.println(Controller.invalidPositionMsg);
-
+    public boolean addDracula(int x, int y) throws CommandExecuteException {
+        try {
+            if (board.addDracula(x, y)) {
+                return true;
+            }
+        }catch (NoMoreVampiresException e){
+            System.out.println("[ERROR]: " + e.getMessage());
+            throw new CommandExecuteException("Failed to Add Dracula\n");
+        } catch (InvalidPositionException i){
+            System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + i.getMessage());
+            throw new CommandExecuteException("Failed to Add Dracula\n");
+        }
         return false;
     }
 
@@ -170,28 +193,39 @@ public class Game implements IPrintable{
         vampiresWereAdded = !vampiresWereAdded;
     }
 
-    public boolean addSlayer(int x, int y){
-        if(player.getCoins() >= slayerCost) {
-            if(board.addSlayer(x, y)){
-                player.spendCoins(slayerCost);
-                update();
-                return true;
-            } else System.out.println(Controller.invalidPositionMsg);
-        } else System.out.println("Not Enough Coins\n");
+    public boolean addSlayer(int x, int y) throws CommandExecuteException {
+
+        if (player.getCoins() >= slayerCost) {
+            try {
+                if (board.addSlayer(x, y)) {
+                    player.spendCoins(slayerCost);
+                    update();
+                    return true;
+                }
+            } catch (InvalidPositionException e) {
+                System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + e.getMessage());
+                throw new CommandExecuteException("Failed to Add Slayer\n");
+            }
+        } else throw new NotEnoughCoinsException("Slayer Cost is " + slayerCost + ": Not Enough Coins\n");
 
         return false;
     }
 
-    public boolean addBloodBank(int x, int y, int cost){
+    public boolean addBloodBank(int x, int y, int cost) throws CommandExecuteException{
         if(player.getCoins() >= cost) {
-            if (cost > 5) {
-                if (board.addBloodBank(x, y, cost)) {
-                    player.spendCoins(cost);
-                    update();
-                    return true;
-                } else System.out.println(Controller.invalidPositionMsg);
-            } else System.out.println("Cost Can't Be less than 5");
-        }  else System.out.println("Not Enough Coins\n");
+            if (cost >= 5) {
+                try {
+                    if (board.addBloodBank(x, y, cost)) {
+                        player.spendCoins(cost);
+                        update();
+                        return true;
+                    }
+                }catch (InvalidPositionException e){
+                    System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + e.getMessage());
+                    throw new CommandExecuteException("Failed to Add BloodBank\n");
+                }
+            } else throw new NotEnoughCoinsException("Cost CANNOT be Lower than 5 Coins\n");
+        } else throw new NotEnoughCoinsException("Not Enough Coins to Add a BloodBank\n");
         return false;
     }
 

@@ -1,5 +1,7 @@
 package tp1.commands;
 
+import tp1.exceptions.CommandExecuteException;
+import tp1.exceptions.CommandParseException;
 import tp1.logic.Game;
 
 public class AddVampireCommand extends Command {
@@ -24,7 +26,7 @@ public class AddVampireCommand extends Command {
     }
 
     @Override
-    public boolean execute(Game game) {
+    public boolean execute(Game game) throws CommandExecuteException {
 
         switch (type) {
             case dracula:
@@ -40,25 +42,30 @@ public class AddVampireCommand extends Command {
     }
 
     @Override
-    public Command parse(String[] commandWords){
-        if(matchCommandName(commandWords[0]) && commandWords.length == 4){
-            if(matchTypeName(commandWords[1])) {
-                type = commandWords[1].toUpperCase();
-                x = Integer.parseInt(commandWords[3]);
-                y = Integer.parseInt(commandWords[2]);
-                return new AddVampireCommand(type, x, y);
-            }
-        } else if (matchCommandName(commandWords[0]) && commandWords.length == 3){
-            x = Integer.parseInt(commandWords[2]);
-            y = Integer.parseInt(commandWords[1]);
-            return new AddVampireCommand("", x, y);
+    public Command parse(String[] commandWords) throws CommandParseException {
+        if(matchCommandName(commandWords[0])) {
+            if (commandWords.length == 4) {
+                if (matchTypeName(commandWords[1])) {
+                    type = commandWords[1].toUpperCase();
+                    x = Integer.parseInt(commandWords[3]);
+                    y = Integer.parseInt(commandWords[2]);
+                    return new AddVampireCommand(type, x, y);
+                } else throw new CommandParseException("Invalid Type: [v]ampire [<type>] <x> <y>" +
+                        " -- type = {\"\"|\"D\"|\"E\"}");
+
+            } else if (commandWords.length == 3) {
+                x = Integer.parseInt(commandWords[2]);
+                y = Integer.parseInt(commandWords[1]);
+                return new AddVampireCommand("", x, y);
+            } else throw new CommandParseException("Invalid Argument Length - [v]ampire [<type>] <x> <y>");
         }
         return null;
     }
 
 
     private boolean matchTypeName(String type){
-        return type.toUpperCase().equals(dracula) || type.toUpperCase().equals(explosive) || type.equals(" ");
+        return type.toUpperCase().equals(dracula) || type.toUpperCase().equals(explosive) || type.equals(" ")
+                || type.equals("");
     }
 
 
