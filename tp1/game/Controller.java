@@ -51,8 +51,7 @@ public class Controller {
 		}//game loop
 
 		printGame();
-		game.winnerMessage();
-		System.out.println("Game Over");
+		System.out.println("[GAME OVER] " + game.winnerMessage());
     }
 
 }

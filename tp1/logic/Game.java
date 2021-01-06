@@ -281,12 +281,12 @@ public class Game implements IPrintable{
         return gameOver;
     }
 
-    public void winnerMessage(){
+    public String winnerMessage(){
         if(vampiresWin){
-            System.out.println("Vampires Win\n");
+            return "Vampires Win";
         } else if(playerWins){
-            System.out.println("Player Wins\n");
-        } else System.out.println("Nobody Wins...\n");
+            return "Player Wins";
+        } else return "Nobody Wins...";
     }
 
 
