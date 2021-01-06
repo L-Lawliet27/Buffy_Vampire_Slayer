@@ -22,5 +22,10 @@ public class Slayer extends Defender{
         return "<->" + "[" + lives + "]";
     }
 
+    @Override
+    public String stringify(){
+        return "S;"+ posX + ";" + posY + ";" + lives + "\n";
+    }
+
 
 }

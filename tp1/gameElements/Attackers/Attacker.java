@@ -24,6 +24,11 @@ public class Attacker extends GameElement {
         //LEAVE EMPTY
     }
 
+    @Override
+    public String stringify() {
+        return null;
+    }
+
 
     @Override
     public void attack() {

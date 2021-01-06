@@ -25,6 +25,11 @@ public class Dracula extends Vampire{
     @Override
     public String toString() { return "V-V" + "[" + lives + "]"; }
 
+    @Override
+    public String stringify(){
+        return "D;"+ posX + ";" + posY + ";" + getCycleTillMove() + "\n";
+    }
+
 
     @Override
     public void receiveLightFlashAttack() {

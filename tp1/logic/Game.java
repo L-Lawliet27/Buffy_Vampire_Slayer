@@ -1,9 +1,7 @@
 package tp1.logic;
 
 import tp1.exceptions.*;
-import tp1.game.Controller;
 import tp1.gameElements.Attackers.Dracula;
-import tp1.gameElements.GameElement;
 import tp1.gameElements.IAttack;
 import tp1.gameElements.Player;
 import tp1.gameElements.Attackers.Vampire;
@@ -24,6 +22,7 @@ public class Game implements IPrintable{
     private static boolean vampiresWin;
     private static boolean playerWins;
     private String[] info;
+    private String[] stringy;
     private Long seed;
     private static Random random;
     private GameObjectBoard board;
@@ -43,6 +42,7 @@ public class Game implements IPrintable{
         player = new Player(slayerCost);
         board = new GameObjectBoard(this);
         info = new String[5];
+        stringy = new String[6];
         update();
     }
 
@@ -290,5 +290,19 @@ public class Game implements IPrintable{
     }
 
 
+    public String stringify() {
+        stringy[0] = "Number of Cycles: " + cycle + "\n";
+        stringy[1] = "Level: " + getLvl().name() + "\n";
+        stringy[2] = "Coins: " + player.getCoins() + "\n";
+        if(!vampiresWereAdded){
+            stringy[3] = "Remaining Vampires: " + lvl.getNumberOfVampires() + "\n";
+        } else stringy[3] = "Remaining Vampires: " + Vampire.getVampiresRemaining() + "\n";
 
+        stringy[4] = "Vampires on Board: " + Vampire.getVampiresOnBoard() + "\n\n";
+
+        stringy[5] = "GameElement Objects:\n";
+
+        return stringy[0] + stringy[1] + stringy[2] + stringy[3] + stringy[4] + stringy[5] + board.stringify();
+
+    }
 }

@@ -14,7 +14,9 @@ public class CommandGenerator {
             new LightFlashCommand(),
             new UpdateCommand(),
             new AddVampireCommand(),
-            new ResetCommand()
+            new ResetCommand(),
+            new StringifyCommand(),
+            new SaveCommand()
     };
 
     public static Command parseCommand(String[] commandWords) throws CommandParseException {
@@ -29,12 +31,12 @@ public class CommandGenerator {
 
     public static String commandHelp(){
 
-        String help = "";
+        StringBuilder help = new StringBuilder();
         for (Command c : availableCommands) {
-            help = help + c.helpText();
+            help.append(c.helpText());
         }
 
-        return help;
+        return help.toString();
     }
 
 }

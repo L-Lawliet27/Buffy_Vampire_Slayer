@@ -32,6 +32,11 @@ public class Defender extends GameElement {
     }
 
     @Override
+    public String stringify() {
+        return null;
+    }
+
+    @Override
     public void attack() {
         //LEAVE EMPTY
     }

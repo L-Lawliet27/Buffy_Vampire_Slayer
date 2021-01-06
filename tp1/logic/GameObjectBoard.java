@@ -233,6 +233,12 @@ public class GameObjectBoard implements IElemLogic {
     }
 
 
+    public String stringify() {
 
-
+        StringBuilder stringy = new StringBuilder();
+        for (GameElement e: gameElements) {
+            stringy.append(e.stringify());
+        }
+        return stringy.toString();
+    }
 }

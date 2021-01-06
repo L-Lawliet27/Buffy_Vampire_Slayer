@@ -51,4 +51,6 @@ public abstract class GameElement implements IAttack {
         return posX==x && posY==y;
     }
 
+    public abstract String stringify();
+
 }

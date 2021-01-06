@@ -11,7 +11,7 @@ public class Vampire extends Attacker {
     protected static int vampiresOnBoard;
     private static int subtractor = 1;
     private static boolean reseted = false;
-    private int cycleToMove;
+    protected int cycleToMove;
 
     public Vampire(Game game, int positionX, int positionY){
         super(game,0,5, positionX, positionY, 1);
@@ -67,12 +67,16 @@ public class Vampire extends Attacker {
     }
 
 
+    @Override
+    public String stringify(){
+        return "V;"+ posX + ";" + posY + ";" + getCycleTillMove() + "\n";
+    }
 
-//    public boolean isVampiresOnLeft(){
-//        if(vampiresOnLeft) return true;
-//        else return false;
-//    }
-
+    protected int getCycleTillMove(){
+        if(cycleToMove == currentCycle+1) {
+            return 0;
+        } else return cycleToMove - currentCycle;
+    }
 
 
     public static int getVampiresRemaining() {
@@ -82,7 +86,6 @@ public class Vampire extends Attacker {
     public static int getVampiresOnBoard() {
         return vampiresOnBoard;
     }
-
 
 
     public static void vampireNumsReset(){

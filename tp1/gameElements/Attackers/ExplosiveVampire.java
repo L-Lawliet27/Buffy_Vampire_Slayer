@@ -45,4 +45,9 @@ public class ExplosiveVampire extends Vampire {
     @Override
     public String toString() { return "V*V" + "[" + lives + "]"; }
 
+    @Override
+    public String stringify(){
+        return "EV;"+ posX + ";" + posY + ";" + getCycleTillMove() + "\n";
+    }
+
 }
