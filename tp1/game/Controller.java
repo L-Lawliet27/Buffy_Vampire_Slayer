@@ -44,8 +44,7 @@ public class Controller {
 			System.out.println("[DEBUG] Executing: " + s);
 			try {
                 Command command = CommandGenerator.parseCommand(commandWords);
-                if (command != null)
-                    refreshDisplay = command.execute(game);
+				refreshDisplay = command.execute(game);
             } catch (GameException ex){
 				System.out.println("[ERROR]: " + ex.getMessage());
 			}

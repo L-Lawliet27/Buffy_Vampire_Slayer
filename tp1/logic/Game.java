@@ -100,26 +100,24 @@ public class Game implements IPrintable{
         board.attack();
     }
 
-    public boolean lightAttack(){
+    public boolean lightAttack() throws NotEnoughCoinsException{
         if(player.getCoins() >= lightFlashCost){
             player.spendCoins(lightFlashCost);
             board.lightFlashAttack();
             update();
             return true;
-        }else System.out.println("Not Enough Coins\n");
+        }else throw new NotEnoughCoinsException("LightFlash Cost is " + lightFlashCost + ": Not Enough Coins\n");
 
-        return false;
     }
 
-    public boolean garlicAttack(){
+    public boolean garlicAttack() throws NotEnoughCoinsException {
         if (player.getCoins() >= garlicPushCost){
             player.spendCoins(garlicPushCost);
             board.garlicPushAttack();
             update();
             return true;
-        }else System.out.println("Not Enough Coins\n");
+        }else throw new NotEnoughCoinsException("LightFlash Cost is " + lightFlashCost + ": Not Enough Coins\n");
 
-        return false;
     }
 
     public void explosionAttack(int posX, int posY) {
