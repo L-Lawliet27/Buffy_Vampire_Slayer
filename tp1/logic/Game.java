@@ -297,9 +297,7 @@ public class Game implements IPrintable{
         if(!vampiresWereAdded){
             stringy[3] = "Remaining Vampires: " + lvl.getNumberOfVampires() + "\n";
         } else stringy[3] = "Remaining Vampires: " + Vampire.getVampiresRemaining() + "\n";
-
         stringy[4] = "Vampires on Board: " + Vampire.getVampiresOnBoard() + "\n\n";
-
         stringy[5] = "GameElement Objects:\n";
 
         return stringy[0] + stringy[1] + stringy[2] + stringy[3] + stringy[4] + stringy[5] + board.stringify();
