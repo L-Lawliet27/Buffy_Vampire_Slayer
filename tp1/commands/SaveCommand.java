@@ -42,7 +42,7 @@ public class SaveCommand extends Command {
         if(matchCommandName(commandWords[0])){
             if(commandWords.length == 2) {
                 return new SaveCommand(commandWords[1]);
-            }else throw new CommandParseException(incorrectNumberOfArgsMsg);
+            }else throw new CommandParseException(incorrectNumberOfArgsMsg + " - [s]ave [<filename>]");
         }
         return null;
     }

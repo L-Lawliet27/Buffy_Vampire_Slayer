@@ -37,7 +37,7 @@ public class AddBloodBankCommand extends Command{
                 y = Integer.parseInt(commandWords[1]);
                 cost = Integer.parseInt(commandWords[3]);
                 return new AddBloodBankCommand(x, y, cost);
-            }else throw new CommandParseException("Invalid Argument Length - [b]ank <x> <y> <z>");
+            }else throw new CommandParseException(incorrectNumberOfArgsMsg + " - [b]ank <x> <y> <z>");
         }
 
         return null;

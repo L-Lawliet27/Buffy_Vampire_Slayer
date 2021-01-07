@@ -57,7 +57,7 @@ public class AddVampireCommand extends Command {
                 x = Integer.parseInt(commandWords[2]);
                 y = Integer.parseInt(commandWords[1]);
                 return new AddVampireCommand("", x, y);
-            } else throw new CommandParseException("Invalid Argument Length - [v]ampire [<type>] <x> <y>");
+            } else throw new CommandParseException(incorrectNumberOfArgsMsg + " - [v]ampire [<type>] <x> <y>");
         }
         return null;
     }

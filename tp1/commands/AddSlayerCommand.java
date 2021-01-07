@@ -36,7 +36,7 @@ public class AddSlayerCommand extends Command{
                 x = Integer.parseInt(commandWords[2]);
                 y = Integer.parseInt(commandWords[1]);
                 return new AddSlayerCommand(x, y);
-            } else throw new CommandParseException("Invalid Argument Length - [a]dd <x> <y>");
+            } else throw new CommandParseException(incorrectNumberOfArgsMsg +" - [a]dd <x> <y>");
         }
         return null;
 
