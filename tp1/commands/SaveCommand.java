@@ -7,7 +7,6 @@ import tp1.logic.Game;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class SaveCommand extends Command {
 
@@ -15,7 +14,7 @@ public class SaveCommand extends Command {
     private BufferedWriter bufferedWriter;
 
     public SaveCommand() {
-        super("save", "s", "[s]ave", "saves the current state of the game");
+        super("save", "s", "[s]ave [<filename>]", "saves the current state of the game");
     }
 
     public SaveCommand(String nameOfFile){
