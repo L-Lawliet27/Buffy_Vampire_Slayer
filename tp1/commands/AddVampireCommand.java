@@ -57,7 +57,7 @@ public class AddVampireCommand extends Command {
                         y = Integer.parseInt(commandWords[2]);
                         return new AddVampireCommand(type, x, y);
                     } catch (NumberFormatException nfe){
-                        throw new CommandParseException(incorrectArgsMsg + " - Coordinates should be numbers");
+                        throw new CommandParseException("(Vampire Command) " + incorrectArgsMsg + " - Coordinates should be numbers");
                     }
                 } else throw new CommandParseException("Invalid Type: [v]ampire [<type>] <x> <y>" +
                         " -- type = {\"\"|\"D\"|\"E\"}");
@@ -68,7 +68,7 @@ public class AddVampireCommand extends Command {
                     y = Integer.parseInt(commandWords[1]);
                     return new AddVampireCommand("", x, y);
                 }catch (NumberFormatException nfe){
-                    throw new CommandParseException(incorrectArgsMsg + " - Coordinates should be numbers");
+                    throw new CommandParseException("(Vampire Command) " + incorrectArgsMsg + " - Coordinates should be numbers");
                 }
             } else throw new CommandParseException(incorrectNumberOfArgsMsg + " - [v]ampire [<type>] <x> <y>");
         }

@@ -42,9 +42,9 @@ public class AddBloodBankCommand extends Command{
                     cost = Integer.parseInt(commandWords[3]);
                     return new AddBloodBankCommand(x, y, cost);
                 }catch (NumberFormatException nfe){
-                    throw new CommandParseException(incorrectArgsMsg + " - Coordinates and Cost should be numbers");
+                    throw new CommandParseException("(BloodBank Command) " + incorrectArgsMsg + " - Coordinates and Cost should be numbers");
                 }
-            }else throw new CommandParseException(incorrectNumberOfArgsMsg + " - [b]ank <x> <y> <z>");
+            }else throw new CommandParseException("(BloodBank Command) " + incorrectNumberOfArgsMsg + " - [b]ank <x> <y> <z>");
         }
 
         return null;

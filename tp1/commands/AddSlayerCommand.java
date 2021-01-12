@@ -42,9 +42,9 @@ public class AddSlayerCommand extends Command{
                     y = Integer.parseInt(commandWords[1]);
                     return new AddSlayerCommand(x, y);
                 }catch (NumberFormatException nfe){
-                    throw new CommandParseException(incorrectArgsMsg + " - Coordinates should be numbers");
+                    throw new CommandParseException("(Add Command) " + incorrectArgsMsg + " - Coordinates should be numbers");
                 }
-            } else throw new CommandParseException(incorrectNumberOfArgsMsg +" - [a]dd <x> <y>");
+            } else throw new CommandParseException("(Add Command) " + incorrectNumberOfArgsMsg +" - [a]dd <x> <y>");
         }
         return null;
 
