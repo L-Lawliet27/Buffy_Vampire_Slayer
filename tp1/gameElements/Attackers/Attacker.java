@@ -12,15 +12,12 @@ public class Attacker extends GameElement {
         cycleToMove = currentCycle + 2;
     }
 
+
     @Override
     public void move() {
         //LEAVE EMPTY
     }
 
-    @Override
-    public String toString() {
-        return null;
-    }
 
     @Override
     public void generateIncome() {

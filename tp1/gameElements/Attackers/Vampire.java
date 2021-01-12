@@ -20,6 +20,14 @@ public class Vampire extends Attacker {
     protected Vampire(Game game, int lives, int positionX, int positionY, int damage, String avatar){
         super(game,cost,lives,positionX,positionY,damage, avatar);
 
+        if(reseted || !Game.vampiresWereAdded){
+            this.game.setVampiresWereAdded();
+            numberOfVampires = Game.getLvl().getNumberOfVampires();
+        }
+
+        vampiresRemaining = numberOfVampires - subtractor;
+        subtractor++;
+        vampiresOnBoard++;
     }
 
     public Vampire(Game game, int positionX, int positionY){
@@ -46,7 +54,9 @@ public class Vampire extends Attacker {
     @Override
     public boolean getAlive(){
         if(!alive){
-            vampiresOnBoard--;
+            if(vampiresOnBoard > 0) {
+                vampiresOnBoard--;
+            }
         }
         return alive;
     }
@@ -102,14 +112,16 @@ public class Vampire extends Attacker {
     @Override
     public void receiveLightFlashAttack() {
         receiveSlayerAttack(lives);
-        vampiresOnBoard--;
+       /* if(vampiresOnBoard > 0) {
+            vampiresOnBoard--;
+        }*/
     }
+
 
     @Override
     public void receiveGarlicPush() {
         if(posY + 1 == game.getDimX()){
             receiveSlayerAttack(lives);
-            vampiresOnBoard--;
         } else {
             currentCycle = game.getCycle();
             cycleToMove = currentCycle + 2;

@@ -43,7 +43,18 @@ public class ExplosiveVampire extends Vampire {
     @Override
     public void receiveLightFlashAttack() {
         receiveAttack(getLives());
-        vampiresOnBoard--;
+      //  vampiresOnBoard--;
+    }
+
+    @Override
+    public void receiveGarlicPush() {
+        if(posY + 1 == game.getDimX()){
+            receiveAttack(lives);
+        } else {
+            currentCycle = game.getCycle();
+            cycleToMove = currentCycle + 2;
+            posY++;
+        }
     }
 
 

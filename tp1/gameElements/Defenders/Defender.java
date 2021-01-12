@@ -21,10 +21,6 @@ public class Defender extends GameElement {
         //LEAVE EMPTY
     }
 
-    @Override
-    public String toString() {
-        return null;
-    }
 
     @Override
     public void generateIncome() {
