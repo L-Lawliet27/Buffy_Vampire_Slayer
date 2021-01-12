@@ -8,9 +8,10 @@ public class Dracula extends Vampire{
     private static final int lives = 5;
     public static boolean draculaRise = false;
     private static final String avatar = "V-V";
+    private static final String stringLabel = "D";
 
     public Dracula(Game game, int positionX, int positionY) {
-        super(game, lives, positionX, positionY, damage, avatar);
+        super(game, lives, positionX, positionY, damage, avatar, stringLabel);
         draculaRise = true;
     }
 
@@ -24,10 +25,6 @@ public class Dracula extends Vampire{
         return true;
     }
 
-    @Override
-    public String stringify(){
-        return "D;"+ posX + ";" + posY + ";" + getCycleTillMove() + "\n";
-    }
 
 
     @Override

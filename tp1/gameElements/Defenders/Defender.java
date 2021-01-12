@@ -5,8 +5,10 @@ import tp1.logic.Game;
 
 public class Defender extends GameElement {
 
-    public Defender(Game game, int cost, int lives, int positionX, int positionY, int damage, String avatar) {
+    public Defender(Game game, int cost, int lives, int positionX, int positionY, int damage, String avatar,
+                    String stringLabel) {
         super(game, cost, lives, positionX, positionY, damage, avatar);
+        this.stringLabel = stringLabel;
     }
 
     @Override
@@ -28,8 +30,8 @@ public class Defender extends GameElement {
     }
 
     @Override
-    public String stringify() {
-        return null;
+    public String stringify(){
+        return stringLabel + ";"+ posY + ";" + posX + ";" + getLives() + "\n";
     }
 
     @Override

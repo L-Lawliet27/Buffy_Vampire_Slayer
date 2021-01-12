@@ -12,6 +12,7 @@ public abstract class GameElement implements IAttack {
     protected int currentCycle;
     protected boolean alive;
     protected String avatar;
+    protected String stringLabel;
     protected Game game;
 
     public GameElement(Game game, int cost, int lives, int positionX, int positionY, int damage, String avatar){

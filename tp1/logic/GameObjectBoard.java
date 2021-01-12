@@ -46,7 +46,7 @@ public class GameObjectBoard implements IElemLogic {
 
     public boolean addVampire(int x, int y) throws InvalidPositionException, NoMoreVampiresException {
         if(nVampiresAdded < level.getNumberOfVampires()) {
-            if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX(), y)) {
+            if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX() +1, y)) {
                 gameElements.add(new Vampire(game, x, y));
                 nVampiresAdded++;
                 return true;
@@ -57,7 +57,7 @@ public class GameObjectBoard implements IElemLogic {
     public boolean addDracula(int x, int y) throws NoMoreVampiresException, InvalidPositionException {
         if(nVampiresAdded < level.getNumberOfVampires()) {
             if(!Dracula.draculaRise){
-                if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX(), y)) {
+                if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX() + 1, y)) {
                     gameElements.add(new Dracula(game, x, y));
                     nVampiresAdded++;
                     return true;
@@ -68,7 +68,7 @@ public class GameObjectBoard implements IElemLogic {
 
     public boolean addExplosiveVampire(int x, int y) throws NoMoreVampiresException, InvalidPositionException {
         if(nVampiresAdded < level.getNumberOfVampires()) {
-            if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX(), y)) {
+            if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX() +1, y)) {
                 gameElements.add(new ExplosiveVampire(game, x, y));
                 nVampiresAdded++;
                 return true;

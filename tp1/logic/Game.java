@@ -142,7 +142,7 @@ public class Game implements IPrintable{
             System.out.println("[ERROR]: " + e.getMessage());
             throw new CommandExecuteException("Failed to Add Vampire");
         } catch (InvalidPositionException i){
-            System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + i.getMessage());
+            System.out.println("[ERROR]: " + "Position (" + y + "," + x + "): " + i.getMessage());
             throw new CommandExecuteException("Failed to Add Vampire");
         }
         return false;
@@ -157,7 +157,7 @@ public class Game implements IPrintable{
             System.out.println("[ERROR]: " + e.getMessage());
             throw new CommandExecuteException("Failed to Add Explosive Vampire");
         } catch (InvalidPositionException i){
-            System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + i.getMessage());
+            System.out.println("[ERROR]: " + "Position (" + y + "," + x + "): " + i.getMessage());
             throw new CommandExecuteException("Failed to Add Explosive Vampire");
         }
 
@@ -174,7 +174,7 @@ public class Game implements IPrintable{
             System.out.println("[ERROR]: " + e.getMessage());
             throw new CommandExecuteException("Failed to Add Dracula");
         } catch (InvalidPositionException i){
-            System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + i.getMessage());
+            System.out.println("[ERROR]: " + "Position (" + y + "," + x + "): " + i.getMessage());
             throw new CommandExecuteException("Failed to Add Dracula");
         }
         return false;
@@ -202,7 +202,7 @@ public class Game implements IPrintable{
                     return true;
                 }
             } catch (InvalidPositionException e) {
-                System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + e.getMessage());
+                System.out.println("[ERROR]: " + "Position (" + y + "," + x + "): " + e.getMessage());
                 throw new CommandExecuteException("Failed to Add Slayer");
             }
         } else throw new NotEnoughCoinsException("Slayer Cost is " + slayerCost + ": Not Enough Coins");

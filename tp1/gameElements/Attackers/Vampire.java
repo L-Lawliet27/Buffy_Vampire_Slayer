@@ -9,6 +9,7 @@ public class Vampire extends Attacker {
     private static final int lives = 5;
     private static final int damage = 1;
     private static final String avatar = "V^V";
+    private static final String stringLabel = "V";
 
     private static boolean vampiresOnLeft = false;
     private static int numberOfVampires;
@@ -17,8 +18,9 @@ public class Vampire extends Attacker {
     private static int subtractor = 1;
     private static boolean reseted = false;
 
-    protected Vampire(Game game, int lives, int positionX, int positionY, int damage, String avatar){
-        super(game,cost,lives,positionX,positionY,damage, avatar);
+    protected Vampire(Game game, int lives, int positionX, int positionY, int damage, String avatar,
+                      String stringLabel){
+        super(game,cost,lives,positionX,positionY,damage, avatar, stringLabel);
 
         if(reseted || !Game.vampiresWereAdded){
             this.game.setVampiresWereAdded();
@@ -31,7 +33,7 @@ public class Vampire extends Attacker {
     }
 
     public Vampire(Game game, int positionX, int positionY){
-        super(game,cost,lives, positionX, positionY, damage, avatar);
+        super(game,cost,lives, positionX, positionY, damage, avatar, stringLabel);
 
         if(reseted || !Game.vampiresWereAdded){
             this.game.setVampiresWereAdded();
@@ -77,14 +79,6 @@ public class Vampire extends Attacker {
             }//if-1
         //else cycleToMove++;
     }
-
-
-
-    @Override
-    public String stringify(){
-        return "V;"+ posX + ";" + posY + ";" + getCycleTillMove() + "\n";
-    }
-
 
 
     public static int getVampiresRemaining() {

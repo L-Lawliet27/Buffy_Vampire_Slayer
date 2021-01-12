@@ -9,9 +9,10 @@ public class Slayer extends Defender{
     private static final int lives = 3;
     private static final int damage = 1;
     private static final String avatar = "<->";
+    private static final String stringLabel = "S";
 
     public Slayer(Game game, int positionX, int positionY){
-        super(game,cost,lives, positionX, positionY, damage, avatar);
+        super(game,cost,lives, positionX, positionY, damage, avatar, stringLabel);
     }
 
     @Override
@@ -22,10 +23,6 @@ public class Slayer extends Defender{
         }
     }
 
-    @Override
-    public String stringify(){
-        return "S;"+ posX + ";" + posY + ";" + getLives() + "\n";
-    }
 
 
 }

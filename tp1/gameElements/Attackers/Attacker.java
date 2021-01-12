@@ -7,9 +7,11 @@ public class Attacker extends GameElement {
 
     protected int cycleToMove;
 
-    public Attacker(Game game, int cost, int lives, int positionX, int positionY, int damage, String avatar) {
+    public Attacker(Game game, int cost, int lives, int positionX, int positionY, int damage, String avatar,
+                    String stringLabel) {
         super(game, cost, lives, positionX, positionY, damage, avatar);
         cycleToMove = currentCycle + 2;
+        this.stringLabel = stringLabel;
     }
 
 
@@ -25,8 +27,8 @@ public class Attacker extends GameElement {
     }
 
     @Override
-    public String stringify() {
-        return null;
+    public String stringify(){
+        return stringLabel +";"+ posY + ";" + posX + ";"+ getLives() + ";" + getCycleTillMove() + "\n";
     }
 
 
