@@ -5,8 +5,8 @@ import tp1.logic.Game;
 
 public class Defender extends GameElement {
 
-    public Defender(Game game, int cost, int lives, int positionX, int positionY, int damage) {
-        super(game, cost, lives, positionX, positionY, damage);
+    public Defender(Game game, int cost, int lives, int positionX, int positionY, int damage, String avatar) {
+        super(game, cost, lives, positionX, positionY, damage, avatar);
     }
 
     @Override

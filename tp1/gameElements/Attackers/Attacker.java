@@ -5,8 +5,11 @@ import tp1.logic.Game;
 
 public class Attacker extends GameElement {
 
-    public Attacker(Game game, int cost, int lives, int positionX, int positionY, int damage) {
-        super(game, cost, lives, positionX, positionY, damage);
+    protected int cycleToMove;
+
+    public Attacker(Game game, int cost, int lives, int positionX, int positionY, int damage, String avatar) {
+        super(game, cost, lives, positionX, positionY, damage, avatar);
+        cycleToMove = currentCycle + 2;
     }
 
     @Override
@@ -46,6 +49,13 @@ public class Attacker extends GameElement {
     @Override
     public boolean receiveVampireAttack(int damage) {
         return false;
+    }
+
+
+    protected int getCycleTillMove(){
+        if(cycleToMove == currentCycle+1) {
+            return 0;
+        } else return cycleToMove - currentCycle;
     }
 
 

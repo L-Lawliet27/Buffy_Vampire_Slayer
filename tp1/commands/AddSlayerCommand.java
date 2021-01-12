@@ -29,7 +29,7 @@ public class AddSlayerCommand extends Command{
             return game.addSlayer(x, y);
         } catch (NotEnoughCoinsException e){
             System.out.println("[ERROR]: " + e.getMessage());
-            throw new CommandExecuteException("Failed to Add Slayer\n");
+            throw new CommandExecuteException("Failed to Add Slayer");
         }
     }
 

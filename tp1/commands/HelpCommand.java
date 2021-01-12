@@ -1,5 +1,6 @@
 package tp1.commands;
 
+import tp1.exceptions.CommandParseException;
 import tp1.logic.Game;
 
 public class HelpCommand extends NoParamsCommand {
@@ -12,6 +13,7 @@ public class HelpCommand extends NoParamsCommand {
     public HelpCommand() {
         super(name,shortCut,details,help);
     }
+
 
     @Override
     public boolean execute(Game game) {

@@ -8,9 +8,10 @@ public class Slayer extends Defender{
     private static final int cost = 50;
     private static final int lives = 3;
     private static final int damage = 1;
+    private static final String avatar = "<->";
 
     public Slayer(Game game, int positionX, int positionY){
-        super(game,cost,lives, positionX, positionY, damage);
+        super(game,cost,lives, positionX, positionY, damage, avatar);
     }
 
     @Override
@@ -19,11 +20,6 @@ public class Slayer extends Defender{
             IAttack enemy = game.getEnemyInRow(posX, posY + 1);
             if(enemy != null) enemy.receiveSlayerAttack(damage);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "<->" + "[" + getLives() + "]";
     }
 
     @Override

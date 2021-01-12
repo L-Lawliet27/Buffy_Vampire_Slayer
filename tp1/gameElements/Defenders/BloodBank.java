@@ -7,9 +7,10 @@ public class BloodBank extends Defender {
     private int income;
     private static final int lives = 1;
     private static final int damage = 0;
+    private static final String avatar = "B-B";
 
     public BloodBank(Game game, int positionX, int positionY, int cost) {
-        super(game, cost, lives, positionX, positionY, damage);
+        super(game, cost, lives, positionX, positionY, damage, avatar);
         income = (int) Math.ceil((cost * 0.1));
     }
 
@@ -21,7 +22,7 @@ public class BloodBank extends Defender {
 
     @Override
     public String toString() {
-        return "B-B" + "[" + cost + "]";
+        return avatar + "[" + cost + "]";
     }
 
     @Override

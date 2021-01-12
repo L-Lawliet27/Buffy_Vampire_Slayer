@@ -21,7 +21,7 @@ public class GarlicPushCommand extends NoParamsCommand {
             return game.garlicAttack();
         }catch (NotEnoughCoinsException e){
             System.out.println("[ERROR]: " + e.getMessage());
-            throw new CommandExecuteException("Failed to Release Garlic Push\n");
+            throw new CommandExecuteException("Failed to Release Garlic Push");
         }
     }
 }

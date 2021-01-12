@@ -8,6 +8,7 @@ public class Vampire extends Attacker {
     private static final int cost = 0;
     private static final int lives = 5;
     private static final int damage = 1;
+    private static final String avatar = "V^V";
 
     private static boolean vampiresOnLeft = false;
     private static int numberOfVampires;
@@ -15,16 +16,14 @@ public class Vampire extends Attacker {
     protected static int vampiresOnBoard;
     private static int subtractor = 1;
     private static boolean reseted = false;
-    protected int cycleToMove;
 
-
-    protected Vampire(Game game, int lives, int positionX, int positionY, int damage){
-        super(game,cost,lives,positionX,positionY,damage);
+    protected Vampire(Game game, int lives, int positionX, int positionY, int damage, String avatar){
+        super(game,cost,lives,positionX,positionY,damage, avatar);
 
     }
 
     public Vampire(Game game, int positionX, int positionY){
-        super(game,cost,lives, positionX, positionY, damage);
+        super(game,cost,lives, positionX, positionY, damage, avatar);
 
         if(reseted || !Game.vampiresWereAdded){
             this.game.setVampiresWereAdded();
@@ -32,7 +31,6 @@ public class Vampire extends Attacker {
         }
         vampiresRemaining = numberOfVampires - subtractor;
         subtractor++;
-        cycleToMove = currentCycle + 2;
         vampiresOnBoard++;
     }
 
@@ -71,22 +69,12 @@ public class Vampire extends Attacker {
     }
 
 
-    @Override
-    public String toString() {
-        return "V^V" + "[" + getLives() + "]";
-    }
-
 
     @Override
     public String stringify(){
         return "V;"+ posX + ";" + posY + ";" + getCycleTillMove() + "\n";
     }
 
-    protected int getCycleTillMove(){
-        if(cycleToMove == currentCycle+1) {
-            return 0;
-        } else return cycleToMove - currentCycle;
-    }
 
 
     public static int getVampiresRemaining() {

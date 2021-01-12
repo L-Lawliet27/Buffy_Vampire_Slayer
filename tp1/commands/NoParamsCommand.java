@@ -10,7 +10,9 @@ public abstract class NoParamsCommand extends Command {
 
     public Command parse(String[] commandWords) throws CommandParseException {
         if(matchCommandName(commandWords[0])){
-            return this;
+            if(commandWords.length == 1) {
+                return this;
+            } else throw new CommandParseException(incorrectNumberOfArgsMsg+"\n");
         }
         return null;
     }

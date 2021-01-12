@@ -140,10 +140,10 @@ public class Game implements IPrintable{
             }
         } catch (NoMoreVampiresException e){
             System.out.println("[ERROR]: " + e.getMessage());
-            throw new CommandExecuteException("Failed to Add Vampire\n");
+            throw new CommandExecuteException("Failed to Add Vampire");
         } catch (InvalidPositionException i){
             System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + i.getMessage());
-            throw new CommandExecuteException("Failed to Add Vampire\n");
+            throw new CommandExecuteException("Failed to Add Vampire");
         }
         return false;
     }
@@ -155,10 +155,10 @@ public class Game implements IPrintable{
             }
         } catch (NoMoreVampiresException e){
             System.out.println("[ERROR]: " + e.getMessage());
-            throw new CommandExecuteException("Failed to Add Explosive Vampire\n");
+            throw new CommandExecuteException("Failed to Add Explosive Vampire");
         } catch (InvalidPositionException i){
             System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + i.getMessage());
-            throw new CommandExecuteException("Failed to Add Explosive Vampire\n");
+            throw new CommandExecuteException("Failed to Add Explosive Vampire");
         }
 
         return false;
@@ -172,10 +172,10 @@ public class Game implements IPrintable{
             }
         }catch (NoMoreVampiresException e){
             System.out.println("[ERROR]: " + e.getMessage());
-            throw new CommandExecuteException("Failed to Add Dracula\n");
+            throw new CommandExecuteException("Failed to Add Dracula");
         } catch (InvalidPositionException i){
             System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + i.getMessage());
-            throw new CommandExecuteException("Failed to Add Dracula\n");
+            throw new CommandExecuteException("Failed to Add Dracula");
         }
         return false;
     }
@@ -203,9 +203,9 @@ public class Game implements IPrintable{
                 }
             } catch (InvalidPositionException e) {
                 System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + e.getMessage());
-                throw new CommandExecuteException("Failed to Add Slayer\n");
+                throw new CommandExecuteException("Failed to Add Slayer");
             }
-        } else throw new NotEnoughCoinsException("Slayer Cost is " + slayerCost + ": Not Enough Coins\n");
+        } else throw new NotEnoughCoinsException("Slayer Cost is " + slayerCost + ": Not Enough Coins");
 
         return false;
     }
@@ -221,7 +221,7 @@ public class Game implements IPrintable{
                     }
                 }catch (InvalidPositionException e){
                     System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + e.getMessage());
-                    throw new CommandExecuteException("Failed to Add BloodBank\n");
+                    throw new CommandExecuteException("Failed to Add BloodBank");
                 }
             } else throw new NotEnoughCoinsException("Cost CANNOT be Lower than 5 Coins\n");
         } else throw new NotEnoughCoinsException("Not Enough Coins to Add a BloodBank\n");

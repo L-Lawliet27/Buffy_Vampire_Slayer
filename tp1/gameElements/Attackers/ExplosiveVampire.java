@@ -6,9 +6,10 @@ public class ExplosiveVampire extends Vampire {
 
     private static final int lives = 5;
     private static final int damage = 1;
+    private static final String avatar = "V*V";
 
     public ExplosiveVampire(Game game, int positionX, int positionY) {
-        super(game, lives, positionX, positionY, damage);
+        super(game, lives, positionX, positionY, damage, avatar);
     }
 
     @Override
@@ -45,8 +46,6 @@ public class ExplosiveVampire extends Vampire {
         vampiresOnBoard--;
     }
 
-    @Override
-    public String toString() { return "V*V" + "[" + getLives() + "]"; }
 
     @Override
     public String stringify(){

@@ -21,7 +21,7 @@ public class LightFlashCommand extends NoParamsCommand{
             return game.lightAttack();
         }catch (NotEnoughCoinsException e){
             System.out.println("[ERROR]: " + e.getMessage());
-            throw new CommandExecuteException("Failed to Release LightFlash\n");
+            throw new CommandExecuteException("Failed to Release LightFlash");
         }
     }
 }

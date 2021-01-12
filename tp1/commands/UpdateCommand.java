@@ -1,5 +1,6 @@
 package tp1.commands;
 
+import tp1.exceptions.CommandParseException;
 import tp1.logic.Game;
 
 public class UpdateCommand extends NoParamsCommand {
@@ -20,6 +21,16 @@ public class UpdateCommand extends NoParamsCommand {
     public boolean execute(Game game) {
         game.update();
         return true;
+    }
+
+    @Override
+    public Command parse(String[] commandWords) throws CommandParseException {
+        if(matchCommandName(commandWords[0])){
+            if(commandWords.length <= 1) {
+                return this;
+            } else throw new CommandParseException(incorrectArgsMsg + " - update should be either nothing or the specified name/shortcut");
+        }
+        return null;
     }
 
     @Override

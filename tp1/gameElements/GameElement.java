@@ -11,22 +11,26 @@ public abstract class GameElement implements IAttack {
     protected int damage;
     protected int currentCycle;
     protected boolean alive;
+    protected String avatar;
     protected Game game;
 
-    public GameElement(Game game, int cost, int lives, int positionX, int positionY, int damage){
+    public GameElement(Game game, int cost, int lives, int positionX, int positionY, int damage, String avatar){
         this.cost = cost;
         this.lives = lives;
         this.posX = positionX;
         this.posY = positionY;
         this.damage = damage;
         this.game = game;
+        this.avatar = avatar;
         currentCycle = game.getCycle();
         alive = true;
     }
 
     public abstract void move();
 
-    public abstract String toString();
+    public String toString() {
+        return avatar + "[" + lives + "]";
+    }
 
     public boolean isAlive(){
         if(alive) return true;
@@ -60,5 +64,7 @@ public abstract class GameElement implements IAttack {
     protected int getLives(){
         return lives;
     }
+
+
 
 }

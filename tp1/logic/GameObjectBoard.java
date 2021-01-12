@@ -46,7 +46,7 @@ public class GameObjectBoard implements IElemLogic {
 
     public boolean addVampire(int x, int y) throws InvalidPositionException, NoMoreVampiresException {
         if(nVampiresAdded < level.getNumberOfVampires()) {
-            if (!elementHere(x, y) && !outOfBounds(game.getDimX(), y)) {
+            if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX(), y)) {
                 gameElements.add(new Vampire(game, x, y));
                 nVampiresAdded++;
                 return true;
@@ -57,7 +57,7 @@ public class GameObjectBoard implements IElemLogic {
     public boolean addDracula(int x, int y) throws NoMoreVampiresException, InvalidPositionException {
         if(nVampiresAdded < level.getNumberOfVampires()) {
             if(!Dracula.draculaRise){
-                if (!elementHere(x, y) && !outOfBounds(game.getDimX(), y)) {
+                if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX(), y)) {
                     gameElements.add(new Dracula(game, x, y));
                     nVampiresAdded++;
                     return true;
@@ -68,7 +68,7 @@ public class GameObjectBoard implements IElemLogic {
 
     public boolean addExplosiveVampire(int x, int y) throws NoMoreVampiresException, InvalidPositionException {
         if(nVampiresAdded < level.getNumberOfVampires()) {
-            if (!elementHere(x, y) && !outOfBounds(game.getDimX(), y)) {
+            if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX(), y)) {
                 gameElements.add(new ExplosiveVampire(game, x, y));
                 nVampiresAdded++;
                 return true;
@@ -82,8 +82,8 @@ public class GameObjectBoard implements IElemLogic {
         if(nVampiresAdded < level.getNumberOfVampires()) {
 
             //Adding Regular Vampire
-            if (canAddVampire()) {
-                int posX = initialVampirePosition(game.getDimY());
+            if (IElemLogic.canAddVampire()) {
+                int posX = IElemLogic.initialVampirePosition(game.getDimY());
                 if (!elementHere(posX, VampirePosY)) {
                     gameElements.add(new Vampire(game, posX, VampirePosY));
                     nVampiresAdded++;
@@ -93,8 +93,8 @@ public class GameObjectBoard implements IElemLogic {
 
         if(nVampiresAdded < level.getNumberOfVampires()) {
             //Adding Dracula
-            if (canAddVampire() && !Dracula.draculaRise) {
-                int posX = initialVampirePosition(game.getDimY());
+            if (IElemLogic.canAddVampire() && !Dracula.draculaRise) {
+                int posX = IElemLogic.initialVampirePosition(game.getDimY());
                 if (!elementHere(posX, VampirePosY)) {
                     gameElements.add(new Dracula(game, posX, VampirePosY));
                     nVampiresAdded++;
@@ -104,8 +104,8 @@ public class GameObjectBoard implements IElemLogic {
 
         if(nVampiresAdded < level.getNumberOfVampires()) {
             //Adding Explosive Vampire
-            if (canAddVampire()) {
-                int posX = initialVampirePosition(game.getDimY());
+            if (IElemLogic.canAddVampire()) {
+                int posX = IElemLogic.initialVampirePosition(game.getDimY());
                 if (!elementHere(posX, VampirePosY)) {
                     gameElements.add(new ExplosiveVampire(game, posX, VampirePosY));
                     nVampiresAdded++;
@@ -117,14 +117,14 @@ public class GameObjectBoard implements IElemLogic {
 
 
     public boolean addSlayer(int x, int y) throws InvalidPositionException {
-        if(!elementHere(x,y) && !outOfBounds(game.getDimX(), y)){
+        if(!elementHere(x,y) && !IElemLogic.outOfBounds(game.getDimX(), y)){
             gameElements.add(new Slayer(game,x,y));
             return true;
         } else throw new InvalidPositionException();
     }
 
     public boolean addBloodBank(int x, int y, int cost) throws InvalidPositionException {
-        if(!elementHere(x,y) && !outOfBounds(game.getDimX(), y)){
+        if(!elementHere(x,y) && !IElemLogic.outOfBounds(game.getDimX(), y)){
             gameElements.add(new BloodBank(game,x,y,cost));
             return true;
         } else throw new InvalidPositionException();
@@ -200,7 +200,7 @@ public class GameObjectBoard implements IElemLogic {
 
     public IAttack enemyInRow(int x, int y){
         for (GameElement e : gameElements) {
-            if(sameRow(e.getPosX(), x)){
+            if(IElemLogic.sameRow(e.getPosX(), x)){
                 for (int j = y; j <= e.getPosY(); j++) {
                     if(elementHere(e.getPosX(), j) && e.receiveSlayerAttack(0)){
                         return e;
@@ -225,7 +225,7 @@ public class GameObjectBoard implements IElemLogic {
 
     private boolean isLeftFree(int x, int y){
         for (GameElement e: gameElements) {
-            if(sameCoords(e.getPosX(), e.getPosY(), x, y-1)){
+            if(IElemLogic.sameCoords(e.getPosX(), e.getPosY(), x, y-1)){
                 return false;
             }
         }

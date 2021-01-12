@@ -46,7 +46,7 @@ public class Controller {
                 Command command = CommandGenerator.parseCommand(commandWords);
 				refreshDisplay = command.execute(game);
             } catch (GameException ex){
-				System.out.println("[ERROR]: " + ex.getMessage());
+				System.out.println("[ERROR]: " + ex.getMessage() + "\n");
 			}
 		}//game loop
 
