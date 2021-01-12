@@ -5,8 +5,12 @@ import tp1.logic.Game;
 
 public class Slayer extends Defender{
 
+    private static final int cost = 50;
+    private static final int lives = 3;
+    private static final int damage = 1;
+
     public Slayer(Game game, int positionX, int positionY){
-        super(game,50,3, positionX, positionY, 1);
+        super(game,cost,lives, positionX, positionY, damage);
     }
 
     @Override
@@ -19,12 +23,12 @@ public class Slayer extends Defender{
 
     @Override
     public String toString() {
-        return "<->" + "[" + lives + "]";
+        return "<->" + "[" + getLives() + "]";
     }
 
     @Override
     public String stringify(){
-        return "S;"+ posX + ";" + posY + ";" + lives + "\n";
+        return "S;"+ posX + ";" + posY + ";" + getLives() + "\n";
     }
 
 

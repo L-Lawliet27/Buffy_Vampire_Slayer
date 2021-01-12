@@ -4,10 +4,15 @@ import tp1.exceptions.CommandExecuteException;
 import tp1.exceptions.NotEnoughCoinsException;
 import tp1.logic.Game;
 
-public class LightFlashCommand extends Command{
+public class LightFlashCommand extends NoParamsCommand{
+
+    private static final String name = "light";
+    private static final String shortCut = "l";
+    private static final String details = "[l]ight";
+    private static final String help = "eliminates all vampires, except Dracula";
 
     public LightFlashCommand() {
-        super("light", "l", "[l]ight", "eliminates all vampires, except Dracula");
+        super(name,shortCut,details,help);
     }
 
     @Override

@@ -8,12 +8,17 @@ public class AddVampireCommand extends Command {
 
     private int x, y;
     private String type;
-    private final String dracula = "D";
-    private final String explosive = "E";
+    private static final String dracula = "D";
+    private static final String explosive = "E";
+    private static final String normal = "";
+    private static final String name = "vampire";
+    private static final String shortCut = "v";
+    private static final String details = "[v]ampire [<type>] <x> <y>";
+    private static final String help = "add a vampire in position x, y";
 
 
     public AddVampireCommand(){
-        super("vampire", "v", "[v]ampire [<type>] <x> <y>", "add a vampire in position x, y");
+        super(name, shortCut, details, help);
 
     }
 
@@ -33,12 +38,12 @@ public class AddVampireCommand extends Command {
                 return game.addDracula(x,y);
             case explosive:
                 return game.addExplosiveVampire(x,y);
-            case " ":
-            case "":
+            case normal:
                 return game.addVampire(x,y);
+            default: throw new CommandExecuteException("Cannot Execute [v]ampire Command");
         }
 
-        return false;
+        //return false;
     }
 
     @Override
@@ -47,16 +52,24 @@ public class AddVampireCommand extends Command {
             if (commandWords.length == 4) {
                 if (matchTypeName(commandWords[1])) {
                     type = commandWords[1].toUpperCase();
-                    x = Integer.parseInt(commandWords[3]);
-                    y = Integer.parseInt(commandWords[2]);
-                    return new AddVampireCommand(type, x, y);
+                    try {
+                        x = Integer.parseInt(commandWords[3]);
+                        y = Integer.parseInt(commandWords[2]);
+                        return new AddVampireCommand(type, x, y);
+                    } catch (NumberFormatException nfe){
+                        throw new CommandParseException(incorrectArgsMsg + " - Coordinates should be numbers");
+                    }
                 } else throw new CommandParseException("Invalid Type: [v]ampire [<type>] <x> <y>" +
                         " -- type = {\"\"|\"D\"|\"E\"}");
 
             } else if (commandWords.length == 3) {
-                x = Integer.parseInt(commandWords[2]);
-                y = Integer.parseInt(commandWords[1]);
-                return new AddVampireCommand("", x, y);
+                try {
+                    x = Integer.parseInt(commandWords[2]);
+                    y = Integer.parseInt(commandWords[1]);
+                    return new AddVampireCommand("", x, y);
+                }catch (NumberFormatException nfe){
+                    throw new CommandParseException(incorrectArgsMsg + " - Coordinates should be numbers");
+                }
             } else throw new CommandParseException(incorrectNumberOfArgsMsg + " - [v]ampire [<type>] <x> <y>");
         }
         return null;
@@ -64,8 +77,7 @@ public class AddVampireCommand extends Command {
 
 
     private boolean matchTypeName(String type){
-        return type.toUpperCase().equals(dracula) || type.toUpperCase().equals(explosive) || type.equals(" ")
-                || type.equals("");
+        return type.toUpperCase().equals(dracula) || type.toUpperCase().equals(explosive) || type.equals(normal);
     }
 
 

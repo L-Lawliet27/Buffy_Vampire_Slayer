@@ -2,13 +2,18 @@ package tp1.commands;
 
 import tp1.logic.Game;
 
-public class UpdateCommand extends Command {
+public class UpdateCommand extends NoParamsCommand {
 
-    private String additionalSC1 = "\n";
-    private String additionalSC2 = "";
+  //  private String additionalSC1 = "\n";
+    private String additionalSC1 = "";
+
+    private static final String name = "none";
+    private static final String shortCut = "n";
+    private static final String details = "[n]one | []";
+    private static final String help = "updates the game";
 
     public UpdateCommand() {
-        super("none", "n", "[n]one | []", "updates the game");
+        super(name,shortCut,details,help);
     }
 
     @Override
@@ -18,8 +23,8 @@ public class UpdateCommand extends Command {
     }
 
     @Override
-    protected boolean matchCommandName(String name) {
-        return this.shortcut.equalsIgnoreCase(name) || this.name.equalsIgnoreCase(name)
-                || this.additionalSC1.equals(name) || this.additionalSC2.equals(name);
+    protected boolean matchCommandName(String n) {
+        return shortCut.equalsIgnoreCase(n) || name.equalsIgnoreCase(n)
+                 || additionalSC1.equals(n);
     }
 }

@@ -53,4 +53,12 @@ public abstract class GameElement implements IAttack {
 
     public abstract String stringify();
 
+    protected void reduceLives(int damage){
+        lives -= damage;
+    }
+
+    protected int getLives(){
+        return lives;
+    }
+
 }

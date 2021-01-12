@@ -11,7 +11,7 @@ public class Defender extends GameElement {
 
     @Override
     public boolean receiveVampireAttack(int damage) {
-        lives = lives - damage;
+        reduceLives(damage);
         if(lives <= 0) alive = false;
         return true;
     }

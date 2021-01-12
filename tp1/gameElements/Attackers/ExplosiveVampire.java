@@ -4,14 +4,17 @@ import tp1.logic.Game;
 
 public class ExplosiveVampire extends Vampire {
 
+    private static final int lives = 5;
+    private static final int damage = 1;
+
     public ExplosiveVampire(Game game, int positionX, int positionY) {
-        super(game, positionX, positionY);
+        super(game, lives, positionX, positionY, damage);
     }
 
     @Override
     public boolean receiveSlayerAttack(int damage) {
-        lives -= damage;
-        if(lives<=0){
+        reduceLives(damage);
+        if(getLives()<=0){
             alive = false;
             explode();
         }
@@ -19,8 +22,8 @@ public class ExplosiveVampire extends Vampire {
     }
 
     private void receiveAttack(int damage){
-        lives -= damage;
-        if(lives<=0){
+        reduceLives(damage);
+        if(getLives()<=0){
             alive = false;
         }
     }
@@ -38,12 +41,12 @@ public class ExplosiveVampire extends Vampire {
 
     @Override
     public void receiveLightFlashAttack() {
-        receiveAttack(lives);
+        receiveAttack(getLives());
         vampiresOnBoard--;
     }
 
     @Override
-    public String toString() { return "V*V" + "[" + lives + "]"; }
+    public String toString() { return "V*V" + "[" + getLives() + "]"; }
 
     @Override
     public String stringify(){

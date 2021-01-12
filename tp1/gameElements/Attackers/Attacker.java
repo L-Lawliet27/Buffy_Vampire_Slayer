@@ -37,7 +37,7 @@ public class Attacker extends GameElement {
 
     @Override
     public boolean receiveSlayerAttack(int damage) {
-        lives -= damage;
+        reduceLives(damage);
         if(lives<=0) alive = false;
         return true;
     }

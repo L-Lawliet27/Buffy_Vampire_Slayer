@@ -8,9 +8,13 @@ import tp1.logic.Game;
 public class AddSlayerCommand extends Command{
 
     private int x,y;
+    private static final String name = "add";
+    private static final String shortCut = "a";
+    private static final String details = "[a]dd <x> <y>";
+    private static final String help = "add a slayer in position x, y";
 
     public AddSlayerCommand() {
-        super("add", "a", "[a]dd <x> <y>", "add a slayer in position x, y");
+        super(name, shortCut, details, help);
     }
 
     public AddSlayerCommand(int x, int y) {
@@ -33,9 +37,13 @@ public class AddSlayerCommand extends Command{
     public Command parse(String[] commandWords) throws CommandParseException {
         if(matchCommandName(commandWords[0])){
             if(commandWords.length == 3) {
-                x = Integer.parseInt(commandWords[2]);
-                y = Integer.parseInt(commandWords[1]);
-                return new AddSlayerCommand(x, y);
+                try {
+                    x = Integer.parseInt(commandWords[2]);
+                    y = Integer.parseInt(commandWords[1]);
+                    return new AddSlayerCommand(x, y);
+                }catch (NumberFormatException nfe){
+                    throw new CommandParseException(incorrectArgsMsg + " - Coordinates should be numbers");
+                }
             } else throw new CommandParseException(incorrectNumberOfArgsMsg +" - [a]dd <x> <y>");
         }
         return null;

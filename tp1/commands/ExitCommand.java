@@ -2,10 +2,15 @@ package tp1.commands;
 
 import tp1.logic.Game;
 
-public class ExitCommand extends Command{
+public class ExitCommand extends NoParamsCommand{
+
+    private static final String name = "exit";
+    private static final String shortCut = "e";
+    private static final String details = "[e]xit";
+    private static final String help = "exit game";
 
     public ExitCommand() {
-        super("exit", "e", "[e]xit", "exit game");
+        super(name, shortCut, details, help);
     }
 
     @Override

@@ -11,10 +11,14 @@ import java.io.IOException;
 public class SaveCommand extends Command {
 
     private String nameOfFile;
-    private BufferedWriter bufferedWriter;
+
+    private static final String name = "save";
+    private static final String shortCut = "s";
+    private static final String details = "[s]ave [<filename>]";
+    private static final String help = "saves the current state of the game";
 
     public SaveCommand() {
-        super("save", "s", "[s]ave [<filename>]", "saves the current state of the game");
+        super(name,shortCut,details,help);
     }
 
     public SaveCommand(String nameOfFile){
@@ -25,7 +29,7 @@ public class SaveCommand extends Command {
     @Override
     public boolean execute(Game game) throws CommandExecuteException {
         try {
-            bufferedWriter = new BufferedWriter(new FileWriter(nameOfFile));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(nameOfFile));
             bufferedWriter.write(game.stringify());
             bufferedWriter.close();
         } catch (IOException io){

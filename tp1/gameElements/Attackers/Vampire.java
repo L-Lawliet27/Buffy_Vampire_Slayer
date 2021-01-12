@@ -5,6 +5,10 @@ import tp1.logic.Game;
 
 public class Vampire extends Attacker {
 
+    private static final int cost = 0;
+    private static final int lives = 5;
+    private static final int damage = 1;
+
     private static boolean vampiresOnLeft = false;
     private static int numberOfVampires;
     private static int vampiresRemaining;
@@ -13,8 +17,14 @@ public class Vampire extends Attacker {
     private static boolean reseted = false;
     protected int cycleToMove;
 
+
+    protected Vampire(Game game, int lives, int positionX, int positionY, int damage){
+        super(game,cost,lives,positionX,positionY,damage);
+
+    }
+
     public Vampire(Game game, int positionX, int positionY){
-        super(game,0,5, positionX, positionY, 1);
+        super(game,cost,lives, positionX, positionY, damage);
 
         if(reseted || !Game.vampiresWereAdded){
             this.game.setVampiresWereAdded();
@@ -63,7 +73,7 @@ public class Vampire extends Attacker {
 
     @Override
     public String toString() {
-        return "V^V" + "[" + lives + "]";
+        return "V^V" + "[" + getLives() + "]";
     }
 
 

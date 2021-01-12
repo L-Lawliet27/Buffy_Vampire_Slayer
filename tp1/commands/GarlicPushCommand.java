@@ -4,10 +4,15 @@ import tp1.exceptions.CommandExecuteException;
 import tp1.exceptions.NotEnoughCoinsException;
 import tp1.logic.Game;
 
-public class GarlicPushCommand extends Command {
+public class GarlicPushCommand extends NoParamsCommand {
+
+    private static final String name = "garlic";
+    private static final String shortCut = "g";
+    private static final String details = "[g]arlic";
+    private static final String help = "pushes vampires back one tile";
 
     public GarlicPushCommand() {
-        super("garlic", "g", "[g]arlic", "pushes vampires back one tile");
+        super(name, shortCut, details, help);
     }
 
     @Override

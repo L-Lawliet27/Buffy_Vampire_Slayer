@@ -43,7 +43,8 @@ public class Game implements IPrintable{
         board = new GameObjectBoard(this);
         info = new String[5];
         stringy = new String[6];
-        update();
+        //update();
+
     }
 
     public void reset(){
