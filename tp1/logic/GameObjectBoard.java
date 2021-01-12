@@ -46,7 +46,7 @@ public class GameObjectBoard implements IElemLogic {
 
     public boolean addVampire(int x, int y) throws InvalidPositionException, NoMoreVampiresException {
         if(nVampiresAdded < level.getNumberOfVampires()) {
-            if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX() +1, y)) {
+            if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX() +1, y) && !IElemLogic.verticalBounds(x,game.getDimY()-1)) {
                 gameElements.add(new Vampire(game, x, y));
                 nVampiresAdded++;
                 return true;
@@ -57,7 +57,7 @@ public class GameObjectBoard implements IElemLogic {
     public boolean addDracula(int x, int y) throws NoMoreVampiresException, InvalidPositionException {
         if(nVampiresAdded < level.getNumberOfVampires()) {
             if(!Dracula.draculaRise){
-                if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX() + 1, y)) {
+                if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX() + 1, y) && !IElemLogic.verticalBounds(x,game.getDimY()-1)) {
                     gameElements.add(new Dracula(game, x, y));
                     nVampiresAdded++;
                     return true;
@@ -68,7 +68,7 @@ public class GameObjectBoard implements IElemLogic {
 
     public boolean addExplosiveVampire(int x, int y) throws NoMoreVampiresException, InvalidPositionException {
         if(nVampiresAdded < level.getNumberOfVampires()) {
-            if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX() +1, y)) {
+            if (!elementHere(x, y) && !IElemLogic.outOfBounds(game.getDimX() +1, y) && !IElemLogic.verticalBounds(x,game.getDimY()-1)) {
                 gameElements.add(new ExplosiveVampire(game, x, y));
                 nVampiresAdded++;
                 return true;
@@ -117,14 +117,14 @@ public class GameObjectBoard implements IElemLogic {
 
 
     public boolean addSlayer(int x, int y) throws InvalidPositionException {
-        if(!elementHere(x,y) && !IElemLogic.outOfBounds(game.getDimX(), y)){
+        if(!elementHere(x,y) && !IElemLogic.outOfBounds(game.getDimX(), y) && !IElemLogic.verticalBounds(x,game.getDimY()-1)){
             gameElements.add(new Slayer(game,x,y));
             return true;
         } else throw new InvalidPositionException();
     }
 
     public boolean addBloodBank(int x, int y, int cost) throws InvalidPositionException {
-        if(!elementHere(x,y) && !IElemLogic.outOfBounds(game.getDimX(), y)){
+        if(!elementHere(x,y) && !IElemLogic.outOfBounds(game.getDimX(), y) && !IElemLogic.verticalBounds(x,game.getDimY()-1)){
             gameElements.add(new BloodBank(game,x,y,cost));
             return true;
         } else throw new InvalidPositionException();
