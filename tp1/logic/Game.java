@@ -42,7 +42,7 @@ public class Game implements IPrintable{
         player = new Player(slayerCost);
         board = new GameObjectBoard(this);
         info = new String[5];
-        stringy = new String[6];
+        stringy = new String[7];
         //update();
 
     }
@@ -292,16 +292,17 @@ public class Game implements IPrintable{
 
 
     public String stringify() {
-        stringy[0] = "Number of Cycles: " + cycle + "\n";
-        stringy[1] = "Level: " + getLvl().name() + "\n";
-        stringy[2] = "Coins: " + player.getCoins() + "\n";
+        stringy[0] = "Buffy the Vampire Slayer v3.0\n\n";
+        stringy[1] = "Number of Cycles: " + cycle + "\n";
+        stringy[2] = "Level: " + getLvl().name() + "\n";
+        stringy[3] = "Coins: " + player.getCoins() + "\n";
         if(!vampiresWereAdded){
-            stringy[3] = "Remaining Vampires: " + lvl.getNumberOfVampires() + "\n";
-        } else stringy[3] = "Remaining Vampires: " + Vampire.getVampiresRemaining() + "\n";
-        stringy[4] = "Vampires on Board: " + Vampire.getVampiresOnBoard() + "\n\n";
-        stringy[5] = "GameElement Objects:\n";
+            stringy[4] = "Remaining Vampires: " + lvl.getNumberOfVampires() + "\n";
+        } else stringy[4] = "Remaining Vampires: " + Vampire.getVampiresRemaining() + "\n";
+        stringy[5] = "Vampires on Board: " + Vampire.getVampiresOnBoard() + "\n\n";
+        stringy[6] = "GameElement Objects:\n";
 
-        return stringy[0] + stringy[1] + stringy[2] + stringy[3] + stringy[4] + stringy[5] + board.stringify();
+        return stringy[0] + stringy[1] + stringy[2] + stringy[3] + stringy[4] + stringy[5] + stringy[6] + board.stringify();
 
     }
 }
