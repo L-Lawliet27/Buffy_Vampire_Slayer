@@ -12,6 +12,7 @@ public class UpdateCommand extends NoParamsCommand {
     private static final String shortCut = "n";
     private static final String details = "[n]one | []";
     private static final String help = "updates the game";
+    private static final String wrongArgMessage = incorrectArgsMsg + " - update should be either nothing or the specified name/shortcut";
 
     public UpdateCommand() {
         super(name,shortCut,details,help);
@@ -28,7 +29,7 @@ public class UpdateCommand extends NoParamsCommand {
         if(matchCommandName(commandWords[0])){
             if(commandWords.length <= 1) {
                 return this;
-            } else throw new CommandParseException(incorrectArgsMsg + " - update should be either nothing or the specified name/shortcut");
+            } else throw new CommandParseException(wrongArgMessage);
         }
         return null;
     }

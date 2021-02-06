@@ -10,6 +10,7 @@ public class GarlicPushCommand extends NoParamsCommand {
     private static final String shortCut = "g";
     private static final String details = "[g]arlic";
     private static final String help = "pushes vampires back one tile";
+    private static final String failedMessage = "Failed to Release Garlic Push";
 
     public GarlicPushCommand() {
         super(name, shortCut, details, help);
@@ -20,8 +21,8 @@ public class GarlicPushCommand extends NoParamsCommand {
         try {
             return game.garlicAttack();
         }catch (NotEnoughCoinsException e){
-            System.out.println("[ERROR]: " + e.getMessage());
-            throw new CommandExecuteException("Failed to Release Garlic Push");
+            System.out.println("[DEBUG]: " + e.getMessage());
+            throw new CommandExecuteException(failedMessage);
         }
     }
 }

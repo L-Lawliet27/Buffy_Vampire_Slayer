@@ -15,7 +15,11 @@ public class AddVampireCommand extends Command {
     private static final String shortCut = "v";
     private static final String details = "[v]ampire [<type>] <x> <y>";
     private static final String help = "add a vampire in position x, y";
-
+    private static final String wrongFormMessage = "(Vampire Command) " + incorrectArgsMsg + " - Coordinates should be numbers";
+    private static final String invalidTypeMessage = "Invalid Type: [v]ampire [<type>] <x> <y>" +
+            " -- type = {\"\"|\"D\"|\"E\"}";
+    private static final String failedMessage = "Cannot Execute [v]ampire Command";
+    private static final String wrongArgMessage = incorrectNumberOfArgsMsg + " - [v]ampire [<type>] <x> <y>";
 
     public AddVampireCommand(){
         super(name, shortCut, details, help);
@@ -40,7 +44,7 @@ public class AddVampireCommand extends Command {
                 return game.addExplosiveVampire(x,y);
             case normal:
                 return game.addVampire(x,y);
-            default: throw new CommandExecuteException("Cannot Execute [v]ampire Command");
+            default: throw new CommandExecuteException(failedMessage);
         }
 
         //return false;
@@ -57,10 +61,9 @@ public class AddVampireCommand extends Command {
                         y = Integer.parseInt(commandWords[2]);
                         return new AddVampireCommand(type, x, y);
                     } catch (NumberFormatException nfe){
-                        throw new CommandParseException("(Vampire Command) " + incorrectArgsMsg + " - Coordinates should be numbers");
+                        throw new CommandParseException(wrongFormMessage);
                     }
-                } else throw new CommandParseException("Invalid Type: [v]ampire [<type>] <x> <y>" +
-                        " -- type = {\"\"|\"D\"|\"E\"}");
+                } else throw new CommandParseException(invalidTypeMessage);
 
             } else if (commandWords.length == 3) {
                 try {
@@ -68,9 +71,9 @@ public class AddVampireCommand extends Command {
                     y = Integer.parseInt(commandWords[1]);
                     return new AddVampireCommand("", x, y);
                 }catch (NumberFormatException nfe){
-                    throw new CommandParseException("(Vampire Command) " + incorrectArgsMsg + " - Coordinates should be numbers");
+                    throw new CommandParseException(wrongFormMessage);
                 }
-            } else throw new CommandParseException(incorrectNumberOfArgsMsg + " - [v]ampire [<type>] <x> <y>");
+            } else throw new CommandParseException(wrongArgMessage);
         }
         return null;
     }

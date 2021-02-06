@@ -27,6 +27,17 @@ public class Game implements IPrintable{
     private static Random random;
     private GameObjectBoard board;
 
+    private static final String lightCoinsMessage = String.format("LightFlash Cost is " + lightFlashCost + ": Not Enough Coins%n");
+    private static final String garlicCoinsMessage = String.format("GarlicPush Cost is " + garlicPushCost + ": Not Enough Coins%n");
+    private static final String vampFailMessage = "Failed to Add Vampire";
+    private static final String vampExFailMessage = "Failed to Add Explosive Vampire";
+    private static final String dracFailMessage = "Failed to Add Dracula";
+    private static final String slayFailMessage = "Failed to Add Slayer";
+    private static final String slayCoinsMessage = "Slayer Cost is " + slayerCost + ": Not Enough Coins";
+    private static final String bankFailMessage = "Failed to Add Bloodbank";
+    private static final String bankCostMessage = String.format("Cost CANNOT be Lower than 5 Coins%n");
+    private static final String bankCoinsMessage = String.format("Not Enough Coins to Add a BloodBank%n");
+
 
     public Game(Long seed, Level level){
         this.seed = seed;
@@ -54,17 +65,17 @@ public class Game implements IPrintable{
 
     @Override
     public String getInfo(){
-        info[0] = "Cycle Number: " + cycle + "\n";
-        info[1] = "Coins: " + player.getCoins() + "\n";
+        info[0] = String.format("Cycle Number: " + cycle + "%n");
+        info[1] = String.format("Coins: " + player.getCoins() + "%n");
 
         if(!vampiresWereAdded){
-            info[2] = "Remaining Vampires: " + lvl.getNumberOfVampires() + "\n";
-        } else info[2] = "Remaining Vampires: " + Vampire.getVampiresRemaining() + "\n";
+            info[2] = String.format("Remaining Vampires: " + lvl.getNumberOfVampires() + "%n");
+        } else info[2] = String.format("Remaining Vampires: " + Vampire.getVampiresRemaining() + "%n");
 
-        info[3] = "Vampires on Board: " + Vampire.getVampiresOnBoard() + "\n";
+        info[3] = String.format("Vampires on Board: " + Vampire.getVampiresOnBoard() + "%n");
 
         if(Dracula.draculaRise){
-            info[4] = "Dracula has Risen! \n";
+            info[4] = String.format("Dracula has Risen!%n");
         } else info[4] = "";
 
         return info[0] + info[1] + info [2] + info[3] + info[4];
@@ -107,7 +118,7 @@ public class Game implements IPrintable{
             board.lightFlashAttack();
             update();
             return true;
-        }else throw new NotEnoughCoinsException("LightFlash Cost is " + lightFlashCost + ": Not Enough Coins\n");
+        }else throw new NotEnoughCoinsException(lightCoinsMessage);
 
     }
 
@@ -117,7 +128,7 @@ public class Game implements IPrintable{
             board.garlicPushAttack();
             update();
             return true;
-        }else throw new NotEnoughCoinsException("LightFlash Cost is " + lightFlashCost + ": Not Enough Coins\n");
+        }else throw new NotEnoughCoinsException(garlicCoinsMessage);
 
     }
 
@@ -139,11 +150,11 @@ public class Game implements IPrintable{
                 return true;
             }
         } catch (NoMoreVampiresException e){
-            System.out.println("[ERROR]: " + e.getMessage());
-            throw new CommandExecuteException("Failed to Add Vampire");
+            System.out.println("[DEBUG]: " + e.getMessage());
+            throw new CommandExecuteException(vampFailMessage);
         } catch (InvalidPositionException i){
-            System.out.println("[ERROR]: " + "Position (" + y + "," + x + "): " + i.getMessage());
-            throw new CommandExecuteException("Failed to Add Vampire");
+            System.out.println("[DEBUG]: " + "Position (" + y + "," + x + "): " + i.getMessage());
+            throw new CommandExecuteException(vampFailMessage);
         }
         return false;
     }
@@ -154,11 +165,11 @@ public class Game implements IPrintable{
                 return true;
             }
         } catch (NoMoreVampiresException e){
-            System.out.println("[ERROR]: " + e.getMessage());
-            throw new CommandExecuteException("Failed to Add Explosive Vampire");
+            System.out.println("[DEBUG]: " + e.getMessage());
+            throw new CommandExecuteException(vampExFailMessage);
         } catch (InvalidPositionException i){
-            System.out.println("[ERROR]: " + "Position (" + y + "," + x + "): " + i.getMessage());
-            throw new CommandExecuteException("Failed to Add Explosive Vampire");
+            System.out.println("[DEBUG]: " + "Position (" + y + "," + x + "): " + i.getMessage());
+            throw new CommandExecuteException(vampExFailMessage);
         }
 
         return false;
@@ -171,11 +182,11 @@ public class Game implements IPrintable{
                 return true;
             }
         }catch (NoMoreVampiresException e){
-            System.out.println("[ERROR]: " + e.getMessage());
-            throw new CommandExecuteException("Failed to Add Dracula");
+            System.out.println("[DEBUG]: " + e.getMessage());
+            throw new CommandExecuteException(dracFailMessage);
         } catch (InvalidPositionException i){
-            System.out.println("[ERROR]: " + "Position (" + y + "," + x + "): " + i.getMessage());
-            throw new CommandExecuteException("Failed to Add Dracula");
+            System.out.println("[DEBUG]: " + "Position (" + y + "," + x + "): " + i.getMessage());
+            throw new CommandExecuteException(dracFailMessage);
         }
         return false;
     }
@@ -202,10 +213,10 @@ public class Game implements IPrintable{
                     return true;
                 }
             } catch (InvalidPositionException e) {
-                System.out.println("[ERROR]: " + "Position (" + y + "," + x + "): " + e.getMessage());
-                throw new CommandExecuteException("Failed to Add Slayer");
+                System.out.println("[DEBUG]: " + "Position (" + y + "," + x + "): " + e.getMessage());
+                throw new CommandExecuteException(slayFailMessage);
             }
-        } else throw new NotEnoughCoinsException("Slayer Cost is " + slayerCost + ": Not Enough Coins");
+        } else throw new NotEnoughCoinsException(slayCoinsMessage);
 
         return false;
     }
@@ -220,11 +231,11 @@ public class Game implements IPrintable{
                         return true;
                     }
                 }catch (InvalidPositionException e){
-                    System.out.println("[ERROR]: " + "Position (" + x + "," + y + "): " + e.getMessage());
-                    throw new CommandExecuteException("Failed to Add BloodBank");
+                    System.out.println("[DEBUG]: " + "Position (" + x + "," + y + "): " + e.getMessage());
+                    throw new CommandExecuteException(bankFailMessage);
                 }
-            } else throw new NotEnoughCoinsException("Cost CANNOT be Lower than 5 Coins\n");
-        } else throw new NotEnoughCoinsException("Not Enough Coins to Add a BloodBank\n");
+            } else throw new NotEnoughCoinsException(bankCostMessage);
+        } else throw new NotEnoughCoinsException(bankCoinsMessage);
         return false;
     }
 
@@ -292,15 +303,15 @@ public class Game implements IPrintable{
 
 
     public String stringify() {
-        stringy[0] = "Buffy the Vampire Slayer v3.0\n\n";
-        stringy[1] = "Number of Cycles: " + cycle + "\n";
-        stringy[2] = "Level: " + getLvl().name() + "\n";
-        stringy[3] = "Coins: " + player.getCoins() + "\n";
+        stringy[0] = String.format("Buffy the Vampire Slayer v3.0 %n%n");
+        stringy[1] = String.format("Number of Cycles: " + cycle + "%n");
+        stringy[2] = String.format("Level: " + getLvl().name() + "%n");
+        stringy[3] = String.format("Coins: " + player.getCoins() + "%n");
         if(!vampiresWereAdded){
-            stringy[4] = "Remaining Vampires: " + lvl.getNumberOfVampires() + "\n";
-        } else stringy[4] = "Remaining Vampires: " + Vampire.getVampiresRemaining() + "\n";
-        stringy[5] = "Vampires on Board: " + Vampire.getVampiresOnBoard() + "\n\n";
-        stringy[6] = "GameElement Objects:\n";
+            stringy[4] = String.format("Remaining Vampires: " + lvl.getNumberOfVampires() + "%n");
+        } else stringy[4] = String.format("Remaining Vampires: " + Vampire.getVampiresRemaining() + "%n");
+        stringy[5] = String.format("Vampires on Board: " + Vampire.getVampiresOnBoard() + "%n%n");
+        stringy[6] = String.format("GameElement Objects:%n");
 
         return stringy[0] + stringy[1] + stringy[2] + stringy[3] + stringy[4] + stringy[5] + stringy[6] + board.stringify();
 

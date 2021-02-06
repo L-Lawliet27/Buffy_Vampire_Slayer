@@ -28,7 +28,7 @@ public class Attacker extends GameElement {
 
     @Override
     public String stringify(){
-        return stringLabel +";"+ posY + ";" + posX + ";"+ getLives() + ";" + getCycleTillMove() + "\n";
+        return String.format(stringLabel +";"+ posY + ";" + posX + ";"+ getLives() + ";" + getCycleTillMove() + "%n");
     }
 
 

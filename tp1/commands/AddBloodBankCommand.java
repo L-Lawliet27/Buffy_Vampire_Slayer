@@ -12,6 +12,8 @@ public class AddBloodBankCommand extends Command{
     private static final String details = "[b]ank <x> <y> <z>";
     private static final String help = "add a blood bank in position x, y which " +
             "returns 10% of the amount spent on it on each turn";
+    private static final String wrongArgMessage = "(BloodBank Command) " + incorrectNumberOfArgsMsg + " - [b]ank <x> <y> <z>";
+    private static final String wrongFormMessage = "(BloodBank Command) " + incorrectArgsMsg + " - Coordinates and Cost should be numbers";
 
     public AddBloodBankCommand() {
         super(name, shortCut, details, help);
@@ -42,9 +44,9 @@ public class AddBloodBankCommand extends Command{
                     cost = Integer.parseInt(commandWords[3]);
                     return new AddBloodBankCommand(x, y, cost);
                 }catch (NumberFormatException nfe){
-                    throw new CommandParseException("(BloodBank Command) " + incorrectArgsMsg + " - Coordinates and Cost should be numbers");
+                    throw new CommandParseException(wrongFormMessage);
                 }
-            }else throw new CommandParseException("(BloodBank Command) " + incorrectNumberOfArgsMsg + " - [b]ank <x> <y> <z>");
+            }else throw new CommandParseException(wrongArgMessage);
         }
 
         return null;

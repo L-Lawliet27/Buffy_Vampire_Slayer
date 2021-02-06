@@ -16,6 +16,8 @@ public class SaveCommand extends Command {
     private static final String shortCut = "s";
     private static final String details = "[s]ave [<filename>]";
     private static final String help = "saves the current state of the game";
+    private static final String failedMessage = String.format("Cannot Save the Game%n");
+    private static final String wrongArgMessage = incorrectNumberOfArgsMsg + " - [s]ave [<filename>]";
 
     public SaveCommand() {
         super(name,shortCut,details,help);
@@ -23,7 +25,7 @@ public class SaveCommand extends Command {
 
     public SaveCommand(String nameOfFile){
         this();
-        this.nameOfFile = nameOfFile + ".dat\n";
+        this.nameOfFile = String.format(nameOfFile + ".dat%n");
     }
 
     @Override
@@ -33,10 +35,10 @@ public class SaveCommand extends Command {
             bufferedWriter.write(game.stringify());
             bufferedWriter.close();
         } catch (IOException io){
-            throw new CommandExecuteException("Cannot Save the Game\n");
+            throw new CommandExecuteException(failedMessage);
+        } finally {
+            System.out.println("Game Successfully Saved in File " + nameOfFile);
         }
-
-        System.out.println("Game Successfully Saved in File " + nameOfFile);
         return false;
     }
 
@@ -45,7 +47,7 @@ public class SaveCommand extends Command {
         if(matchCommandName(commandWords[0])){
             if(commandWords.length == 2) {
                 return new SaveCommand(commandWords[1]);
-            }else throw new CommandParseException(incorrectNumberOfArgsMsg + " - [s]ave [<filename>]");
+            }else throw new CommandParseException(wrongArgMessage);
         }
         return null;
     }

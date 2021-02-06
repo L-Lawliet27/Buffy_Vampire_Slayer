@@ -31,7 +31,7 @@ public class Defender extends GameElement {
 
     @Override
     public String stringify(){
-        return stringLabel + ";"+ posY + ";" + posX + ";" + getLives() + "\n";
+        return String.format(stringLabel + ";"+ posY + ";" + posX + ";" + getLives() + "%n");
     }
 
     @Override

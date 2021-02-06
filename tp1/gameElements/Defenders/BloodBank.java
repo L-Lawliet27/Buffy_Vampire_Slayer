@@ -28,6 +28,6 @@ public class BloodBank extends Defender {
 
     @Override
     public String stringify(){
-        return stringLabel + ";"+ posY + ";" + posX + ";" + getLives() + ";" + cost + "\n";
+        return String.format(stringLabel + ";"+ posY + ";" + posX + ";" + getLives() + ";" + cost + "%n");
     }
 }

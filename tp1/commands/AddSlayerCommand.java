@@ -12,6 +12,9 @@ public class AddSlayerCommand extends Command{
     private static final String shortCut = "a";
     private static final String details = "[a]dd <x> <y>";
     private static final String help = "add a slayer in position x, y";
+    private static final String failedMessage = "Failed to Add Slayer";
+    private static final String wrongArgMessage = "(Add Command) " + incorrectNumberOfArgsMsg +" - [a]dd <x> <y>";
+    private static final String wrongFormMessage = "(Add Command) " + incorrectArgsMsg + " - Coordinates should be numbers";
 
     public AddSlayerCommand() {
         super(name, shortCut, details, help);
@@ -28,8 +31,8 @@ public class AddSlayerCommand extends Command{
         try {
             return game.addSlayer(x, y);
         } catch (NotEnoughCoinsException e){
-            System.out.println("[ERROR]: " + e.getMessage());
-            throw new CommandExecuteException("Failed to Add Slayer");
+            System.out.println("[DEBUG]: " + e.getMessage());
+            throw new CommandExecuteException(failedMessage);
         }
     }
 
@@ -42,9 +45,9 @@ public class AddSlayerCommand extends Command{
                     y = Integer.parseInt(commandWords[1]);
                     return new AddSlayerCommand(x, y);
                 }catch (NumberFormatException nfe){
-                    throw new CommandParseException("(Add Command) " + incorrectArgsMsg + " - Coordinates should be numbers");
+                    throw new CommandParseException(wrongFormMessage);
                 }
-            } else throw new CommandParseException("(Add Command) " + incorrectNumberOfArgsMsg +" - [a]dd <x> <y>");
+            } else throw new CommandParseException(wrongArgMessage);
         }
         return null;
 
