@@ -2,6 +2,7 @@ package tp1.commands;
 
 import tp1.exceptions.CommandExecuteException;
 import tp1.exceptions.CommandParseException;
+import tp1.exceptions.NotEnoughCoinsException;
 import tp1.logic.Game;
 
 public abstract class Command {
@@ -20,7 +21,7 @@ public abstract class Command {
         this.details = details;
         this.help = help;
     }
-    public abstract boolean execute(Game game) throws CommandExecuteException;
+    public abstract boolean execute(Game game) throws CommandExecuteException, NotEnoughCoinsException;
 
 
     protected boolean matchCommandName(String name) {

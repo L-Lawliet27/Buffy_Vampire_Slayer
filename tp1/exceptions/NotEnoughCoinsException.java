@@ -1,6 +1,6 @@
 package tp1.exceptions;
 
-public class NotEnoughCoinsException extends CommandExecuteException {
+public class NotEnoughCoinsException extends GameException {
 
     public NotEnoughCoinsException(){
         super("Not Enough Coins");

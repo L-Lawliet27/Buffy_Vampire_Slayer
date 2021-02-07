@@ -203,7 +203,7 @@ public class Game implements IPrintable{
         vampiresWereAdded = !vampiresWereAdded;
     }
 
-    public boolean addSlayer(int x, int y) throws CommandExecuteException {
+    public boolean addSlayer(int x, int y) throws CommandExecuteException, NotEnoughCoinsException {
 
         if (player.getCoins() >= slayerCost) {
             try {
@@ -221,7 +221,7 @@ public class Game implements IPrintable{
         return false;
     }
 
-    public boolean addBloodBank(int x, int y, int cost) throws CommandExecuteException{
+    public boolean addBloodBank(int x, int y, int cost) throws CommandExecuteException, NotEnoughCoinsException {
         if(player.getCoins() >= cost) {
             if (cost >= 5) {
                 try {

@@ -1,6 +1,6 @@
 package tp1.exceptions;
 
-public class NoMoreVampiresException extends CommandExecuteException {
+public class NoMoreVampiresException extends GameException {
 
     public NoMoreVampiresException(){
         super("No More Vampires Available\n");

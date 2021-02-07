@@ -2,6 +2,7 @@ package tp1.commands;
 
 import tp1.exceptions.CommandExecuteException;
 import tp1.exceptions.CommandParseException;
+import tp1.exceptions.NotEnoughCoinsException;
 import tp1.logic.Game;
 
 public class AddBloodBankCommand extends Command{
@@ -14,7 +15,7 @@ public class AddBloodBankCommand extends Command{
             "returns 10% of the amount spent on it on each turn";
     private static final String wrongArgMessage = "(BloodBank Command) " + incorrectNumberOfArgsMsg + " - [b]ank <x> <y> <z>";
     private static final String wrongFormMessage = "(BloodBank Command) " + incorrectArgsMsg + " - Coordinates and Cost should be numbers";
-
+    private static final String failedMessage = "Failed to add BloodBank";
     public AddBloodBankCommand() {
         super(name, shortCut, details, help);
     }
@@ -29,7 +30,12 @@ public class AddBloodBankCommand extends Command{
 
     @Override
     public boolean execute(Game game) throws CommandExecuteException {
-        return game.addBloodBank(x, y, cost);
+        try {
+            return game.addBloodBank(x, y, cost);
+        }catch (NotEnoughCoinsException c){
+            System.out.println("[DEBUG]: " + c.getMessage());
+            throw new CommandExecuteException(failedMessage);
+        }
     }
 
 

@@ -7,6 +7,7 @@ import tp1.logic.Game;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Locale;
 
 public class SaveCommand extends Command {
 

@@ -1,6 +1,6 @@
 package tp1.exceptions;
 
-public class InvalidPositionException extends CommandExecuteException {
+public class InvalidPositionException extends GameException {
 
 
     public InvalidPositionException(){
