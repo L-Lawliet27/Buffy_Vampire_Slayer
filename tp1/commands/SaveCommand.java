@@ -8,14 +8,16 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Scanner;
 
 public class SaveCommand extends Command {
 
     private String nameOfFile;
+    private Scanner getName;
 
     private static final String name = "save";
     private static final String shortCut = "s";
-    private static final String details = "[s]ave [<filename>]";
+    private static final String details = "[s]ave {Enter} [<filename>]";
     private static final String help = "saves the current state of the game";
     private static final String failedMessage = String.format("Cannot Save the Game%n");
     private static final String wrongArgMessage = incorrectNumberOfArgsMsg + " - [s]ave [<filename>]";
@@ -46,8 +48,8 @@ public class SaveCommand extends Command {
     @Override
     public Command parse(String[] commandWords) throws CommandParseException {
         if(matchCommandName(commandWords[0])){
-            if(commandWords.length == 2) {
-                return new SaveCommand(commandWords[1]);
+            if(commandWords.length == 1) {
+                return new SaveCommand(new Scanner(System.in).nextLine());
             }else throw new CommandParseException(wrongArgMessage);
         }
         return null;
