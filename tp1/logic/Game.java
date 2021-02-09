@@ -313,7 +313,12 @@ public class Game implements IPrintable{
         stringy[5] = String.format("Vampires on Board: " + Vampire.getVampiresOnBoard() + "%n%n");
         stringy[6] = String.format("GameElement Objects:%n");
 
-        return stringy[0] + stringy[1] + stringy[2] + stringy[3] + stringy[4] + stringy[5] + stringy[6] + board.stringify();
+        StringBuilder str = new StringBuilder();
+        for (String m: stringy) {
+            str.append(m);
+        }
+
+        return str.toString() + board.stringify();
 
     }
 }
