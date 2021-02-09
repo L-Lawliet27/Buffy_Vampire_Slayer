@@ -78,7 +78,12 @@ public class Game implements IPrintable{
             info[4] = String.format("Dracula has Risen!%n");
         } else info[4] = "";
 
-        return info[0] + info[1] + info [2] + info[3] + info[4];
+        StringBuilder stInf = new StringBuilder();
+        for (String i : info) {
+            stInf.append(i);
+        }
+
+        return stInf.toString();
     }
 
     @Override
