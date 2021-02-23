@@ -91,7 +91,7 @@ public class Vampire extends Attacker {
 
 
     public static void vampireNumsReset(){
-        vampiresRemaining = 0;
+        vampiresRemaining = numberOfVampires;
         vampiresOnBoard=0;
         subtractor = 1;
         reseted = true;
